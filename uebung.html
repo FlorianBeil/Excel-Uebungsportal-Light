@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel.Flo – Übung</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="assets/geteilt/img/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/geteilt/engine.css?v=1">
+<link rel="stylesheet" href="assets/seite/seite.css?v=1">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__icon"><img src="assets/geteilt/img/logo-white.webp" alt=""></span>
+      <span class="brand__wordmark">Excel<span class="dot">.</span>Flo</span>
+    </a>
+    <a class="site-header__back" href="index.html">← Alle Übungen</a>
+  </div>
+</header>
+
+<main>
+  <!-- engine.js lädt daten/uebungen/<id>.json und daten/uebungen/manifest.json (nur freie Übungen) -->
+  <div
+    id="exercise-root"
+    data-exercises-dir="daten/uebungen/"
+    data-exercise-page="uebung.html"
+  >
+    <p>Übung wird geladen …</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Excel.Flo — Übungsportal Light
+</footer>
+
+<script src="assets/geteilt/tracking.js?v=1"></script>
+<script src="assets/seite/fortschritt.js?v=1"></script>
+<script src="assets/geteilt/formula-engine.js?v=1"></script>
+<script src="assets/geteilt/engine.js?v=1"></script>
+</body>
+</html>

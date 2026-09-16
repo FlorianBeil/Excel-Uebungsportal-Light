@@ -1,0 +1,202 @@
+[
+  {
+    "id": "summe-umsatz",
+    "title": "Summe der Umsätze berechnen",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren.",
+    "frei": true
+  },
+  {
+    "id": "mittelwert-noten",
+    "title": "Notendurchschnitt berechnen",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die MITTELWERT-Funktion, um den Durchschnitt mehrerer Werte zu berechnen.",
+    "frei": true
+  },
+  {
+    "id": "anzahl-teilnehmer",
+    "title": "Anzahl der Teilnehmer mit Punkten",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten.",
+    "frei": true
+  },
+  {
+    "id": "relative-bezuege-gehalt",
+    "title": "Gehalt inklusive Bonus berechnen",
+    "level": "anfaenger",
+    "category": "zellbezüge",
+    "description": "Nutze einen relativen Zellbezug, damit sich deine Formel beim Kopieren automatisch an jede Zeile anpasst.",
+    "frei": false
+  },
+  {
+    "id": "absolute-bezuege-mwst",
+    "title": "Bruttopreis mit MwSt. berechnen",
+    "level": "anfaenger",
+    "category": "zellbezüge",
+    "description": "Nutze einen absoluten Zellbezug, damit eine feste Zelle beim Kopieren nicht verrutscht.",
+    "frei": false
+  },
+  {
+    "id": "wenn-bestanden",
+    "title": "Bestanden oder nicht bestanden?",
+    "level": "anfaenger",
+    "category": "logikfunktionen",
+    "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen.",
+    "frei": false
+  },
+  {
+    "id": "sverweis-basis",
+    "title": "Preis nachschlagen",
+    "level": "anfaenger",
+    "category": "verweisfunktionen",
+    "description": "Nutze SVERWEIS, um zu einem gesuchten Produkt automatisch den passenden Preis zu finden.",
+    "frei": false
+  },
+  {
+    "id": "sverweis-rabattstaffel",
+    "title": "Rabattstaffel mit SVERWEIS",
+    "level": "anfaenger",
+    "category": "verweisfunktionen",
+    "description": "Nutze SVERWEIS mit ungefährer Übereinstimmung, um anhand einer Mengen-Staffel den passenden Rabatt zu ermitteln.",
+    "frei": false
+  },
+  {
+    "id": "textfunktionen-gross-klein",
+    "title": "Groß- und Kleinschreibung anpassen",
+    "level": "anfaenger",
+    "category": "textfunktionen",
+    "description": "Nutze GROSS2, GROSS und KLEIN, um Text in die gewünschte Schreibweise zu bringen.",
+    "frei": false
+  },
+  {
+    "id": "wenn-verschachtelt-notenskala",
+    "title": "Notenskala mit verschachtelter WENN-Funktion",
+    "level": "fortgeschritten",
+    "category": "logikfunktionen",
+    "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden.",
+    "frei": true
+  },
+  {
+    "id": "zaehlenwenn-verkaeufe",
+    "title": "Verkäufe über einem Schwellenwert zählen",
+    "level": "fortgeschritten",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze die ZÄHLENWENN-Funktion, um zu zählen, wie viele Verkäufe einen bestimmten Betrag übersteigen.",
+    "frei": true
+  },
+  {
+    "id": "summewenn-umsatz-region",
+    "title": "Umsatz je Region summieren",
+    "level": "fortgeschritten",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze die SUMMEWENN-Funktion, um den Umsatz einer bestimmten Region zu summieren.",
+    "frei": true
+  },
+  {
+    "id": "summewenn-platzhalter-filiale",
+    "title": "SUMMEWENN mit Platzhaltern",
+    "level": "fortgeschritten",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze SUMMEWENN mit dem Platzhalter * (Sternchen), um Umsätze anhand eines Textteils zu summieren.",
+    "frei": false
+  },
+  {
+    "id": "zaehlenwenns-region-umsatz",
+    "title": "ZÄHLENWENNS mit zwei Kriterien",
+    "level": "fortgeschritten",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze ZÄHLENWENNS, um Datensätze zu zählen, die gleichzeitig zwei Bedingungen erfüllen.",
+    "frei": false
+  },
+  {
+    "id": "datedif-alter",
+    "title": "Alter zum Stichtag berechnen",
+    "level": "fortgeschritten",
+    "category": "datumsfunktionen",
+    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen.",
+    "frei": false
+  },
+  {
+    "id": "edatum-vertragsablauf",
+    "title": "Vertragsablauf berechnen",
+    "level": "fortgeschritten",
+    "category": "datumsfunktionen",
+    "description": "Nutze EDATUM, um ausgehend vom Vertragsbeginn das Ablaufdatum zu berechnen.",
+    "frei": false
+  },
+  {
+    "id": "textverketten-textteilen",
+    "title": "Texte verketten und wieder aufteilen",
+    "level": "fortgeschritten",
+    "category": "textfunktionen",
+    "description": "Nutze TEXTVERKETTEN, um mehrere Texte zu verbinden, und TEXTTEILEN, um einen Text wieder in seine Bestandteile zu zerlegen.",
+    "frei": false
+  },
+  {
+    "id": "textvor-textnach-email",
+    "title": "E-Mail-Adresse zerlegen",
+    "level": "fortgeschritten",
+    "category": "textfunktionen",
+    "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen.",
+    "frei": false
+  },
+  {
+    "id": "sverweis-preisliste",
+    "title": "Finde den passenden Preis",
+    "level": "fortgeschritten",
+    "category": "verweisfunktionen",
+    "description": "Kombiniere SVERWEIS mit WENNFEHLER, um für gesuchte Produkte den passenden Preis zu finden – auch wenn ein Produkt nicht in der Liste steht.",
+    "frei": false
+  },
+  {
+    "id": "xverweis-mitarbeiterdaten",
+    "title": "Mitarbeiterdaten mit XVERWEIS nachschlagen",
+    "level": "profi",
+    "category": "verweisfunktionen",
+    "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht.",
+    "frei": true
+  },
+  {
+    "id": "summenprodukt-gesamtwert",
+    "title": "Gesamtwert mit SUMMENPRODUKT berechnen",
+    "level": "profi",
+    "category": "matrixfunktionen",
+    "description": "Nutze SUMMENPRODUKT, um Menge und Preis zeilenweise zu multiplizieren und aufzusummieren – mit und ohne Bedingung.",
+    "frei": true
+  },
+  {
+    "id": "wenn-verschachtelt-bonusstufe",
+    "title": "Bonusstufe mit verschachtelter WENN-Funktion ermitteln",
+    "level": "profi",
+    "category": "logikfunktionen",
+    "description": "Ermittle mit einer verschachtelten WENN-Funktion eine Bonusstufe, bei der zwei Bedingungen gleichzeitig erfüllt sein müssen.",
+    "frei": true
+  },
+  {
+    "id": "wenn-verschachtelt-prioritaet",
+    "title": "Kundenpriorität mit verschachtelter WENN-Funktion ermitteln",
+    "level": "profi",
+    "category": "logikfunktionen",
+    "description": "Ermittle mit einer verschachtelten WENN-Funktion eine Priorität, bei der mindestens eine von mehreren möglichen Bedingungen erfüllt sein muss.",
+    "frei": false
+  },
+  {
+    "id": "bereich-verschieben-monatsumsatz",
+    "title": "Summe der letzten Monate mit BEREICH.VERSCHIEBEN",
+    "level": "profi",
+    "category": "matrixfunktionen",
+    "description": "Kombiniere BEREICH.VERSCHIEBEN mit ANZAHL, um die Summe der letzten gefüllten Monate zu berechnen – auch wenn die Liste weiterwächst.",
+    "frei": false
+  },
+  {
+    "id": "sortieren-eindeutig-filter-kunden",
+    "title": "Kundenliste sortieren, bereinigen und filtern",
+    "level": "profi",
+    "category": "matrixfunktionen",
+    "description": "Nutze EINDEUTIG, SORTIEREN und FILTER, um eine Kundenliste zu bereinigen, zu sortieren und gezielt zu filtern.",
+    "frei": false
+  }
+]

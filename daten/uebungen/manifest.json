@@ -1,0 +1,65 @@
+[
+  {
+    "id": "summe-umsatz",
+    "title": "Summe der Umsätze berechnen",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren."
+  },
+  {
+    "id": "mittelwert-noten",
+    "title": "Notendurchschnitt berechnen",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die MITTELWERT-Funktion, um den Durchschnitt mehrerer Werte zu berechnen."
+  },
+  {
+    "id": "anzahl-teilnehmer",
+    "title": "Anzahl der Teilnehmer mit Punkten",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten."
+  },
+  {
+    "id": "wenn-verschachtelt-notenskala",
+    "title": "Notenskala mit verschachtelter WENN-Funktion",
+    "level": "fortgeschritten",
+    "category": "logikfunktionen",
+    "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden."
+  },
+  {
+    "id": "zaehlenwenn-verkaeufe",
+    "title": "Verkäufe über einem Schwellenwert zählen",
+    "level": "fortgeschritten",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze die ZÄHLENWENN-Funktion, um zu zählen, wie viele Verkäufe einen bestimmten Betrag übersteigen."
+  },
+  {
+    "id": "summewenn-umsatz-region",
+    "title": "Umsatz je Region summieren",
+    "level": "fortgeschritten",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze die SUMMEWENN-Funktion, um den Umsatz einer bestimmten Region zu summieren."
+  },
+  {
+    "id": "xverweis-mitarbeiterdaten",
+    "title": "Mitarbeiterdaten mit XVERWEIS nachschlagen",
+    "level": "profi",
+    "category": "verweisfunktionen",
+    "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht."
+  },
+  {
+    "id": "summenprodukt-gesamtwert",
+    "title": "Gesamtwert mit SUMMENPRODUKT berechnen",
+    "level": "profi",
+    "category": "matrixfunktionen",
+    "description": "Nutze SUMMENPRODUKT, um Menge und Preis zeilenweise zu multiplizieren und aufzusummieren – mit und ohne Bedingung."
+  },
+  {
+    "id": "wenn-verschachtelt-bonusstufe",
+    "title": "Bonusstufe mit verschachtelter WENN-Funktion ermitteln",
+    "level": "profi",
+    "category": "logikfunktionen",
+    "description": "Ermittle mit einer verschachtelten WENN-Funktion eine Bonusstufe, bei der zwei Bedingungen gleichzeitig erfüllt sein müssen."
+  }
+]

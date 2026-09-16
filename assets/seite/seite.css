@@ -1,0 +1,46 @@
+/* Excel.Flo Light – Ergänzungen zu assets/geteilt/engine.css (gesperrte Übungen) */
+
+.exercise-card.is-locked {
+  background: #F4F5F4;
+  box-shadow: none;
+  cursor: default;
+}
+
+.exercise-card.is-locked:hover {
+  transform: none;
+  border-color: var(--border-color);
+  box-shadow: none;
+}
+
+/* Inhalt ausgrauen, Upgrade-Link bleibt farbig und klickbar */
+.exercise-card.is-locked h3,
+.exercise-card.is-locked p,
+.exercise-card.is-locked .badge--category {
+  opacity: 0.55;
+  filter: grayscale(1);
+}
+
+.badge--locked {
+  gap: 0.3rem;
+  background: #E6E8E6;
+  color: var(--text-muted);
+}
+
+.upgrade-link {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--excel-green);
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.upgrade-link:hover,
+.upgrade-link:focus-visible {
+  text-decoration: underline;
+}
+
+.stage-banner .upgrade-link {
+  font-size: inherit;
+  white-space: nowrap;
+}
