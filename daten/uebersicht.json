@@ -1,18 +1,11 @@
 [
   {
-    "id": "summe-umsatz",
-    "title": "Summe der Umsätze berechnen",
-    "level": "anfaenger",
-    "category": "grundfunktionen",
-    "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren.",
-    "frei": true
-  },
-  {
     "id": "mittelwert-noten",
     "title": "Notendurchschnitt berechnen",
     "level": "anfaenger",
     "category": "grundfunktionen",
     "description": "Nutze die MITTELWERT-Funktion, um den Durchschnitt mehrerer Werte zu berechnen.",
+    "typ": "formel",
     "frei": true
   },
   {
@@ -21,7 +14,25 @@
     "level": "anfaenger",
     "category": "grundfunktionen",
     "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten.",
+    "typ": "formel",
     "frei": true
+  },
+  {
+    "id": "wenn-bestanden",
+    "title": "Bestanden oder nicht bestanden?",
+    "level": "anfaenger",
+    "category": "logikfunktionen",
+    "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen.",
+    "typ": "formel",
+    "frei": true
+  },
+  {
+    "id": "summe-umsatz",
+    "title": "Summe der Umsätze berechnen",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren.",
+    "frei": false
   },
   {
     "id": "relative-bezuege-gehalt",
@@ -37,14 +48,6 @@
     "level": "anfaenger",
     "category": "zellbezüge",
     "description": "Nutze einen absoluten Zellbezug, damit eine feste Zelle beim Kopieren nicht verrutscht.",
-    "frei": false
-  },
-  {
-    "id": "wenn-bestanden",
-    "title": "Bestanden oder nicht bestanden?",
-    "level": "anfaenger",
-    "category": "logikfunktionen",
-    "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen.",
     "frei": false
   },
   {
@@ -77,6 +80,25 @@
     "level": "fortgeschritten",
     "category": "logikfunktionen",
     "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden.",
+    "typ": "formel",
+    "frei": true
+  },
+  {
+    "id": "datedif-alter",
+    "title": "Alter zum Stichtag berechnen",
+    "level": "fortgeschritten",
+    "category": "datumsfunktionen",
+    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen.",
+    "typ": "formel",
+    "frei": true
+  },
+  {
+    "id": "textvor-textnach-email",
+    "title": "E-Mail-Adresse zerlegen",
+    "level": "fortgeschritten",
+    "category": "textfunktionen",
+    "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen.",
+    "typ": "formel",
     "frei": true
   },
   {
@@ -85,7 +107,7 @@
     "level": "fortgeschritten",
     "category": "bedingungsfunktionen",
     "description": "Nutze die ZÄHLENWENN-Funktion, um zu zählen, wie viele Verkäufe einen bestimmten Betrag übersteigen.",
-    "frei": true
+    "frei": false
   },
   {
     "id": "summewenn-umsatz-region",
@@ -93,7 +115,7 @@
     "level": "fortgeschritten",
     "category": "bedingungsfunktionen",
     "description": "Nutze die SUMMEWENN-Funktion, um den Umsatz einer bestimmten Region zu summieren.",
-    "frei": true
+    "frei": false
   },
   {
     "id": "summewenn-platzhalter-filiale",
@@ -109,14 +131,6 @@
     "level": "fortgeschritten",
     "category": "bedingungsfunktionen",
     "description": "Nutze ZÄHLENWENNS, um Datensätze zu zählen, die gleichzeitig zwei Bedingungen erfüllen.",
-    "frei": false
-  },
-  {
-    "id": "datedif-alter",
-    "title": "Alter zum Stichtag berechnen",
-    "level": "fortgeschritten",
-    "category": "datumsfunktionen",
-    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen.",
     "frei": false
   },
   {
@@ -136,14 +150,6 @@
     "frei": false
   },
   {
-    "id": "textvor-textnach-email",
-    "title": "E-Mail-Adresse zerlegen",
-    "level": "fortgeschritten",
-    "category": "textfunktionen",
-    "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen.",
-    "frei": false
-  },
-  {
     "id": "sverweis-preisliste",
     "title": "Finde den passenden Preis",
     "level": "fortgeschritten",
@@ -157,14 +163,16 @@
     "level": "profi",
     "category": "verweisfunktionen",
     "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht.",
+    "typ": "formel",
     "frei": true
   },
   {
-    "id": "summenprodukt-gesamtwert",
-    "title": "Gesamtwert mit SUMMENPRODUKT berechnen",
+    "id": "pivot-anteil-land-an-region",
+    "title": "Anteil jedes Landes am Umsatz seiner Region",
     "level": "profi",
-    "category": "matrixfunktionen",
-    "description": "Nutze SUMMENPRODUKT, um Menge und Preis zeilenweise zu multiplizieren und aufzusummieren – mit und ohne Bedingung.",
+    "category": "pivot-tabellen",
+    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
+    "typ": "pivot",
     "frei": true
   },
   {
@@ -173,7 +181,16 @@
     "level": "profi",
     "category": "logikfunktionen",
     "description": "Ermittle mit einer verschachtelten WENN-Funktion eine Bonusstufe, bei der zwei Bedingungen gleichzeitig erfüllt sein müssen.",
+    "typ": "formel",
     "frei": true
+  },
+  {
+    "id": "summenprodukt-gesamtwert",
+    "title": "Gesamtwert mit SUMMENPRODUKT berechnen",
+    "level": "profi",
+    "category": "matrixfunktionen",
+    "description": "Nutze SUMMENPRODUKT, um Menge und Preis zeilenweise zu multiplizieren und aufzusummieren – mit und ohne Bedingung.",
+    "frei": false
   },
   {
     "id": "wenn-verschachtelt-prioritaet",

@@ -44,3 +44,11 @@
   font-size: inherit;
   white-space: nowrap;
 }
+
+/* Pivot-Aufgabe (pivot-uebung.html): Pivot-Nachbau im iframe, Höhe setzt pivot-seite.js */
+.light-pivot {
+  display: block;
+  width: 100%;
+  height: 820px;
+  border: 0;
+}

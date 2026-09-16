@@ -1,0 +1,49 @@
+{
+  "aufgaben": [
+    {
+      "id": "pivot-anteil-land-an-region",
+      "typ": "pivot",
+      "level": "profi",
+      "category": "pivot-tabellen",
+      "title": "Anteil jedes Landes am Umsatz seiner Region",
+      "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
+      "task": {
+        "intro": "Du hast eine Tabelle mit Tagesumsätzen aus 2025 und 2026 (Spalten: Datum, Region, Land, Kunde, Umsatz). Ermittle mit einer Pivot-Tabelle, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt – nicht zum Gesamtumsatz aller Regionen.",
+        "steps": [
+          "Erstelle eine Pivot-Tabelle, die die Regionen mit ihren Ländern als Gliederung zeigt.",
+          "Zeige den Umsatz jedes Landes als Prozentanteil an seiner Region."
+        ]
+      },
+      "datensatz": {
+        "seed": 20260101,
+        "vonDatum": "2025-01-01",
+        "bisDatum": "2026-12-31",
+        "regionen": {
+          "DACH": { "basisUmsatz": 1200, "laender": ["Deutschland", "Österreich", "Schweiz"], "kunden": ["Alpenblick", "Bergmann", "Rheinwerk", "Schwarzwald", "Ostwind", "Alpenhof"] },
+          "Benelux": { "basisUmsatz": 850, "laender": ["Niederlande", "Belgien", "Luxemburg"], "kunden": ["Delta", "Fjord", "Polderwerk", "Rotterdam", "Grachten", "Tulpen"] },
+          "Nordics": { "basisUmsatz": 950, "laender": ["Schweden", "Dänemark", "Norwegen", "Finnland"], "kunden": ["Nordlicht", "Baltic", "Polarstern", "Mitternacht", "Rentier", "Aurora"] }
+        },
+        "felder": {
+          "Datum": { "icon": "📅", "type": "date" },
+          "Region": { "icon": "🌍", "type": "text" },
+          "Land": { "icon": "🏳️", "type": "text" },
+          "Kunde": { "icon": "🧑‍🤝‍🧑", "type": "text" },
+          "Umsatz": { "icon": "💰", "type": "number" }
+        }
+      },
+      "hints": [
+        "Ziehe zuerst Region, dann Land in den Bereich Zeilen – beide zusammen, nicht Land allein.",
+        "Umsatz mit „Summe“ gehört in den Bereich Werte.",
+        "Rechtsklick auf eine Umsatz-Wertezelle → „Werte anzeigen als“ → „% vom übergeordneten Zeilenergebnis“. Nicht „% vom Gesamtergebnis“ – das wäre der Anteil am Umsatz aller Regionen."
+      ],
+      "explanation": "Mit Region und Land in „Zeilen“ entsteht eine Gliederung: Jede Region ist das übergeordnete Element ihrer Länder. „% vom übergeordneten Zeilenergebnis“ teilt den Umsatz jedes Landes durch die Summe seiner Region – die Länder einer Region ergeben zusammen also immer 100 %.",
+      "solution": "Region und darunter Land → Bereich „Zeilen“, Umsatz → Bereich „Werte“ (Summe), dann Rechtsklick auf einen Wert → „Werte anzeigen als“ → „% vom übergeordneten Zeilenergebnis“",
+      "loesungPruefung": {
+        "rows": ["Region", "Land"],
+        "columns": [],
+        "filter": [],
+        "values": [{ "field": "Umsatz", "agg": "Summe", "showAs": "percentOfParentRow" }]
+      }
+    }
+  ]
+}

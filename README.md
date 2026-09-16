@@ -2,8 +2,9 @@
 
 Kostenlose Light-Version des Übungsportals zu Excel-Funktionen. Gedacht als nächster Schritt
 nach der [kostenlosen Übungsseite](https://github.com/FlorianBeil/Excel-Uebungen-kostenlos):
-je Stufe (Anfänger, Fortgeschritten, Profi) sind die ersten **drei** Übungen frei, alle
-weiteren sind ausgegraut und verlinken auf die Vollversion.
+je Stufe (Anfänger, Fortgeschritten, Profi) sind **drei** Übungen frei – bewusst keine, die
+schon auf der kostenlosen Seite vorkommt. Im Profi-Bereich ist eine davon eine Pivot-Aufgabe.
+Alle weiteren Übungen sind ausgegraut und verlinken auf die Vollversion.
 
 **Strikt getrennt vom Käufer-Portal** ([Excel-Aufgaben](https://github.com/FlorianBeil/Excel-Aufgaben)):
 eigenes Repo, eigenes Deployment, das Portal verlinkt nie hierher. Gesperrte Übungen liegen
@@ -14,7 +15,10 @@ hier gar nicht als Datei vor – nur Titel und Beschreibung für die Übersicht.
 | Pfad | Inhalt |
 |---|---|
 | `index.html` | Übersicht mit Stufen-Tabs, freien und gesperrten Karten |
-| `uebung.html` | Übungsseite (nutzt die Portal-Engine unverändert) |
+| `uebung.html` | Übungsseite für Formel-Übungen (nutzt die Portal-Engine unverändert) |
+| `pivot-uebung.html` | Übungsseite für Pivot-Aufgaben (`assets/seite/pivot-seite.js`), bettet `pivot.html` ein |
+| `pivot.html`, `assets/pivot/datensatz.js` | Pivot-Nachbau – **erzeugt** aus der kostenlosen Seite, nicht von Hand ändern |
+| `daten/pivot-aufgabe.json` | Die Pivot-Aufgabe (Text, Tipps, Lösung, Prüfregel, Bauplan der Beispieldaten) |
 | `daten/konfiguration.json` | `vollversionUrl` – Ziel der Upgrade-Links, **von Hand pflegen** |
 | `daten/uebersicht.json` | Alle Übungen mit `frei: true/false` – **erzeugt** |
 | `daten/uebungen/` | Die freien Übungen + `manifest.json` (nur freie) – **erzeugt** |
@@ -26,12 +30,13 @@ hier gar nicht als Datei vor – nur Titel und Beschreibung für die Übersicht.
 
 - **Aktualisieren (neue Übungen, Engine-Verbesserungen):** Doppelklick auf
   `geteilt-aktualisieren.bat`. Holt den veröffentlichten Stand (`origin/main`) aus
-  `../excel-flo-uebungsportal`, kopiert Engine + die ersten drei Übungen je Stufe und baut
-  die Übersicht neu. Danach testen, `?v=` in `index.html` und `uebung.html` erhöhen, pushen.
-- **Anzahl freier Übungen ändern:** `FREI_JE_STUFE` in `skripte/geteilt-aktualisieren.js`,
-  dann Skript erneut ausführen.
-- Welche Übungen frei sind, richtet sich nach der Reihenfolge im Portal-Manifest.
-  Ändert sich dort die Reihenfolge, ändert sich beim nächsten Update auch die Auswahl hier.
+  `../excel-flo-uebungsportal`, kopiert Engine + die freien Übungen und baut die Übersicht neu.
+  Danach testen, `?v=` in den HTML-Dateien erhöhen, pushen.
+- **Freie Übungen austauschen:** Liste `FREIE_UEBUNGEN` oben in `skripte/geteilt-aktualisieren.js`
+  ändern, dann Skript erneut ausführen. Pivot-Aufgaben beginnen mit `pivot-` und stehen in
+  `daten/pivot-aufgabe.json` (bisher unterstützt die Seite genau eine Pivot-Aufgabe).
+- **Pivot-Nachbau aktualisieren:** `node skripte/pivot-uebernehmen.js` – holt `pivot.html` vom
+  veröffentlichten Stand der kostenlosen Seite und stellt nur die Datenquelle um.
 
 ## Fortschritt und Tracking
 

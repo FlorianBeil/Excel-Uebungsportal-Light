@@ -5,12 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Excel.Flo – Übung</title>
 <meta name="robots" content="noindex">
+<script>
+  // Pivot-Aufgaben haben eine eigene Seite („Nächste Übung“ aus engine.js verlinkt immer hierher)
+  (function () {
+    var id = new URLSearchParams(location.search).get("id") || "";
+    if (id.indexOf("pivot-") === 0) location.replace("pivot-uebung.html" + location.search);
+  })();
+</script>
 <link rel="icon" type="image/svg+xml" href="assets/geteilt/img/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/geteilt/engine.css?v=1">
-<link rel="stylesheet" href="assets/seite/seite.css?v=1">
+<link rel="stylesheet" href="assets/seite/seite.css?v=2">
 </head>
 <body>
 

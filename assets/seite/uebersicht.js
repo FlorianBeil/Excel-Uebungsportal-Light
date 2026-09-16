@@ -123,7 +123,7 @@
 
       function karteFrei(ex) {
         const done = erledigt(ex);
-        return el("a", { class: "exercise-card" + (done ? " is-done" : ""), href: "uebung.html?id=" + encodeURIComponent(ex.id) }, [
+        return el("a", { class: "exercise-card" + (done ? " is-done" : ""), href: (ex.typ === "pivot" ? "pivot-uebung.html" : "uebung.html") + "?id=" + encodeURIComponent(ex.id) }, [
           el("div", { class: "exercise-card__badges" }, [
             el("span", { class: "badge badge--category", text: kategorie(ex.category) }),
             done ? el("span", { class: "badge badge--done", text: "✓ erledigt" }) : null,

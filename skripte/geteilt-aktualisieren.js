@@ -4,9 +4,10 @@
 // Quelle ist bewusst der VERÖFFENTLICHTE Stand (origin/main), nicht der lokale
 // Arbeitsstand: unfertige Änderungen am Portal landen so nie in der Light-Version.
 //
-// Freigeschaltet sind je Stufe die ersten FREI_JE_STUFE Übungen (Reihenfolge wie im
-// Portal-Manifest). Nur deren Übungsdateien werden kopiert – gesperrte Übungen sind
-// hier technisch nicht vorhanden, nur Titel und Beschreibung für die Übersicht.
+// Freigeschaltet sind die Übungen in FREIE_UEBUNGEN (je Stufe, in dieser Reihenfolge).
+// Nur deren Übungsdateien werden kopiert – gesperrte Übungen sind hier technisch nicht
+// vorhanden, nur Titel und Beschreibung für die Übersicht. Einträge, die mit „pivot-“
+// beginnen, kommen nicht aus dem Portal, sondern aus daten/pivot-aufgabe.json.
 //
 // Erzeugt:
 //   assets/geteilt/…               Kopie der Portal-Dateien + QUELLE.txt
@@ -22,8 +23,13 @@ const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 
-const FREI_JE_STUFE = 3;
-const STUFEN = ["anfaenger", "fortgeschritten", "profi"];
+// Bewusst keine Übung, die schon auf der kostenlosen Übungsseite vorkommt
+// (dort: summe-umsatz, zaehlenwenn-verkaeufe, summewenn-umsatz-region, sverweis-basis, Pivot umsatz-je-region).
+const FREIE_UEBUNGEN = {
+  anfaenger: ["mittelwert-noten", "anzahl-teilnehmer", "wenn-bestanden"],
+  fortgeschritten: ["wenn-verschachtelt-notenskala", "datedif-alter", "textvor-textnach-email"],
+  profi: ["xverweis-mitarbeiterdaten", "pivot-anteil-land-an-region", "wenn-verschachtelt-bonusstufe"],
+};
 
 const repo = path.resolve(__dirname, "..");
 const portal = path.resolve(repo, "..", "excel-flo-uebungsportal");
@@ -52,13 +58,24 @@ const commit = git(["rev-parse", "--short", "origin/main"]);
 
 const manifest = JSON.parse(git(["show", "origin/main:assets/exercises/manifest.json"]));
 
+const pivotAufgaben = JSON.parse(fs.readFileSync(path.join(repo, "daten", "pivot-aufgabe.json"), "utf8")).aufgaben;
+const kurzeintrag = ({ id, title, level, category, description }) => ({ id, title, level, category, description });
+
+// Übersicht je Stufe: freie Übungen zuerst (in der Reihenfolge oben), danach die gesperrten
 const uebersicht = [];
-const zaehler = {};
-manifest.forEach((ex) => {
-  zaehler[ex.level] = (zaehler[ex.level] || 0) + 1;
-  uebersicht.push({ ...ex, frei: STUFEN.includes(ex.level) && zaehler[ex.level] <= FREI_JE_STUFE });
+Object.keys(FREIE_UEBUNGEN).forEach((stufe) => {
+  FREIE_UEBUNGEN[stufe].forEach((id) => {
+    const ex = id.startsWith("pivot-") ? pivotAufgaben.find((a) => a.id === id) : manifest.find((m) => m.id === id);
+    if (!ex) throw new Error("Freie Übung „" + id + "“ nicht gefunden");
+    if (ex.level !== stufe) throw new Error("Freie Übung „" + id + "“ gehört zur Stufe " + ex.level + ", nicht " + stufe);
+    uebersicht.push({ ...kurzeintrag(ex), typ: id.startsWith("pivot-") ? "pivot" : "formel", frei: true });
+  });
+  manifest
+    .filter((m) => m.level === stufe && !FREIE_UEBUNGEN[stufe].includes(m.id))
+    .forEach((m) => uebersicht.push({ ...kurzeintrag(m), frei: false }));
 });
 const freie = uebersicht.filter((ex) => ex.frei);
+const freieFormeln = freie.filter((ex) => ex.typ === "formel");
 
 // git show als Buffer (nicht als Text): Bilder bleiben so unbeschädigt.
 const lies = (datei) => execFileSync("git", ["-C", portal, "show", "origin/main:" + datei], { maxBuffer: 50 * 1024 * 1024 });
@@ -75,7 +92,7 @@ DATEIEN.forEach((d) => {
 const uebungen = path.join(repo, "daten", "uebungen");
 fs.rmSync(uebungen, { recursive: true, force: true });
 fs.mkdirSync(uebungen, { recursive: true });
-freie.forEach((ex) => {
+freieFormeln.forEach((ex) => {
   fs.writeFileSync(path.join(uebungen, ex.id + ".json"), lies("assets/exercises/" + ex.id + ".json"));
   console.log("  frei:         " + ex.level + " / " + ex.id);
 });
@@ -83,7 +100,9 @@ freie.forEach((ex) => {
 const schreibeJson = (datei, inhalt) => fs.writeFileSync(datei, JSON.stringify(inhalt, null, 2) + "\n", "utf8");
 schreibeJson(
   path.join(uebungen, "manifest.json"),
-  freie.map(({ frei, ...ex }) => ex)
+  // inkl. Pivot-Aufgabe, damit „Nächste Übung“ und „Stufe abgeschlossen“ in engine.js stimmen
+  // (uebung.html leitet pivot-… Adressen auf pivot-uebung.html weiter)
+  freie.map(({ frei, typ, ...ex }) => ex)
 );
 schreibeJson(path.join(repo, "daten", "uebersicht.json"), uebersicht);
 

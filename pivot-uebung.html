@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Excel.Flo – Übungsportal Light</title>
-<meta name="description" content="Interaktive Excel-Übungen zu SUMME, SVERWEIS, XVERWEIS und mehr – direkt im Browser.">
-<!-- Nur über die kostenlose Übungsseite erreichbar machen, nicht über Suchmaschinen -->
+<title>Excel.Flo – Übung</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="assets/geteilt/img/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,24 +20,13 @@
       <span class="brand__icon"><img src="assets/geteilt/img/logo-white.webp" alt=""></span>
       <span class="brand__wordmark">Excel<span class="dot">.</span>Flo</span>
     </a>
+    <a class="site-header__back" href="index.html">← Alle Übungen</a>
   </div>
 </header>
 
 <main>
-  <div class="page-intro">
-    <h1>Dein Übungsportal zu Excel-Funktionen</h1>
-    <p>Wähle eine Stufe und eine Übung aus. In jeder Stufe sind drei Übungen für dich freigeschaltet – jede mit festem Ziel und automatischem Feedback. Dein Fortschritt wird in diesem Browser gespeichert.</p>
-  </div>
-
-  <div class="level-bar">
-    <div class="level-tabs" id="level-tabs"></div>
-    <div class="level-reset" id="level-reset"></div>
-  </div>
-
-  <div class="stage-banner" id="stage-banner"></div>
-
-  <div class="exercise-grid" id="light-list">
-    <p class="exercise-grid__empty">Übungen werden geladen …</p>
+  <div id="exercise-root">
+    <p>Übung wird geladen …</p>
   </div>
 </main>
 
@@ -49,6 +36,6 @@
 
 <script src="assets/geteilt/tracking.js?v=1"></script>
 <script src="assets/seite/fortschritt.js?v=1"></script>
-<script src="assets/seite/uebersicht.js?v=2"></script>
+<script src="assets/seite/pivot-seite.js?v=1"></script>
 </body>
 </html>

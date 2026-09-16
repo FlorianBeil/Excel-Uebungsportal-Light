@@ -1,12 +1,5 @@
 [
   {
-    "id": "summe-umsatz",
-    "title": "Summe der Umsätze berechnen",
-    "level": "anfaenger",
-    "category": "grundfunktionen",
-    "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren."
-  },
-  {
     "id": "mittelwert-noten",
     "title": "Notendurchschnitt berechnen",
     "level": "anfaenger",
@@ -21,6 +14,13 @@
     "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten."
   },
   {
+    "id": "wenn-bestanden",
+    "title": "Bestanden oder nicht bestanden?",
+    "level": "anfaenger",
+    "category": "logikfunktionen",
+    "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen."
+  },
+  {
     "id": "wenn-verschachtelt-notenskala",
     "title": "Notenskala mit verschachtelter WENN-Funktion",
     "level": "fortgeschritten",
@@ -28,18 +28,18 @@
     "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden."
   },
   {
-    "id": "zaehlenwenn-verkaeufe",
-    "title": "Verkäufe über einem Schwellenwert zählen",
+    "id": "datedif-alter",
+    "title": "Alter zum Stichtag berechnen",
     "level": "fortgeschritten",
-    "category": "bedingungsfunktionen",
-    "description": "Nutze die ZÄHLENWENN-Funktion, um zu zählen, wie viele Verkäufe einen bestimmten Betrag übersteigen."
+    "category": "datumsfunktionen",
+    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen."
   },
   {
-    "id": "summewenn-umsatz-region",
-    "title": "Umsatz je Region summieren",
+    "id": "textvor-textnach-email",
+    "title": "E-Mail-Adresse zerlegen",
     "level": "fortgeschritten",
-    "category": "bedingungsfunktionen",
-    "description": "Nutze die SUMMEWENN-Funktion, um den Umsatz einer bestimmten Region zu summieren."
+    "category": "textfunktionen",
+    "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen."
   },
   {
     "id": "xverweis-mitarbeiterdaten",
@@ -49,11 +49,11 @@
     "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht."
   },
   {
-    "id": "summenprodukt-gesamtwert",
-    "title": "Gesamtwert mit SUMMENPRODUKT berechnen",
+    "id": "pivot-anteil-land-an-region",
+    "title": "Anteil jedes Landes am Umsatz seiner Region",
     "level": "profi",
-    "category": "matrixfunktionen",
-    "description": "Nutze SUMMENPRODUKT, um Menge und Preis zeilenweise zu multiplizieren und aufzusummieren – mit und ohne Bedingung."
+    "category": "pivot-tabellen",
+    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt."
   },
   {
     "id": "wenn-verschachtelt-bonusstufe",
