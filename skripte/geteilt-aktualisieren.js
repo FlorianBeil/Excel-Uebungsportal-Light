@@ -9,6 +9,9 @@
 // vorhanden, nur Titel und Beschreibung für die Übersicht. Einträge, die mit „pivot-“
 // beginnen, kommen nicht aus dem Portal, sondern aus daten/pivot-aufgabe.json.
 //
+// Zusätzlich erscheinen die Übungen des Pivot-Kurses (../pivot-tabelle-prototyp, origin/main)
+// als gesperrte Karten in ihrer Kurs-Stufe – ohne die, die hier frei ist (gleicher Titel).
+//
 // Erzeugt:
 //   assets/geteilt/…               Kopie der Portal-Dateien + QUELLE.txt
 //   daten/uebungen/<id>.json       die freien Übungen
@@ -25,10 +28,31 @@ const { execFileSync } = require("child_process");
 
 // Bewusst keine Übung, die schon auf der kostenlosen Übungsseite vorkommt
 // (dort: summe-umsatz, zaehlenwenn-verkaeufe, summewenn-umsatz-region, sverweis-basis, Pivot umsatz-je-region).
+// Die Pivot-Aufgabe stammt aus der Profi-Stufe des Pivot-Kurses, steht hier aber bewusst unter Fortgeschritten.
 const FREIE_UEBUNGEN = {
-  anfaenger: ["mittelwert-noten", "anzahl-teilnehmer", "wenn-bestanden"],
-  fortgeschritten: ["wenn-verschachtelt-notenskala", "datedif-alter", "textvor-textnach-email"],
-  profi: ["xverweis-mitarbeiterdaten", "pivot-anteil-land-an-region", "wenn-verschachtelt-bonusstufe"],
+  anfaenger: ["mittelwert-noten", "wenn-bestanden"],
+  fortgeschritten: ["datedif-alter", "textvor-textnach-email", "pivot-anteil-land-an-region"],
+  profi: ["xverweis-mitarbeiterdaten", "wenn-verschachtelt-bonusstufe"],
+};
+
+// Kartentexte der gesperrten Pivot-Übungen. Die Kurs-Texte eignen sich nicht direkt
+// (verraten den Lösungsweg oder beziehen sich auf vorherige Übungen). Fehlt eine neue
+// Kurs-Übung hier, wird ihr Einleitungstext genommen und eine Warnung ausgegeben.
+const PIVOT_BESCHREIBUNGEN = {
+  "umsatz-je-region": "Fasse mit einer Pivot-Tabelle die Tagesumsätze je Region zusammen.",
+  "anzahl-verkaeufe-je-region": "Werte mit einer Pivot-Tabelle aus, wie viele Verkäufe es je Region gab.",
+  "umsatz-je-region-nach-jahr": "Zeige den Umsatz je Region – zusätzlich aufgeteilt nach Jahren.",
+  "umsatz-pro-vertriebler-kanal": "Berechne den Umsatz je Vertriebler, aber nur für einen bestimmten Vertriebskanal.",
+  "umsatz-je-region-nach-land": "Zeige den Umsatz je Region – zusätzlich aufgeschlüsselt nach Land.",
+  "durchschnittlicher-rabatt-je-kategorie": "Ermittle mit einer Pivot-Tabelle den durchschnittlichen Rabatt je Produktkategorie.",
+  "umsatz-und-menge-je-kategorie-jahr": "Zeige Umsatz und Menge nebeneinander – aufgeschlüsselt nach Kategorie und Jahr.",
+  "umsatzanteil-je-kategorie-prozent": "Zeige, wie viel Prozent jede Produktkategorie zum Gesamtumsatz beiträgt.",
+  "umsatz-je-quartal": "Fasse Tagesumsätze aus zwei Jahren je Quartal zusammen, ohne dass die Jahre vermischt werden.",
+  "top5-umsatzstaerkste-kunden": "Zeige nur die fünf umsatzstärksten Kunden, absteigend sortiert.",
+  "umsatzveraenderung-zum-vorjahr": "Zeige, wie sich der Umsatz gegenüber dem Vorjahr verändert hat – absolut und in Prozent.",
+  "deckungsbeitragsmarge-je-kategorie": "Ermittle die Deckungsbeitragsmarge je Produktkategorie – und vermeide dabei einen typischen Rechenfehler.",
+  "kumulierter-umsatz-je-monat": "Zeige den Umsatz im Jahresverlauf kumuliert – Monat für Monat.",
+  "anzahl-unterschiedlicher-kunden-je-region": "Ermittle, wie viele unterschiedliche Kunden je Region eingekauft haben – nicht, wie viele Verkäufe.",
 };
 
 const repo = path.resolve(__dirname, "..");
@@ -58,6 +82,15 @@ const commit = git(["rev-parse", "--short", "origin/main"]);
 
 const manifest = JSON.parse(git(["show", "origin/main:assets/exercises/manifest.json"]));
 
+// Übungskatalog des Pivot-Kurses: das Array EXERCISES aus dessen index.html (nur Literale)
+const pivotRepo = path.resolve(repo, "..", "pivot-tabelle-prototyp");
+execFileSync("git", ["-C", pivotRepo, "fetch", "--quiet", "origin"]);
+const pivotHtml = execFileSync("git", ["-C", pivotRepo, "show", "origin/main:index.html"], { maxBuffer: 64 * 1024 * 1024 }).toString("utf8").replace(/\r\n/g, "\n");
+const katalogStart = pivotHtml.indexOf("var EXERCISES = [");
+const katalogEnde = pivotHtml.indexOf("\n  ];", katalogStart);
+if (katalogStart === -1 || katalogEnde === -1) throw new Error("Übungskatalog im Pivot-Repo nicht gefunden (var EXERCISES)");
+const pivotKatalog = new Function("return " + pivotHtml.slice(katalogStart + "var EXERCISES = ".length, katalogEnde + 4))();
+
 const pivotAufgaben = JSON.parse(fs.readFileSync(path.join(repo, "daten", "pivot-aufgabe.json"), "utf8")).aufgaben;
 const kurzeintrag = ({ id, title, level, category, description }) => ({ id, title, level, category, description });
 
@@ -73,6 +106,16 @@ Object.keys(FREIE_UEBUNGEN).forEach((stufe) => {
   manifest
     .filter((m) => m.level === stufe && !FREIE_UEBUNGEN[stufe].includes(m.id))
     .forEach((m) => uebersicht.push({ ...kurzeintrag(m), frei: false }));
+  pivotKatalog
+    .filter((p) => p.level === stufe && !pivotAufgaben.some((a) => a.title === p.title))
+    .forEach((p) => {
+      let description = PIVOT_BESCHREIBUNGEN[p.id];
+      if (!description) {
+        description = p.intro.replace(/<p class="goal">[\s\S]*$/, "").replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").trim();
+        console.warn("  WARNUNG: kein Kartentext für Pivot-Übung „" + p.id + "“ – Einleitung verwendet");
+      }
+      uebersicht.push({ id: "pivot-kurs-" + p.id, title: p.title, level: stufe, category: "pivot-tabellen", description, frei: false });
+    });
 });
 const freie = uebersicht.filter((ex) => ex.frei);
 const freieFormeln = freie.filter((ex) => ex.typ === "formel");

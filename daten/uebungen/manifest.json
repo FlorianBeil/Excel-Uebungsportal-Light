@@ -7,25 +7,11 @@
     "description": "Nutze die MITTELWERT-Funktion, um den Durchschnitt mehrerer Werte zu berechnen."
   },
   {
-    "id": "anzahl-teilnehmer",
-    "title": "Anzahl der Teilnehmer mit Punkten",
-    "level": "anfaenger",
-    "category": "grundfunktionen",
-    "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten."
-  },
-  {
     "id": "wenn-bestanden",
     "title": "Bestanden oder nicht bestanden?",
     "level": "anfaenger",
     "category": "logikfunktionen",
     "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen."
-  },
-  {
-    "id": "wenn-verschachtelt-notenskala",
-    "title": "Notenskala mit verschachtelter WENN-Funktion",
-    "level": "fortgeschritten",
-    "category": "logikfunktionen",
-    "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden."
   },
   {
     "id": "datedif-alter",
@@ -42,18 +28,18 @@
     "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen."
   },
   {
+    "id": "pivot-anteil-land-an-region",
+    "title": "Anteil jedes Landes am Umsatz seiner Region",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt."
+  },
+  {
     "id": "xverweis-mitarbeiterdaten",
     "title": "Mitarbeiterdaten mit XVERWEIS nachschlagen",
     "level": "profi",
     "category": "verweisfunktionen",
     "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht."
-  },
-  {
-    "id": "pivot-anteil-land-an-region",
-    "title": "Anteil jedes Landes am Umsatz seiner Region",
-    "level": "profi",
-    "category": "pivot-tabellen",
-    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt."
   },
   {
     "id": "wenn-verschachtelt-bonusstufe",

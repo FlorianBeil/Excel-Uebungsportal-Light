@@ -9,15 +9,6 @@
     "frei": true
   },
   {
-    "id": "anzahl-teilnehmer",
-    "title": "Anzahl der Teilnehmer mit Punkten",
-    "level": "anfaenger",
-    "category": "grundfunktionen",
-    "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten.",
-    "typ": "formel",
-    "frei": true
-  },
-  {
     "id": "wenn-bestanden",
     "title": "Bestanden oder nicht bestanden?",
     "level": "anfaenger",
@@ -32,6 +23,14 @@
     "level": "anfaenger",
     "category": "grundfunktionen",
     "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren.",
+    "frei": false
+  },
+  {
+    "id": "anzahl-teilnehmer",
+    "title": "Anzahl der Teilnehmer mit Punkten",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die ANZAHL-Funktion, um zu zählen, wie viele Zellen eine Zahl enthalten.",
     "frei": false
   },
   {
@@ -75,13 +74,44 @@
     "frei": false
   },
   {
-    "id": "wenn-verschachtelt-notenskala",
-    "title": "Notenskala mit verschachtelter WENN-Funktion",
-    "level": "fortgeschritten",
-    "category": "logikfunktionen",
-    "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden.",
-    "typ": "formel",
-    "frei": true
+    "id": "pivot-kurs-umsatz-je-region",
+    "title": "Umsatz je Region auswerten",
+    "level": "anfaenger",
+    "category": "pivot-tabellen",
+    "description": "Fasse mit einer Pivot-Tabelle die Tagesumsätze je Region zusammen.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-anzahl-verkaeufe-je-region",
+    "title": "Anzahl Verkäufe je Region",
+    "level": "anfaenger",
+    "category": "pivot-tabellen",
+    "description": "Werte mit einer Pivot-Tabelle aus, wie viele Verkäufe es je Region gab.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatz-je-region-nach-jahr",
+    "title": "Umsatz je Region, aufgeteilt nach Jahren",
+    "level": "anfaenger",
+    "category": "pivot-tabellen",
+    "description": "Zeige den Umsatz je Region – zusätzlich aufgeteilt nach Jahren.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatz-pro-vertriebler-kanal",
+    "title": "Umsatz pro Vertriebler, aber nur für einen Kanal",
+    "level": "anfaenger",
+    "category": "pivot-tabellen",
+    "description": "Berechne den Umsatz je Vertriebler, aber nur für einen bestimmten Vertriebskanal.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatz-je-region-nach-land",
+    "title": "Umsatz je Region, aufgeschlüsselt nach Land",
+    "level": "anfaenger",
+    "category": "pivot-tabellen",
+    "description": "Zeige den Umsatz je Region – zusätzlich aufgeschlüsselt nach Land.",
+    "frei": false
   },
   {
     "id": "datedif-alter",
@@ -100,6 +130,23 @@
     "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen.",
     "typ": "formel",
     "frei": true
+  },
+  {
+    "id": "pivot-anteil-land-an-region",
+    "title": "Anteil jedes Landes am Umsatz seiner Region",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
+    "typ": "pivot",
+    "frei": true
+  },
+  {
+    "id": "wenn-verschachtelt-notenskala",
+    "title": "Notenskala mit verschachtelter WENN-Funktion",
+    "level": "fortgeschritten",
+    "category": "logikfunktionen",
+    "description": "Nutze eine verschachtelte WENN-Funktion, um je nach Punktzahl zwischen drei möglichen Ergebnissen zu unterscheiden.",
+    "frei": false
   },
   {
     "id": "zaehlenwenn-verkaeufe",
@@ -158,21 +205,52 @@
     "frei": false
   },
   {
+    "id": "pivot-kurs-durchschnittlicher-rabatt-je-kategorie",
+    "title": "Durchschnittlicher Rabatt je Produktkategorie",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Ermittle mit einer Pivot-Tabelle den durchschnittlichen Rabatt je Produktkategorie.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatz-und-menge-je-kategorie-jahr",
+    "title": "Umsatz und Menge nebeneinander, je Kategorie und Jahr",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Zeige Umsatz und Menge nebeneinander – aufgeschlüsselt nach Kategorie und Jahr.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatzanteil-je-kategorie-prozent",
+    "title": "Umsatzanteil jeder Kategorie am Gesamtumsatz in Prozent",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Zeige, wie viel Prozent jede Produktkategorie zum Gesamtumsatz beiträgt.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatz-je-quartal",
+    "title": "Umsatz je Quartal",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Fasse Tagesumsätze aus zwei Jahren je Quartal zusammen, ohne dass die Jahre vermischt werden.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-top5-umsatzstaerkste-kunden",
+    "title": "Die 5 umsatzstärksten Kunden",
+    "level": "fortgeschritten",
+    "category": "pivot-tabellen",
+    "description": "Zeige nur die fünf umsatzstärksten Kunden, absteigend sortiert.",
+    "frei": false
+  },
+  {
     "id": "xverweis-mitarbeiterdaten",
     "title": "Mitarbeiterdaten mit XVERWEIS nachschlagen",
     "level": "profi",
     "category": "verweisfunktionen",
     "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht.",
     "typ": "formel",
-    "frei": true
-  },
-  {
-    "id": "pivot-anteil-land-an-region",
-    "title": "Anteil jedes Landes am Umsatz seiner Region",
-    "level": "profi",
-    "category": "pivot-tabellen",
-    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
-    "typ": "pivot",
     "frei": true
   },
   {
@@ -214,6 +292,38 @@
     "level": "profi",
     "category": "matrixfunktionen",
     "description": "Nutze EINDEUTIG, SORTIEREN und FILTER, um eine Kundenliste zu bereinigen, zu sortieren und gezielt zu filtern.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-umsatzveraenderung-zum-vorjahr",
+    "title": "Umsatzveränderung zum Vorjahr, absolut und in Prozent",
+    "level": "profi",
+    "category": "pivot-tabellen",
+    "description": "Zeige, wie sich der Umsatz gegenüber dem Vorjahr verändert hat – absolut und in Prozent.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-deckungsbeitragsmarge-je-kategorie",
+    "title": "Deckungsbeitragsmarge je Kategorie",
+    "level": "profi",
+    "category": "pivot-tabellen",
+    "description": "Ermittle die Deckungsbeitragsmarge je Produktkategorie – und vermeide dabei einen typischen Rechenfehler.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-kumulierter-umsatz-je-monat",
+    "title": "Kumulierter Umsatz im Jahresverlauf, je Monat",
+    "level": "profi",
+    "category": "pivot-tabellen",
+    "description": "Zeige den Umsatz im Jahresverlauf kumuliert – Monat für Monat.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-anzahl-unterschiedlicher-kunden-je-region",
+    "title": "Anzahl unterschiedlicher Kunden je Region",
+    "level": "profi",
+    "category": "pivot-tabellen",
+    "description": "Ermittle, wie viele unterschiedliche Kunden je Region eingekauft haben – nicht, wie viele Verkäufe.",
     "frei": false
   }
 ]

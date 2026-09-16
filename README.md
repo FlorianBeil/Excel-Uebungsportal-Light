@@ -2,8 +2,9 @@
 
 Kostenlose Light-Version des Übungsportals zu Excel-Funktionen. Gedacht als nächster Schritt
 nach der [kostenlosen Übungsseite](https://github.com/FlorianBeil/Excel-Uebungen-kostenlos):
-je Stufe (Anfänger, Fortgeschritten, Profi) sind **drei** Übungen frei – bewusst keine, die
-schon auf der kostenlosen Seite vorkommt. Im Profi-Bereich ist eine davon eine Pivot-Aufgabe.
+je Stufe (Anfänger, Fortgeschritten, Profi) sind **zwei** Funktionen-Übungen frei – bewusst keine, die
+schon auf der kostenlosen Seite vorkommt –, dazu unter Fortgeschritten eine Pivot-Aufgabe.
+Die Übungen des Pivot-Kurses erscheinen als gesperrte Karten in ihrer jeweiligen Stufe.
 Alle weiteren Übungen sind ausgegraut und verlinken auf die Vollversion.
 
 **Strikt getrennt vom Käufer-Portal** ([Excel-Aufgaben](https://github.com/FlorianBeil/Excel-Aufgaben)):

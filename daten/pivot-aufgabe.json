@@ -3,7 +3,7 @@
     {
       "id": "pivot-anteil-land-an-region",
       "typ": "pivot",
-      "level": "profi",
+      "level": "fortgeschritten",
       "category": "pivot-tabellen",
       "title": "Anteil jedes Landes am Umsatz seiner Region",
       "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
