@@ -1,23 +1,85 @@
 /* Excel.Flo Light – Ergänzungen zu assets/geteilt/engine.css (gesperrte Übungen) */
 
+/* ---------- Freie Karten: deutlich hervorgehoben ---------- */
+
+.exercise-card.is-free {
+  border: 2px solid var(--excel-green);
+  box-shadow: 0 6px 22px rgba(16, 124, 65, 0.18);
+}
+
+.exercise-card.is-free:hover {
+  border-color: var(--excel-green-dark);
+  box-shadow: 0 10px 28px rgba(16, 124, 65, 0.26);
+}
+
+.badge--free {
+  background: var(--excel-green);
+  color: #fff;
+}
+
+.exercise-card__cta--button {
+  align-self: flex-start;
+  background: var(--excel-green);
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+}
+
+.exercise-card.is-free:hover .exercise-card__cta--button {
+  background: var(--excel-green-dark);
+}
+
+/* ---------- Gesperrte Karten: deutlich zurückgenommen ---------- */
+
 .exercise-card.is-locked {
-  background: #F4F5F4;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1.5px dashed #B9C2BD;
   box-shadow: none;
   cursor: default;
 }
 
 .exercise-card.is-locked:hover {
   transform: none;
-  border-color: var(--border-color);
+  border-color: #B9C2BD;
   box-shadow: none;
 }
 
-/* Inhalt ausgrauen, Upgrade-Link bleibt farbig und klickbar */
+/* Inhalt stark ausgegraut, Upgrade-Link bleibt farbig und klickbar */
 .exercise-card.is-locked h3,
 .exercise-card.is-locked p,
 .exercise-card.is-locked .badge--category {
-  opacity: 0.55;
+  opacity: 0.4;
   filter: grayscale(1);
+}
+
+/* ---------- Zwischenüberschriften ---------- */
+
+.light-trenner {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.4rem 0 -0.2rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.light-trenner--frei {
+  color: var(--excel-green-dark);
+}
+
+.light-trenner--gesperrt {
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(31, 42, 36, 0.12);
+  color: var(--text-muted);
+}
+
+.light-trenner svg {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 .badge--locked {

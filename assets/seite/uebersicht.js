@@ -123,14 +123,15 @@
 
       function karteFrei(ex) {
         const done = erledigt(ex);
-        return el("a", { class: "exercise-card" + (done ? " is-done" : ""), href: (ex.typ === "pivot" ? "pivot-uebung.html" : "uebung.html") + "?id=" + encodeURIComponent(ex.id) }, [
+        return el("a", { class: "exercise-card is-free" + (done ? " is-done" : ""), href: (ex.typ === "pivot" ? "pivot-uebung.html" : "uebung.html") + "?id=" + encodeURIComponent(ex.id) }, [
           el("div", { class: "exercise-card__badges" }, [
+            el("span", { class: "badge badge--free", text: "Kostenlos" }),
             el("span", { class: "badge badge--category", text: kategorie(ex.category) }),
             done ? el("span", { class: "badge badge--done", text: "✓ erledigt" }) : null,
           ]),
           el("h3", { text: ex.title }),
           el("p", { text: ex.description || "" }),
-          el("span", { class: "exercise-card__cta", text: done ? "Nochmal üben →" : "Übung starten →" }),
+          el("span", { class: "exercise-card__cta exercise-card__cta--button", text: done ? "Nochmal üben →" : "Übung starten →" }),
         ]);
       }
 
@@ -149,7 +150,21 @@
       function render() {
         renderTabs();
         root.innerHTML = "";
-        gruppen[aktiv].forEach((ex) => root.appendChild(ex.frei ? karteFrei(ex) : karteGesperrt(ex)));
+        const frei = gruppen[aktiv].filter((ex) => ex.frei);
+        const gesperrt = gruppen[aktiv].filter((ex) => !ex.frei);
+        if (frei.length) {
+          root.appendChild(el("h2", { class: "light-trenner light-trenner--frei", text: "✓ Für dich freigeschaltet" }));
+          frei.forEach((ex) => root.appendChild(karteFrei(ex)));
+        }
+        if (gesperrt.length) {
+          root.appendChild(
+            el("h2", { class: "light-trenner light-trenner--gesperrt" }, [
+              el("span", { html: LOCK_SVG }),
+              document.createTextNode(" In der Vollversion · " + gesperrt.length + " weitere Übungen"),
+            ])
+          );
+          gesperrt.forEach((ex) => root.appendChild(karteGesperrt(ex)));
+        }
         renderBanner();
         renderReset();
       }
