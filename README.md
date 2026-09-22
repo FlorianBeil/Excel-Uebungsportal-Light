@@ -1,4 +1,4 @@
-# Excel.Flo – Übungsportal Light
+# Excel.Flo – Bonus-Übungen (intern: Übungsportal Light)
 
 Kostenlose Light-Version des Übungsportals zu Excel-Funktionen. Gedacht als nächster Schritt
 nach der [kostenlosen Übungsseite](https://github.com/FlorianBeil/Excel-Uebungen-kostenlos):
