@@ -114,3 +114,16 @@
   height: 820px;
   border: 0;
 }
+
+/* ---------- Fußzeile mit Impressum und Datenschutz ---------- */
+
+.site-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.site-footer a {
+  color: inherit;
+}
