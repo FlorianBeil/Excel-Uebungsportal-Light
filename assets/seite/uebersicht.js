@@ -66,6 +66,11 @@
 
     function aufbauen(uebungen, konfig) {
       const url = konfig.vollversionUrl;
+
+      // Zahlen kommen aus den Daten, damit sie beim Austausch von Übungen stimmen
+      const freieGesamt = uebungen.filter((ex) => ex.frei).length;
+      const intro = document.getElementById("page-intro");
+      if (intro) intro.textContent = freieGesamt + " Aufgaben sind für dich freigeschaltet. " + konfig.vollversionText;
       const gruppen = {};
       STUFEN.forEach((s) => (gruppen[s.id] = uebungen.filter((ex) => ex.level === s.id)));
       const stufen = STUFEN.filter((s) => gruppen[s.id].length > 0);
@@ -147,6 +152,17 @@
         ]);
       }
 
+      // Grüner Block unter den gesperrten Karten: derselbe Text wie oben, plus Button
+      function vollversionBlock(konfig, freieGesamt) {
+        const link = upgradeLink(url, konfig.vollversionButton, "fussblock");
+        link.className = "btn light-vollversion__btn";
+        return el("section", { class: "light-vollversion" }, [
+          el("h2", { text: "Du willst weiterüben?" }),
+          el("p", { text: freieGesamt + " Aufgaben sind für dich freigeschaltet. " + konfig.vollversionText }),
+          el("p", { class: "light-vollversion__aktion" }, [link]),
+        ]);
+      }
+
       function render() {
         renderTabs();
         root.innerHTML = "";
@@ -164,6 +180,7 @@
             ])
           );
           gesperrt.forEach((ex) => root.appendChild(karteGesperrt(ex)));
+          root.appendChild(vollversionBlock(konfig, freieGesamt));
         }
         renderBanner();
         renderReset();

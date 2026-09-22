@@ -127,3 +127,55 @@
 .site-footer a {
   color: inherit;
 }
+
+/* ---------- Hinweis auf die Vollversion unter den gesperrten Karten ---------- */
+
+.light-vollversion {
+  grid-column: 1 / -1;
+  margin-top: 1.4rem;
+  background: linear-gradient(135deg, var(--excel-green) 0%, var(--excel-green-dark) 100%);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow-card);
+}
+
+.light-vollversion h2 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+
+.light-vollversion p {
+  margin: 0;
+  max-width: 680px;
+}
+
+.light-vollversion__aktion {
+  margin-top: 1.1rem !important;
+}
+
+.light-vollversion__btn {
+  display: inline-block;
+  text-decoration: none;
+  background: #fff;
+  color: var(--excel-green-dark);
+  padding: 0.75rem 1.4rem;
+  font-size: 1rem;
+}
+
+.light-vollversion__btn:hover {
+  background: var(--excel-green-tint);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .light-vollversion {
+    padding: 1.25rem;
+  }
+
+  .light-vollversion__btn {
+    display: block;
+    text-align: center;
+  }
+}
