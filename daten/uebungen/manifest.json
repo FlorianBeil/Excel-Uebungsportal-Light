@@ -14,13 +14,6 @@
     "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen."
   },
   {
-    "id": "datedif-alter",
-    "title": "Alter zum Stichtag berechnen",
-    "level": "fortgeschritten",
-    "category": "datumsfunktionen",
-    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen."
-  },
-  {
     "id": "textvor-textnach-email",
     "title": "E-Mail-Adresse zerlegen",
     "level": "fortgeschritten",

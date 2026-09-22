@@ -31,7 +31,7 @@ const { execFileSync } = require("child_process");
 // Die Pivot-Aufgabe stammt aus der Profi-Stufe des Pivot-Kurses, steht hier aber bewusst unter Fortgeschritten.
 const FREIE_UEBUNGEN = {
   anfaenger: ["mittelwert-noten", "wenn-bestanden"],
-  fortgeschritten: ["datedif-alter", "textvor-textnach-email", "pivot-anteil-land-an-region"],
+  fortgeschritten: ["textvor-textnach-email", "pivot-anteil-land-an-region"],
   profi: ["xverweis-mitarbeiterdaten", "wenn-verschachtelt-bonusstufe"],
 };
 

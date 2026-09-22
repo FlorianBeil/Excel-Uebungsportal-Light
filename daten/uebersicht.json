@@ -114,15 +114,6 @@
     "frei": false
   },
   {
-    "id": "datedif-alter",
-    "title": "Alter zum Stichtag berechnen",
-    "level": "fortgeschritten",
-    "category": "datumsfunktionen",
-    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen.",
-    "typ": "formel",
-    "frei": true
-  },
-  {
     "id": "textvor-textnach-email",
     "title": "E-Mail-Adresse zerlegen",
     "level": "fortgeschritten",
@@ -178,6 +169,14 @@
     "level": "fortgeschritten",
     "category": "bedingungsfunktionen",
     "description": "Nutze ZÄHLENWENNS, um Datensätze zu zählen, die gleichzeitig zwei Bedingungen erfüllen.",
+    "frei": false
+  },
+  {
+    "id": "datedif-alter",
+    "title": "Alter zum Stichtag berechnen",
+    "level": "fortgeschritten",
+    "category": "datumsfunktionen",
+    "description": "Nutze DATEDIF, um aus Geburtsdatum und Stichtag das Alter in vollen Jahren zu berechnen.",
     "frei": false
   },
   {
