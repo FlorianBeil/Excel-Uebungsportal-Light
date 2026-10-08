@@ -15,16 +15,25 @@
   "use strict";
 
   const STORAGE_KEY = "excelflo_light_progress_v1";
-  let speicherErsatz = { completedExerciseIds: [] }; // falls localStorage blockiert ist
+  let speicherErsatz = { completedExerciseIds: [], zeiten: {} }; // falls localStorage blockiert ist
 
+  // zeiten: Übungs-ID → Millisekunden, die die Übung bis zum ersten Lösen sichtbar offen war
+  // (für „Deine Zeit“ auf der Abschlussseite). Ältere Stände ohne zeiten bleiben gültig.
   function load() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return { completedExerciseIds: [] };
+      if (!raw) return { completedExerciseIds: speicherErsatz.completedExerciseIds.slice(), zeiten: Object.assign({}, speicherErsatz.zeiten) };
       const parsed = JSON.parse(raw);
-      return { completedExerciseIds: Array.isArray(parsed.completedExerciseIds) ? parsed.completedExerciseIds : [] };
+      const zeiten = {};
+      if (parsed.zeiten && typeof parsed.zeiten === "object") {
+        Object.keys(parsed.zeiten).forEach((id) => {
+          const ms = Number(parsed.zeiten[id]);
+          if (isFinite(ms) && ms > 0) zeiten[id] = ms;
+        });
+      }
+      return { completedExerciseIds: Array.isArray(parsed.completedExerciseIds) ? parsed.completedExerciseIds : [], zeiten };
     } catch (e) {
-      return { completedExerciseIds: speicherErsatz.completedExerciseIds.slice() };
+      return { completedExerciseIds: speicherErsatz.completedExerciseIds.slice(), zeiten: Object.assign({}, speicherErsatz.zeiten) };
     }
   }
 
@@ -58,11 +67,25 @@
     const state = load();
     const removeSet = new Set(exerciseIds);
     state.completedExerciseIds = state.completedExerciseIds.filter((id) => !removeSet.has(id));
+    exerciseIds.forEach((id) => delete state.zeiten[id]);
     save(state);
     return state;
   }
 
-  window.ExcelFloProgress = { isCompleted, markCompleted, getCompletedIds, resetIds };
+  // Zeit nur bis zum ersten Lösen sammeln – Wiederholen verändert „Deine Zeit“ nicht mehr
+  function addTime(exerciseId, ms) {
+    if (!(ms > 0)) return;
+    const state = load();
+    if (state.completedExerciseIds.indexOf(exerciseId) !== -1) return;
+    state.zeiten[exerciseId] = (state.zeiten[exerciseId] || 0) + ms;
+    save(state);
+  }
+
+  function getTimes() {
+    return load().zeiten;
+  }
+
+  window.ExcelFloProgress = { isCompleted, markCompleted, getCompletedIds, resetIds, addTime, getTimes };
 
   if (window.ExcelFloTracking) {
     const original = window.ExcelFloTracking.track;

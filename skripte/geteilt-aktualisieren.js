@@ -7,7 +7,9 @@
 // Freigeschaltet sind die Übungen in FREIE_UEBUNGEN (je Stufe, in dieser Reihenfolge).
 // Nur deren Übungsdateien werden kopiert – gesperrte Übungen sind hier technisch nicht
 // vorhanden, nur Titel und Beschreibung für die Übersicht. Einträge, die mit „pivot-“
-// beginnen, kommen nicht aus dem Portal, sondern aus daten/pivot-aufgabe.json.
+// beginnen, kommen nicht aus dem Portal, sondern aus daten/pivot-aufgabe.json; Einträge,
+// die mit „bonus-“ beginnen, sind eigens für die Bonus-Übungen geschrieben und liegen in
+// daten/bonus/ (nicht im Kaufportal).
 //
 // Zusätzlich erscheinen die Übungen des Pivot-Kurses (../pivot-tabelle-prototyp, origin/main)
 // als gesperrte Karten in ihrer Kurs-Stufe – ohne die, die hier frei ist (gleicher Titel).
@@ -26,13 +28,20 @@ const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 
-// Bewusst keine Übung, die schon auf der kostenlosen Übungsseite vorkommt
-// (dort: summe-umsatz, zaehlenwenn-verkaeufe, summewenn-umsatz-region, sverweis-basis, Pivot umsatz-je-region).
-// Die Pivot-Aufgabe stammt aus der Profi-Stufe des Pivot-Kurses, steht hier aber bewusst unter Fortgeschritten.
+// Seit 2026-10-08: fünf eigens geschriebene Bonus-Übungen als Weg vom leichten Wiedereinstieg
+// bis zur Pivot-Tabelle, alle unter Anfänger (damit die Reihenfolge nicht über Tabs verteilt
+// wird). Keine davon kommt auf der kostenlosen Übungsseite vor (dort: summe-umsatz,
+// mittelwert-noten, anzahl-teilnehmer, Pivot umsatz-je-region). Alle Kurs-Übungen sind gesperrt.
 const FREIE_UEBUNGEN = {
-  anfaenger: ["mittelwert-noten", "wenn-bestanden"],
-  fortgeschritten: ["textvor-textnach-email", "pivot-anteil-land-an-region"],
-  profi: ["xverweis-mitarbeiterdaten", "wenn-verschachtelt-bonusstufe"],
+  anfaenger: [
+    "bonus-max-einzelumsatz",
+    "bonus-zaehlenwenn-region-nord",
+    "bonus-wenn-ziel-erreicht",
+    "bonus-sverweis-produktnummer",
+    "pivot-umsatz-je-region-und-monat",
+  ],
+  fortgeschritten: [],
+  profi: [],
 };
 
 // Kartentexte der gesperrten Pivot-Übungen. Die Kurs-Texte eignen sich nicht direkt
@@ -44,6 +53,7 @@ const PIVOT_BESCHREIBUNGEN = {
   "umsatz-je-region-nach-jahr": "Zeige den Umsatz je Region – zusätzlich aufgeteilt nach Jahren.",
   "umsatz-pro-vertriebler-kanal": "Berechne den Umsatz je Vertriebler, aber nur für einen bestimmten Vertriebskanal.",
   "umsatz-je-region-nach-land": "Zeige den Umsatz je Region – zusätzlich aufgeschlüsselt nach Land.",
+  "anteil-land-an-region": "Zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
   "durchschnittlicher-rabatt-je-kategorie": "Ermittle mit einer Pivot-Tabelle den durchschnittlichen Rabatt je Produktkategorie.",
   "umsatz-und-menge-je-kategorie-jahr": "Zeige Umsatz und Menge nebeneinander – aufgeschlüsselt nach Kategorie und Jahr.",
   "umsatzanteil-je-kategorie-prozent": "Zeige, wie viel Prozent jede Produktkategorie zum Gesamtumsatz beiträgt.",
@@ -92,13 +102,19 @@ if (katalogStart === -1 || katalogEnde === -1) throw new Error("Übungskatalog i
 const pivotKatalog = new Function("return " + pivotHtml.slice(katalogStart + "var EXERCISES = ".length, katalogEnde + 4))();
 
 const pivotAufgaben = JSON.parse(fs.readFileSync(path.join(repo, "daten", "pivot-aufgabe.json"), "utf8")).aufgaben;
-const kurzeintrag = ({ id, title, level, category, description }) => ({ id, title, level, category, description });
+// funktion/kurz/erfolgTipp gibt es nur bei den eigenen Bonus-Übungen (Zeilen der Übersicht, Erfolgsmeldung)
+const kurzeintrag = ({ id, title, level, category, description, funktion, kurz, erfolgTipp }) =>
+  JSON.parse(JSON.stringify({ id, title, level, category, description, funktion, kurz, erfolgTipp }));
+const bonusDatei = (id) => path.join(repo, "daten", "bonus", id + ".json");
+const bonusUebung = (id) => (fs.existsSync(bonusDatei(id)) ? JSON.parse(fs.readFileSync(bonusDatei(id), "utf8")) : null);
+const finde = (id) =>
+  id.startsWith("pivot-") ? pivotAufgaben.find((a) => a.id === id) : id.startsWith("bonus-") ? bonusUebung(id) : manifest.find((m) => m.id === id);
 
 // Übersicht je Stufe: freie Übungen zuerst (in der Reihenfolge oben), danach die gesperrten
 const uebersicht = [];
 Object.keys(FREIE_UEBUNGEN).forEach((stufe) => {
   FREIE_UEBUNGEN[stufe].forEach((id) => {
-    const ex = id.startsWith("pivot-") ? pivotAufgaben.find((a) => a.id === id) : manifest.find((m) => m.id === id);
+    const ex = finde(id);
     if (!ex) throw new Error("Freie Übung „" + id + "“ nicht gefunden");
     if (ex.level !== stufe) throw new Error("Freie Übung „" + id + "“ gehört zur Stufe " + ex.level + ", nicht " + stufe);
     uebersicht.push({ ...kurzeintrag(ex), typ: id.startsWith("pivot-") ? "pivot" : "formel", frei: true });
@@ -136,7 +152,8 @@ const uebungen = path.join(repo, "daten", "uebungen");
 fs.rmSync(uebungen, { recursive: true, force: true });
 fs.mkdirSync(uebungen, { recursive: true });
 freieFormeln.forEach((ex) => {
-  fs.writeFileSync(path.join(uebungen, ex.id + ".json"), lies("assets/exercises/" + ex.id + ".json"));
+  const inhalt = ex.id.startsWith("bonus-") ? fs.readFileSync(bonusDatei(ex.id)) : lies("assets/exercises/" + ex.id + ".json");
+  fs.writeFileSync(path.join(uebungen, ex.id + ".json"), inhalt);
   console.log("  frei:         " + ex.level + " / " + ex.id);
 });
 

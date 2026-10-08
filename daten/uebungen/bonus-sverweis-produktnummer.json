@@ -1,0 +1,125 @@
+{
+  "id": "bonus-sverweis-produktnummer",
+  "title": "Preis zur Produktnummer holen",
+  "level": "anfaenger",
+  "category": "verweisfunktionen",
+  "description": "Nutze SVERWEIS, um zu einer Produktnummer automatisch den passenden Preis aus einer Preisliste zu holen.",
+  "funktion": "SVERWEIS",
+  "kurz": "Hol zu einer Nummer automatisch den passenden Wert aus einer Liste.",
+  "erfolgTipp": "Tipp: Gewöhn dir FALSCH als letztes Argument an – dann findet SVERWEIS nur exakte Treffer.",
+  "task": {
+    "intro": "Hol den Preis zur gesuchten Produktnummer aus der Preisliste.",
+    "steps": [
+      "Trage in Zelle B10 eine SVERWEIS-Formel ein, die den Preis zur Produktnummer in B9 ermittelt."
+    ]
+  },
+  "grid": {
+    "cols": [
+      "A",
+      "B",
+      "C"
+    ],
+    "rowCount": 10,
+    "cells": {
+      "A1": {
+        "value": "Produktnr.",
+        "type": "header"
+      },
+      "B1": {
+        "value": "Produkt",
+        "type": "header"
+      },
+      "C1": {
+        "value": "Preis",
+        "type": "header"
+      },
+      "A2": {
+        "value": 3050
+      },
+      "B2": {
+        "value": "Druckerpapier A4"
+      },
+      "C2": {
+        "value": 24.9,
+        "format": "currency"
+      },
+      "A3": {
+        "value": 1020
+      },
+      "B3": {
+        "value": "Kugelschreiber (10 Stück)"
+      },
+      "C3": {
+        "value": 6.49,
+        "format": "currency"
+      },
+      "A4": {
+        "value": 4710
+      },
+      "B4": {
+        "value": "Aktenordner"
+      },
+      "C4": {
+        "value": 3.99,
+        "format": "currency"
+      },
+      "A5": {
+        "value": 2080
+      },
+      "B5": {
+        "value": "Tacker"
+      },
+      "C5": {
+        "value": 14.9,
+        "format": "currency"
+      },
+      "A6": {
+        "value": 5030
+      },
+      "B6": {
+        "value": "Haftnotizen"
+      },
+      "C6": {
+        "value": 4.79,
+        "format": "currency"
+      },
+      "A7": {
+        "value": 1540
+      },
+      "B7": {
+        "value": "Locher"
+      },
+      "C7": {
+        "value": 12.5,
+        "format": "currency"
+      },
+      "A9": {
+        "value": "Produktnr.:"
+      },
+      "B9": {
+        "value": 2080
+      },
+      "A10": {
+        "value": "Preis:"
+      },
+      "B10": {
+        "type": "input",
+        "answer": {
+          "value": 14.9,
+          "tolerance": 0.005,
+          "acceptedFormulas": [
+            "=SVERWEIS(B9;A2:C7;3;FALSCH)"
+          ]
+        }
+      }
+    }
+  },
+  "hints": [
+    "SVERWEIS-Aufbau: =SVERWEIS(Suchkriterium; Matrix; Spaltenindex; [Bereich_Verweis])",
+    "Das Suchkriterium ist die Zelle mit der Produktnummer. Die Matrix beginnt mit der Spalte, in der gesucht wird – hier mit den Produktnummern.",
+    "Der Spaltenindex zählt ab der ersten Spalte der Matrix: Produktnr. = 1, Produkt = 2, Preis = 3.",
+    "Du bekommst #NV, obwohl die Nummer in der Liste steht? Dann fehlt das letzte Argument. Ohne FALSCH sucht SVERWEIS nur ungefähr und erwartet eine aufsteigend sortierte Liste – diese hier ist aber nicht sortiert. FALSCH (oder 0) erzwingt die exakte Suche."
+  ],
+  "explanation": "SVERWEIS(B9;A2:C7;3;FALSCH) sucht die Produktnummer aus B9 in der ersten Spalte von A2:C7 und gibt den Wert aus der 3. Spalte derselben Zeile zurück – den Preis des Tackers, 14,90 €. Das vierte Argument wird oft vergessen: Ohne FALSCH sucht SVERWEIS ungefähr und liefert bei einer unsortierten Liste #NV oder sogar einen falschen Preis, ohne dass es auffällt. Für Nummern, Namen und Codes deshalb immer FALSCH angeben.",
+  "solution": "=SVERWEIS(B9;A2:C7;3;FALSCH)"
+}

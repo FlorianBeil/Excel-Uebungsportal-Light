@@ -1,5 +1,42 @@
 {
   "vollversionUrl": "https://go.excel-flo.de/master-kurs-hp/?utm_source=shop&utm_medium=referral&utm_campaign=evergreen&utm_content=startseite",
-  "vollversionText": "Im Excel Master Kurs erwarten dich mehr als 40 Übungen zu Excel-Funktionen und Pivot-Tabellen.",
-  "vollversionButton": "Zum Excel Master Kurs →"
+  "vollversionText": "Das komplette Portal ist Teil des Excel Master Kurses.",
+  "vollversionButton": "Excel Master Kurs ansehen",
+  "webinarHinweis": "",
+
+  "_abschlussKarten": "Gesperrte Kurs-Übungen, die auf der Abschlussseite als Ausblick erscheinen (IDs aus daten/uebersicht.json). Unbekannte IDs werden übersprungen.",
+  "abschlussKarten": [
+    "xverweis-mitarbeiterdaten",
+    "sverweis-preisliste",
+    "pivot-kurs-umsatz-je-quartal",
+    "wenn-verschachtelt-bonusstufe",
+    "pivot-kurs-top5-umsatzstaerkste-kunden",
+    "sortieren-eindeutig-filter-kunden"
+  ],
+
+  "_miniKurs": "Dunkelgrüner Block auf der Abschlussseite. Erscheint erst, wenn url ausgefüllt ist. zeitText: {zeit} wird durch die gemessene Zeit ersetzt (fett); fehlt die Zeit, steht zeitTextOhneZeit da. merkmale.icon: play | lupe | haken. video.url: eigene Videodatei im Repo (z. B. assets/video/fall.mp4), MP4-Link (https://…) oder YouTube-/Vimeo-Link; leer = keine Videokachel. video.poster: Vorschaubild (optional).",
+  "miniKurs": {
+    "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo",
+    "preis": "49 €",
+    "etikett": "Dein nächster Schritt",
+    "titel": "Arbeite deutlich schneller – mit meinem Shortcut-Turbo",
+    "zeitText": "Du hast {zeit} gebraucht. Mit Shortcuts geht das schneller.",
+    "zeitTextOhneZeit": "Mit Shortcuts geht das deutlich schneller.",
+    "text": "",
+    "merkmale": [
+      { "icon": "play", "text": "17 Kurzvideos" },
+      { "icon": "lupe", "text": "1 Excel-Krimi" },
+      { "icon": "haken", "text": "49 Missionen" }
+    ],
+    "tasten": ["Strg", "↓"],
+    "tastenText": "10.000 Zeilen in einer Sekunde",
+    "button": "Zum Shortcut-Turbo",
+    "hinweis": "Einmalzahlung · wird auf den Master-Kurs angerechnet",
+    "video": {
+      "url": "https://youtu.be/gjvfRexcuUU",
+      "poster": "",
+      "label": "Der Fall · 0:30",
+      "titel": "Die Smaragd-Orchidee ist verschwunden"
+    }
+  }
 }

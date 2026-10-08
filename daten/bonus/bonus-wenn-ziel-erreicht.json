@@ -1,0 +1,104 @@
+{
+  "id": "bonus-wenn-ziel-erreicht",
+  "title": "Ziel erreicht: ja oder nein?",
+  "level": "anfaenger",
+  "category": "logikfunktionen",
+  "description": "Nutze die WENN-Funktion, um für jede Region automatisch zu prüfen, ob sie ihr Umsatzziel erreicht hat.",
+  "funktion": "WENN",
+  "kurz": "Lass Excel je nach Bedingung einen von zwei Texten anzeigen.",
+  "erfolgTipp": "Tipp: Am PC kopierst du die Formel mit Strg + D in die Zeilen darunter.",
+  "task": {
+    "intro": "Hat jede Region ihr Umsatzziel erreicht? Das Ziel gilt als erreicht, wenn der Umsatz mindestens so hoch ist wie das Ziel. Dann soll „Ja“ erscheinen, sonst „Nein“.",
+    "steps": [
+      "Trage in Zelle D2 eine WENN-Formel ein, die für die erste Region „Ja“ oder „Nein“ anzeigt."
+    ]
+  },
+  "grid": {
+    "cols": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "rowCount": 5,
+    "cells": {
+      "A1": {
+        "value": "Region",
+        "type": "header"
+      },
+      "B1": {
+        "value": "Umsatz",
+        "type": "header"
+      },
+      "C1": {
+        "value": "Ziel",
+        "type": "header"
+      },
+      "D1": {
+        "value": "Ziel erreicht?",
+        "type": "header"
+      },
+      "A2": {
+        "value": "Ost"
+      },
+      "B2": {
+        "value": 2450,
+        "format": "currency0"
+      },
+      "C2": {
+        "value": 2450,
+        "format": "currency0"
+      },
+      "D2": {
+        "type": "input",
+        "answer": {
+          "value": "Ja",
+          "acceptedFormulas": [
+            "=WENN(B2>=C2;\"Ja\";\"Nein\")"
+          ]
+        }
+      },
+      "A3": {
+        "value": "Nord"
+      },
+      "B3": {
+        "value": 8595,
+        "format": "currency0"
+      },
+      "C3": {
+        "value": 8000,
+        "format": "currency0"
+      },
+      "A4": {
+        "value": "Süd"
+      },
+      "B4": {
+        "value": 3750,
+        "format": "currency0"
+      },
+      "C4": {
+        "value": 4000,
+        "format": "currency0"
+      },
+      "A5": {
+        "value": "West"
+      },
+      "B5": {
+        "value": 5270,
+        "format": "currency0"
+      },
+      "C5": {
+        "value": 5000,
+        "format": "currency0"
+      }
+    }
+  },
+  "hints": [
+    "WENN-Aufbau: =WENN(Prüfung; [Dann_Wert]; [Sonst_Wert]) – prüft eine Bedingung und gibt je nach Ergebnis einen von zwei Werten zurück.",
+    "Vergleiche in der Prüfung den Umsatz mit dem Ziel derselben Zeile.",
+    "Schau dir die Zahlen in Zeile 2 genau an: Umsatz und Ziel sind gleich hoch. „Mindestens so hoch“ heißt größer oder gleich, also >=. Mit > allein stünde dort fälschlich „Nein“.",
+    "Text in einer Formel muss in Anführungszeichen stehen, z. B. \"Ja\"."
+  ],
+  "explanation": "WENN(B2>=C2;\"Ja\";\"Nein\") prüft, ob der Umsatz in B2 größer oder gleich dem Ziel in C2 ist. Trifft das zu, erscheint „Ja“, sonst „Nein“. Die Region Ost zeigt, warum >= statt > wichtig ist: Wer das Ziel genau trifft, hat es erreicht. Weil die Formel relative Bezüge nutzt, passt sie sich beim Kopieren nach unten automatisch an jede Zeile an.",
+  "solution": "=WENN(B2>=C2;\"Ja\";\"Nein\")"
+}

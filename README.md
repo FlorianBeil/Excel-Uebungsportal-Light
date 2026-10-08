@@ -2,8 +2,9 @@
 
 Kostenlose Light-Version des Übungsportals zu Excel-Funktionen. Gedacht als nächster Schritt
 nach der [kostenlosen Übungsseite](https://github.com/FlorianBeil/Excel-Uebungen-kostenlos):
-je Stufe (Anfänger, Fortgeschritten, Profi) sind **zwei** Funktionen-Übungen frei – bewusst keine, die
-schon auf der kostenlosen Seite vorkommt –, dazu unter Fortgeschritten eine Pivot-Aufgabe.
+frei sind **fünf** eigens geschriebene Bonus-Übungen (MAX, ZÄHLENWENN, WENN, SVERWEIS, Pivot-Tabelle),
+alle unter Anfänger in fester Reihenfolge – bewusst keine, die schon auf der kostenlosen Seite oder im
+Kaufportal vorkommt. Die Formel-Übungen liegen in `daten/bonus/`, die Pivot-Aufgabe in `daten/pivot-aufgabe.json`.
 Die Übungen des Pivot-Kurses erscheinen als gesperrte Karten in ihrer jeweiligen Stufe.
 Alle weiteren Übungen sind ausgegraut und verlinken auf die Vollversion.
 
@@ -15,16 +16,16 @@ hier gar nicht als Datei vor – nur Titel und Beschreibung für die Übersicht.
 
 | Pfad | Inhalt |
 |---|---|
-| `index.html` | Übersicht mit Stufen-Tabs, freien und gesperrten Karten |
-| `uebung.html` | Übungsseite für Formel-Übungen (nutzt die Portal-Engine unverändert) |
-| `pivot-uebung.html` | Übungsseite für Pivot-Aufgaben (`assets/seite/pivot-seite.js`), bettet `pivot.html` ein |
+| `index.html` | Übersicht: Weg durch die 5 Bonus-Übungen, darunter gesperrte Kurs-Übungen mit Stufen-Tabs; sind alle gelöst, Abschluss mit Zeit und Angebot |
+| `uebung.html` | Übungsseite für Formel- und Pivot-Übungen („Übung 3 von 5“, Weiter-Knopf; Tabelle aus der Portal-Engine, am Handy mit eigenem Formelfeld) |
+| `pivot-uebung.html` | Nur noch Weiterleitung auf `uebung.html` (alte Adresse) |
 | `pivot.html`, `assets/pivot/datensatz.js` | Pivot-Nachbau – **erzeugt** aus der kostenlosen Seite, nicht von Hand ändern |
 | `daten/pivot-aufgabe.json` | Die Pivot-Aufgabe (Text, Tipps, Lösung, Prüfregel, Bauplan der Beispieldaten) |
-| `daten/konfiguration.json` | `vollversionUrl` – Ziel der Upgrade-Links, **von Hand pflegen** |
+| `daten/konfiguration.json` | **Von Hand pflegen:** Link und Texte zur Vollversion, Auswahl gesperrter Karten auf der Abschlussseite, Mini-Kurs-Angebot (erscheint erst, wenn `miniKurs.url` ausgefüllt ist) |
 | `daten/uebersicht.json` | Alle Übungen mit `frei: true/false` – **erzeugt** |
 | `daten/uebungen/` | Die freien Übungen + `manifest.json` (nur freie) – **erzeugt** |
 | `assets/geteilt/` | **Kopie** der geteilten Logik aus dem Portal – nicht von Hand ändern |
-| `assets/seite/` | `uebersicht.js` (Übersicht), `fortschritt.js` (Fortschritt im Browser, Tracking als `light`), `seite.css` |
+| `assets/seite/` | `bonus.js` (gemeinsame Helfer), `uebersicht.js`, `uebung.js`, `fortschritt.js` (Fortschritt + Zeit im Browser, Tracking als `light`), `seite.css` |
 | `supabase/light.sql` | Tracking-Bereich `light` in Supabase freischalten |
 
 ## Wartung
@@ -36,6 +37,8 @@ hier gar nicht als Datei vor – nur Titel und Beschreibung für die Übersicht.
 - **Freie Übungen austauschen:** Liste `FREIE_UEBUNGEN` oben in `skripte/geteilt-aktualisieren.js`
   ändern, dann Skript erneut ausführen. Pivot-Aufgaben beginnen mit `pivot-` und stehen in
   `daten/pivot-aufgabe.json` (bisher unterstützt die Seite genau eine Pivot-Aufgabe).
+  Eigene Bonus-Übungen beginnen mit `bonus-` und liegen als Übungsdatei in `daten/bonus/`
+  (gleiches Format wie im Portal); das Skript kopiert sie nach `daten/uebungen/`.
 - **Pivot-Nachbau aktualisieren:** `node skripte/pivot-uebernehmen.js` – holt `pivot.html` vom
   veröffentlichten Stand der kostenlosen Seite und stellt nur die Datenquelle um.
 

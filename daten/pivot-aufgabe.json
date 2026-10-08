@@ -1,48 +1,122 @@
 {
   "aufgaben": [
     {
-      "id": "pivot-anteil-land-an-region",
+      "id": "pivot-umsatz-je-region-und-monat",
       "typ": "pivot",
-      "level": "fortgeschritten",
+      "level": "anfaenger",
       "category": "pivot-tabellen",
-      "title": "Anteil jedes Landes am Umsatz seiner Region",
-      "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
+      "title": "Umsatz je Region und Monat auswerten",
+      "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige auf einen Blick, wie viel jede Region in jedem Monat umgesetzt hat.",
+      "funktion": "Pivot-Tabelle",
+      "kurz": "Fasse hunderte Zeilen mit wenigen Klicks zu einer Übersicht zusammen.",
+      "erfolgTipp": "Tipp: Ändern sich die Daten, reicht ein Klick auf „Aktualisieren“ – die Pivot-Tabelle rechnet alles neu.",
       "task": {
-        "intro": "Du hast eine Tabelle mit Tagesumsätzen aus 2025 und 2026 (Spalten: Datum, Region, Land, Kunde, Umsatz). Ermittle mit einer Pivot-Tabelle, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt – nicht zum Gesamtumsatz aller Regionen.",
+        "intro": "Du hast eine Tabelle mit allen Tagesumsätzen aus 2026 (Spalten: Datum, Region, Kunde, Umsatz). Erstelle eine Pivot-Tabelle, die den Umsatz je Region und Monat zeigt.",
         "steps": [
-          "Erstelle eine Pivot-Tabelle, die die Regionen mit ihren Ländern als Gliederung zeigt.",
-          "Zeige den Umsatz jedes Landes als Prozentanteil an seiner Region."
+          "Erstelle eine Pivot-Tabelle, in der du für jede Region den Umsatz jedes Monats ablesen kannst."
         ]
       },
       "datensatz": {
-        "seed": 20260101,
-        "vonDatum": "2025-01-01",
+        "_hinweis": "Nur ein Jahr, damit die Gruppierung nach Monat eindeutig ist. Das Feld Land erzeugt datensatz.js immer – es steht nicht in felder und erscheint deshalb nicht in der Feldliste.",
+        "seed": 20261008,
+        "vonDatum": "2026-01-01",
         "bisDatum": "2026-12-31",
         "regionen": {
-          "DACH": { "basisUmsatz": 1200, "laender": ["Deutschland", "Österreich", "Schweiz"], "kunden": ["Alpenblick", "Bergmann", "Rheinwerk", "Schwarzwald", "Ostwind", "Alpenhof"] },
-          "Benelux": { "basisUmsatz": 850, "laender": ["Niederlande", "Belgien", "Luxemburg"], "kunden": ["Delta", "Fjord", "Polderwerk", "Rotterdam", "Grachten", "Tulpen"] },
-          "Nordics": { "basisUmsatz": 950, "laender": ["Schweden", "Dänemark", "Norwegen", "Finnland"], "kunden": ["Nordlicht", "Baltic", "Polarstern", "Mitternacht", "Rentier", "Aurora"] }
+          "Nord": {
+            "basisUmsatz": 1150,
+            "laender": [
+              "-"
+            ],
+            "kunden": [
+              "Hansekontor",
+              "Küstenwerk",
+              "Elbblick",
+              "Möwe & Co."
+            ]
+          },
+          "Süd": {
+            "basisUmsatz": 1300,
+            "laender": [
+              "-"
+            ],
+            "kunden": [
+              "Alpenblick",
+              "Isarwerk",
+              "Bergmann",
+              "Donautal"
+            ]
+          },
+          "Ost": {
+            "basisUmsatz": 800,
+            "laender": [
+              "-"
+            ],
+            "kunden": [
+              "Spreewerk",
+              "Elbsandstein",
+              "Ostwind",
+              "Lausitz"
+            ]
+          },
+          "West": {
+            "basisUmsatz": 1000,
+            "laender": [
+              "-"
+            ],
+            "kunden": [
+              "Rheinwerk",
+              "Ruhrkontor",
+              "Moselhof",
+              "Eifel"
+            ]
+          }
         },
         "felder": {
-          "Datum": { "icon": "📅", "type": "date" },
-          "Region": { "icon": "🌍", "type": "text" },
-          "Land": { "icon": "🏳️", "type": "text" },
-          "Kunde": { "icon": "🧑‍🤝‍🧑", "type": "text" },
-          "Umsatz": { "icon": "💰", "type": "number" }
+          "Datum": {
+            "icon": "📅",
+            "type": "date"
+          },
+          "Region": {
+            "icon": "🌍",
+            "type": "text"
+          },
+          "Kunde": {
+            "icon": "🧑‍🤝‍🧑",
+            "type": "text"
+          },
+          "Umsatz": {
+            "icon": "💰",
+            "type": "number"
+          }
         }
       },
       "hints": [
-        "Ziehe zuerst Region, dann Land in den Bereich Zeilen – beide zusammen, nicht Land allein.",
-        "Umsatz mit „Summe“ gehört in den Bereich Werte.",
-        "Rechtsklick auf eine Umsatz-Wertezelle → „Werte anzeigen als“ → „% vom übergeordneten Zeilenergebnis“. Nicht „% vom Gesamtergebnis“ – das wäre der Anteil am Umsatz aller Regionen."
+        "Region gehört in den Bereich Zeilen, Datum in den Bereich Spalten (oder umgekehrt – beides ist richtig).",
+        "Das Datum musst du nicht selbst umrechnen: Die Pivot-Tabelle gruppiert es automatisch nach Monaten.",
+        "Umsatz mit „Summe“ gehört in den Bereich Werte."
       ],
-      "explanation": "Mit Region und Land in „Zeilen“ entsteht eine Gliederung: Jede Region ist das übergeordnete Element ihrer Länder. „% vom übergeordneten Zeilenergebnis“ teilt den Umsatz jedes Landes durch die Summe seiner Region – die Länder einer Region ergeben zusammen also immer 100 %.",
-      "solution": "Region und darunter Land → Bereich „Zeilen“, Umsatz → Bereich „Werte“ (Summe), dann Rechtsklick auf einen Wert → „Werte anzeigen als“ → „% vom übergeordneten Zeilenergebnis“",
+      "explanation": "Mit Region in „Zeilen“ und Datum in „Spalten“ entsteht eine Kreuztabelle: Jede Zeile ist eine Region, jede Spalte ein Monat, und in jeder Zelle steht der summierte Umsatz. Die 365 Tageswerte gruppiert die Pivot-Tabelle dabei automatisch nach Monaten – ganz ohne Formel. Die Gesamtergebnisse am Rand zeigen zusätzlich den Jahresumsatz je Region und den Umsatz je Monat über alle Regionen.",
+      "solution": "Region → Bereich „Zeilen“, Datum → Bereich „Spalten“ (nach Monat gruppiert), Umsatz → Bereich „Werte“ (Summe)",
       "loesungPruefung": {
-        "rows": ["Region", "Land"],
-        "columns": [],
+        "rows": [
+          "Region"
+        ],
+        "columns": [
+          "Datum"
+        ],
         "filter": [],
-        "values": [{ "field": "Umsatz", "agg": "Summe", "showAs": "percentOfParentRow" }]
+        "values": [
+          {
+            "field": "Umsatz",
+            "agg": "Summe"
+          }
+        ],
+        "rowsColsInterchangeable": true,
+        "dateGroupLevels": {
+          "Datum": [
+            "monat"
+          ]
+        }
       }
     }
   ]

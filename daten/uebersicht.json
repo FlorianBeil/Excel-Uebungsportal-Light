@@ -1,20 +1,62 @@
 [
   {
-    "id": "mittelwert-noten",
-    "title": "Notendurchschnitt berechnen",
+    "id": "bonus-max-einzelumsatz",
+    "title": "Höchsten Einzelumsatz finden",
     "level": "anfaenger",
     "category": "grundfunktionen",
-    "description": "Nutze die MITTELWERT-Funktion, um den Durchschnitt mehrerer Werte zu berechnen.",
+    "description": "Nutze die MAX-Funktion, um aus einer Liste von Aufträgen den größten Umsatz herauszusuchen.",
+    "funktion": "MAX",
+    "kurz": "Finde mit einer Formel den größten Wert in einer Liste.",
+    "erfolgTipp": "Tipp: Das Gegenstück heißt MIN – es liefert den kleinsten Wert.",
     "typ": "formel",
     "frei": true
   },
   {
-    "id": "wenn-bestanden",
-    "title": "Bestanden oder nicht bestanden?",
+    "id": "bonus-zaehlenwenn-region-nord",
+    "title": "Aufträge aus der Region Nord zählen",
+    "level": "anfaenger",
+    "category": "bedingungsfunktionen",
+    "description": "Nutze ZÄHLENWENN, um nur die Zeilen zu zählen, die eine bestimmte Bedingung erfüllen.",
+    "funktion": "ZÄHLENWENN",
+    "kurz": "Zähle nur die Zeilen, die eine Bedingung erfüllen.",
+    "erfolgTipp": "Tipp: Mit ZÄHLENWENNS prüfst du mehrere Bedingungen auf einmal, z. B. Region Nord und Umsatz über 2.000 €.",
+    "typ": "formel",
+    "frei": true
+  },
+  {
+    "id": "bonus-wenn-ziel-erreicht",
+    "title": "Ziel erreicht: ja oder nein?",
     "level": "anfaenger",
     "category": "logikfunktionen",
-    "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen.",
+    "description": "Nutze die WENN-Funktion, um für jede Region automatisch zu prüfen, ob sie ihr Umsatzziel erreicht hat.",
+    "funktion": "WENN",
+    "kurz": "Lass Excel je nach Bedingung einen von zwei Texten anzeigen.",
+    "erfolgTipp": "Tipp: Am PC kopierst du die Formel mit Strg + D in die Zeilen darunter.",
     "typ": "formel",
+    "frei": true
+  },
+  {
+    "id": "bonus-sverweis-produktnummer",
+    "title": "Preis zur Produktnummer holen",
+    "level": "anfaenger",
+    "category": "verweisfunktionen",
+    "description": "Nutze SVERWEIS, um zu einer Produktnummer automatisch den passenden Preis aus einer Preisliste zu holen.",
+    "funktion": "SVERWEIS",
+    "kurz": "Hol zu einer Nummer automatisch den passenden Wert aus einer Liste.",
+    "erfolgTipp": "Tipp: Gewöhn dir FALSCH als letztes Argument an – dann findet SVERWEIS nur exakte Treffer.",
+    "typ": "formel",
+    "frei": true
+  },
+  {
+    "id": "pivot-umsatz-je-region-und-monat",
+    "title": "Umsatz je Region und Monat auswerten",
+    "level": "anfaenger",
+    "category": "pivot-tabellen",
+    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige auf einen Blick, wie viel jede Region in jedem Monat umgesetzt hat.",
+    "funktion": "Pivot-Tabelle",
+    "kurz": "Fasse hunderte Zeilen mit wenigen Klicks zu einer Übersicht zusammen.",
+    "erfolgTipp": "Tipp: Ändern sich die Daten, reicht ein Klick auf „Aktualisieren“ – die Pivot-Tabelle rechnet alles neu.",
+    "typ": "pivot",
     "frei": true
   },
   {
@@ -23,6 +65,14 @@
     "level": "anfaenger",
     "category": "grundfunktionen",
     "description": "Nutze die SUMME-Funktion, um mehrere Werte auf einmal zu addieren.",
+    "frei": false
+  },
+  {
+    "id": "mittelwert-noten",
+    "title": "Notendurchschnitt berechnen",
+    "level": "anfaenger",
+    "category": "grundfunktionen",
+    "description": "Nutze die MITTELWERT-Funktion, um den Durchschnitt mehrerer Werte zu berechnen.",
     "frei": false
   },
   {
@@ -47,6 +97,14 @@
     "level": "anfaenger",
     "category": "zellbezüge",
     "description": "Nutze einen absoluten Zellbezug, damit eine feste Zelle beim Kopieren nicht verrutscht.",
+    "frei": false
+  },
+  {
+    "id": "wenn-bestanden",
+    "title": "Bestanden oder nicht bestanden?",
+    "level": "anfaenger",
+    "category": "logikfunktionen",
+    "description": "Nutze die WENN-Funktion, um je nach Bedingung einen von zwei Texten anzuzeigen.",
     "frei": false
   },
   {
@@ -114,24 +172,6 @@
     "frei": false
   },
   {
-    "id": "textvor-textnach-email",
-    "title": "E-Mail-Adresse zerlegen",
-    "level": "fortgeschritten",
-    "category": "textfunktionen",
-    "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen.",
-    "typ": "formel",
-    "frei": true
-  },
-  {
-    "id": "pivot-anteil-land-an-region",
-    "title": "Anteil jedes Landes am Umsatz seiner Region",
-    "level": "fortgeschritten",
-    "category": "pivot-tabellen",
-    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
-    "typ": "pivot",
-    "frei": true
-  },
-  {
     "id": "wenn-verschachtelt-notenskala",
     "title": "Notenskala mit verschachtelter WENN-Funktion",
     "level": "fortgeschritten",
@@ -196,6 +236,14 @@
     "frei": false
   },
   {
+    "id": "textvor-textnach-email",
+    "title": "E-Mail-Adresse zerlegen",
+    "level": "fortgeschritten",
+    "category": "textfunktionen",
+    "description": "Nutze TEXTVOR und TEXTNACH, um eine E-Mail-Adresse am @-Zeichen zu zerlegen.",
+    "frei": false
+  },
+  {
     "id": "sverweis-preisliste",
     "title": "Finde den passenden Preis",
     "level": "fortgeschritten",
@@ -249,17 +297,7 @@
     "level": "profi",
     "category": "verweisfunktionen",
     "description": "Nutze XVERWEIS, um anhand des Namens die zugehörigen Daten zu finden – auch wenn die Suchspalte nicht ganz links steht.",
-    "typ": "formel",
-    "frei": true
-  },
-  {
-    "id": "wenn-verschachtelt-bonusstufe",
-    "title": "Bonusstufe mit verschachtelter WENN-Funktion ermitteln",
-    "level": "profi",
-    "category": "logikfunktionen",
-    "description": "Ermittle mit einer verschachtelten WENN-Funktion eine Bonusstufe, bei der zwei Bedingungen gleichzeitig erfüllt sein müssen.",
-    "typ": "formel",
-    "frei": true
+    "frei": false
   },
   {
     "id": "summenprodukt-gesamtwert",
@@ -267,6 +305,14 @@
     "level": "profi",
     "category": "matrixfunktionen",
     "description": "Nutze SUMMENPRODUKT, um Menge und Preis zeilenweise zu multiplizieren und aufzusummieren – mit und ohne Bedingung.",
+    "frei": false
+  },
+  {
+    "id": "wenn-verschachtelt-bonusstufe",
+    "title": "Bonusstufe mit verschachtelter WENN-Funktion ermitteln",
+    "level": "profi",
+    "category": "logikfunktionen",
+    "description": "Ermittle mit einer verschachtelten WENN-Funktion eine Bonusstufe, bei der zwei Bedingungen gleichzeitig erfüllt sein müssen.",
     "frei": false
   },
   {
@@ -291,6 +337,14 @@
     "level": "profi",
     "category": "matrixfunktionen",
     "description": "Nutze EINDEUTIG, SORTIEREN und FILTER, um eine Kundenliste zu bereinigen, zu sortieren und gezielt zu filtern.",
+    "frei": false
+  },
+  {
+    "id": "pivot-kurs-anteil-land-an-region",
+    "title": "Anteil jedes Landes am Umsatz seiner Region",
+    "level": "profi",
+    "category": "pivot-tabellen",
+    "description": "Zeige, wie viel Prozent jedes Land zum Umsatz seiner eigenen Region beiträgt.",
     "frei": false
   },
   {

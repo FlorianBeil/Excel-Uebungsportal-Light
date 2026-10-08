@@ -1,0 +1,159 @@
+{
+  "id": "bonus-max-einzelumsatz",
+  "title": "Höchsten Einzelumsatz finden",
+  "level": "anfaenger",
+  "category": "grundfunktionen",
+  "description": "Nutze die MAX-Funktion, um aus einer Liste von Aufträgen den größten Umsatz herauszusuchen.",
+  "funktion": "MAX",
+  "kurz": "Finde mit einer Formel den größten Wert in einer Liste.",
+  "erfolgTipp": "Tipp: Das Gegenstück heißt MIN – es liefert den kleinsten Wert.",
+  "task": {
+    "intro": "Was war der höchste Einzelumsatz? Ermittle ihn mit der MAX-Funktion.",
+    "steps": [
+      "Trage in Zelle C12 eine Formel ein, die den höchsten Umsatz ermittelt."
+    ]
+  },
+  "grid": {
+    "cols": [
+      "A",
+      "B",
+      "C"
+    ],
+    "rowCount": 12,
+    "cells": {
+      "A1": {
+        "value": "Auftrag",
+        "type": "header"
+      },
+      "B1": {
+        "value": "Region",
+        "type": "header"
+      },
+      "C1": {
+        "value": "Umsatz",
+        "type": "header"
+      },
+      "A2": {
+        "value": "A-1001"
+      },
+      "B2": {
+        "value": "Nord"
+      },
+      "C2": {
+        "value": 1240,
+        "format": "currency0"
+      },
+      "A3": {
+        "value": "A-1002"
+      },
+      "B3": {
+        "value": "Süd"
+      },
+      "C3": {
+        "value": 860,
+        "format": "currency0"
+      },
+      "A4": {
+        "value": "A-1003"
+      },
+      "B4": {
+        "value": "West"
+      },
+      "C4": {
+        "value": 2150,
+        "format": "currency0"
+      },
+      "A5": {
+        "value": "A-1004"
+      },
+      "B5": {
+        "value": "Nord"
+      },
+      "C5": {
+        "value": 3480,
+        "format": "currency0"
+      },
+      "A6": {
+        "value": "A-1005"
+      },
+      "B6": {
+        "value": "Ost"
+      },
+      "C6": {
+        "value": 970,
+        "format": "currency0"
+      },
+      "A7": {
+        "value": "A-1006"
+      },
+      "B7": {
+        "value": "Süd"
+      },
+      "C7": {
+        "value": 2890,
+        "format": "currency0"
+      },
+      "A8": {
+        "value": "A-1007"
+      },
+      "B8": {
+        "value": "Nord"
+      },
+      "C8": {
+        "value": 1615,
+        "format": "currency0"
+      },
+      "A9": {
+        "value": "A-1008"
+      },
+      "B9": {
+        "value": "West"
+      },
+      "C9": {
+        "value": 3120,
+        "format": "currency0"
+      },
+      "A10": {
+        "value": "A-1009"
+      },
+      "B10": {
+        "value": "Ost"
+      },
+      "C10": {
+        "value": 1480,
+        "format": "currency0"
+      },
+      "A11": {
+        "value": "A-1010"
+      },
+      "B11": {
+        "value": "Nord"
+      },
+      "C11": {
+        "value": 2260,
+        "format": "currency0"
+      },
+      "A12": {
+        "value": "Höchster Umsatz"
+      },
+      "C12": {
+        "type": "input",
+        "answer": {
+          "value": 3480,
+          "tolerance": 0.5,
+          "acceptedFormulas": [
+            "=MAX(C2:C11)"
+          ]
+        }
+      }
+    }
+  },
+  "hints": [
+    "MAX-Aufbau: =MAX(Zahl1; [Zahl2]; …) – gibt die größte Zahl aus den angegebenen Zellen oder Bereichen zurück.",
+    "Wie bei SUMME kannst du einen ganzen Zellbereich angeben, statt jede Zelle einzeln aufzuzählen.",
+    "Nimm nur die Spalte mit den Umsätzen – Auftragsnummern und Regionen gehören nicht in die Formel.",
+    "Du kannst statt der Formel auch direkt das Ergebnis eintragen, z. B. 3480."
+  ],
+  "explanation": "MAX(C2:C11) durchsucht alle Umsätze im Bereich und gibt den größten zurück – hier 3.480 € aus Auftrag A-1004. Bei zehn Zeilen sieht man das noch mit bloßem Auge, bei tausend Zeilen nicht mehr. Das Gegenstück ist MIN: Es liefert den kleinsten Wert.",
+  "solution": "=MAX(C2:C11)"
+}
