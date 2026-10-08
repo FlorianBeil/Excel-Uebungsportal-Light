@@ -12,46 +12,8 @@
   --bonus-gesperrt: #E3EEE6;
   --bonus-radius: 14px;
   --bonus-schatten: 0 1px 2px rgba(11, 61, 34, 0.05), 0 6px 20px rgba(11, 61, 34, 0.06);
-  background-color: #CFE8D9;
-  background-image: none;
 }
 
-/* ---------- Hintergrund ----------
-   Wie in der Unternehmen-Demo: ruhiger Mint-Verlauf mit drei weichgezeichneten Farbflächen
-   und einem feinen Excel-Zellraster, bewusst ohne Animation. Markup: <div class="bg-anim"> in den HTML-Seiten. */
-.bg-anim {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  background: linear-gradient(180deg, #C9E5D4 0%, #CFE8D9 50%, #D4EADD 100%);
-}
-
-.bg-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.85;
-}
-
-.bg-blob--1 { width: 58vmax; height: 46vmax; left: -14vmax; top: -16vmax; background: #86CDA4; }
-.bg-blob--2 { width: 48vmax; height: 40vmax; right: -16vmax; top: 6vmax; background: #9CD3B3; }
-.bg-blob--3 { width: 52vmax; height: 38vmax; left: 22vmax; bottom: -22vmax; background: #6CC496; opacity: 0.55; }
-
-/* Excel-Raster: Spalte 96 px × Zeile 24 px, über die ganze Fläche */
-.bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(16, 124, 65, 0.13) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 124, 65, 0.13) 1px, transparent 1px);
-  background-size: 96px 24px;
-}
-
-@media print {
-  .bg-anim { display: none !important; }
-}
 
 /* ---------- Kopf ---------- */
 
