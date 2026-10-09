@@ -689,7 +689,7 @@ a.bonus-zeile.is-next:focus-visible {
 
 .bonus-video--hochkant.is-playing {
   /* Höhe begrenzt (auch auf kleinen Bildschirmen), Breite ergibt sich aus 9:16 */
-  height: min(440px, 70vh);
+  height: min(380px, 62vh);
   aspect-ratio: 9 / 16;
   min-height: 0;
   align-self: start;
