@@ -683,11 +683,13 @@ a.bonus-zeile.is-next:focus-visible {
 /* Hochformat-Video (YouTube-Shorts): beim Abspielen volle 9:16-Fläche, Spalte etwas breiter */
 @media (min-width: 641px) {
   .bonus-angebot--video:has(.bonus-video--hochkant.is-playing) {
-    grid-template-columns: 300px minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
   }
 }
 
 .bonus-video--hochkant.is-playing {
+  /* Höhe begrenzt (auch auf kleinen Bildschirmen), Breite ergibt sich aus 9:16 */
+  height: min(440px, 70vh);
   aspect-ratio: 9 / 16;
   min-height: 0;
   align-self: start;
@@ -1100,7 +1102,7 @@ a.bonus-zeile.is-next:focus-visible {
   }
 
   .bonus-video--hochkant.is-playing {
-    width: min(100%, 320px);
+    width: auto;
     justify-self: center;
   }
 
