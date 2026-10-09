@@ -282,7 +282,7 @@
     return {
       beimOeffnen() {
         if (iframe) return;
-        iframe = el("iframe", { class: "bonus-pivot", src: "pivot.html?v=4", title: "Pivot-Tabelle: " + a.title });
+        iframe = el("iframe", { class: "bonus-pivot", src: "pivot.html?v=5", title: "Pivot-Tabelle: " + a.title });
         iframe.addEventListener("load", () => {
           try {
             const doc = iframe.contentDocument;
@@ -296,7 +296,7 @@
               if (!karte || !blatt || window.innerWidth < 768 || !window.innerHeight) return;
               const rest = karte.getBoundingClientRect().height - iframe.getBoundingClientRect().height
                 + doc.body.getBoundingClientRect().height - blatt.getBoundingClientRect().height;
-              const hoehe = Math.max(380, Math.min(560, Math.floor(window.innerHeight - rest - 16)));
+              const hoehe = Math.max(340, Math.min(420, Math.floor(window.innerHeight - rest - 16)));
               doc.documentElement.style.setProperty("--blatt-hoehe", hoehe + "px");
               anpassen();
             };
@@ -307,6 +307,8 @@
             if (doc.fonts) doc.fonts.ready.then(einpassen);
             window.addEventListener("resize", einpassen);
             new ResizeObserver(anpassen).observe(doc.body);
+            // Erfolgsmeldung + „Weiter“ kommen nach dem Lösen dazu → Blatt entsprechend kleiner
+            new ResizeObserver(einpassen).observe(feedback.parentElement || feedback);
             doc.addEventListener("pointerdown", gestartet);
             doc.addEventListener("keydown", gestartet);
           } catch (e) {
