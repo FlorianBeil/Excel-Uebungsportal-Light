@@ -49,13 +49,13 @@
   },
   {
     "id": "pivot-umsatz-je-region-und-monat",
-    "title": "Umsatz je Region und Monat auswerten",
+    "title": "Umsatz je Monat auswerten",
     "level": "anfaenger",
     "category": "pivot-tabellen",
-    "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige auf einen Blick, wie viel jede Region in jedem Monat umgesetzt hat.",
+    "description": "Fasse die Tagesumsätze eines ganzen Jahres mit einer Pivot-Tabelle zu Monatsumsätzen zusammen.",
     "funktion": "Pivot-Tabelle",
-    "kurz": "Fasse hunderte Zeilen mit wenigen Klicks zu einer Übersicht zusammen.",
-    "erfolgTipp": "Tipp: Ändern sich die Daten, reicht ein Klick auf „Aktualisieren“ – die Pivot-Tabelle rechnet alles neu.",
+    "kurz": "Fasse 365 Tageswerte mit zwei Feldern zu 12 Monaten zusammen.",
+    "erfolgTipp": "Tipp: Ziehst du zusätzlich Region in den Bereich Spalten, siehst du den Umsatz je Region und Monat – ohne eine einzige Formel.",
     "typ": "pivot",
     "frei": true
   },

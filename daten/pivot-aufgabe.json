@@ -5,16 +5,14 @@
       "typ": "pivot",
       "level": "anfaenger",
       "category": "pivot-tabellen",
-      "title": "Umsatz je Region und Monat auswerten",
-      "description": "Werte eine Umsatztabelle mit einer Pivot-Tabelle aus und zeige auf einen Blick, wie viel jede Region in jedem Monat umgesetzt hat.",
+      "title": "Umsatz je Monat auswerten",
+      "description": "Fasse die Tagesumsätze eines ganzen Jahres mit einer Pivot-Tabelle zu Monatsumsätzen zusammen.",
       "funktion": "Pivot-Tabelle",
-      "kurz": "Fasse hunderte Zeilen mit wenigen Klicks zu einer Übersicht zusammen.",
-      "erfolgTipp": "Tipp: Ändern sich die Daten, reicht ein Klick auf „Aktualisieren“ – die Pivot-Tabelle rechnet alles neu.",
+      "kurz": "Fasse 365 Tageswerte mit zwei Feldern zu 12 Monaten zusammen.",
+      "erfolgTipp": "Tipp: Ziehst du zusätzlich Region in den Bereich Spalten, siehst du den Umsatz je Region und Monat – ohne eine einzige Formel.",
       "task": {
-        "intro": "Du hast eine Tabelle mit allen Tagesumsätzen aus 2026 (Spalten: Datum, Region, Kunde, Umsatz). Erstelle eine Pivot-Tabelle, die den Umsatz je Region und Monat zeigt.",
-        "steps": [
-          "Erstelle eine Pivot-Tabelle, in der du für jede Region den Umsatz jedes Monats ablesen kannst."
-        ]
+        "intro": "Du hast eine Tabelle mit allen Tagesumsätzen aus 2026 (Spalten: Datum, Region, Kunde, Umsatz). Erstelle eine Pivot-Tabelle, die zeigt, wie viel Umsatz in jedem Monat zusammengekommen ist.",
+        "steps": []
       },
       "datensatz": {
         "_hinweis": "Nur ein Jahr, damit die Gruppierung nach Monat eindeutig ist. Das Feld Land erzeugt datensatz.js immer – es steht nicht in felder und erscheint deshalb nicht in der Feldliste.",
@@ -91,19 +89,17 @@
         }
       },
       "hints": [
-        "Region gehört in den Bereich Zeilen, Datum in den Bereich Spalten (oder umgekehrt – beides ist richtig).",
-        "Das Datum musst du nicht selbst umrechnen: Die Pivot-Tabelle gruppiert es automatisch nach Monaten.",
-        "Umsatz mit „Summe“ gehört in den Bereich Werte."
+        "Du brauchst nur zwei Felder: Datum und Umsatz.",
+        "Ziehe Datum in den Bereich Zeilen. Die Tage musst du nicht selbst umrechnen – die Pivot-Tabelle fasst sie automatisch zu Monaten zusammen.",
+        "Ziehe Umsatz in den Bereich Werte (Summe)."
       ],
-      "explanation": "Mit Region in „Zeilen“ und Datum in „Spalten“ entsteht eine Kreuztabelle: Jede Zeile ist eine Region, jede Spalte ein Monat, und in jeder Zelle steht der summierte Umsatz. Die 365 Tageswerte gruppiert die Pivot-Tabelle dabei automatisch nach Monaten – ganz ohne Formel. Die Gesamtergebnisse am Rand zeigen zusätzlich den Jahresumsatz je Region und den Umsatz je Monat über alle Regionen.",
-      "solution": "Region → Bereich „Zeilen“, Datum → Bereich „Spalten“ (nach Monat gruppiert), Umsatz → Bereich „Werte“ (Summe)",
+      "explanation": "Mit Datum in „Zeilen“ und Umsatz in „Werte“ fasst die Pivot-Tabelle die 365 Tageswerte automatisch zu 12 Monaten zusammen und summiert den Umsatz je Monat – ganz ohne Formel. Das Gesamtergebnis unten zeigt den Jahresumsatz.",
+      "solution": "Datum → Bereich „Zeilen“ (wird automatisch nach Monat gruppiert), Umsatz → Bereich „Werte“ (Summe)",
       "loesungPruefung": {
         "rows": [
-          "Region"
-        ],
-        "columns": [
           "Datum"
         ],
+        "columns": [],
         "filter": [],
         "values": [
           {

@@ -282,13 +282,30 @@
     return {
       beimOeffnen() {
         if (iframe) return;
-        iframe = el("iframe", { class: "bonus-pivot", src: "pivot.html", title: "Pivot-Tabelle: " + a.title });
+        iframe = el("iframe", { class: "bonus-pivot", src: "pivot.html?v=4", title: "Pivot-Tabelle: " + a.title });
         iframe.addEventListener("load", () => {
           try {
             const doc = iframe.contentDocument;
             // Höhe folgt dem Inhalt (gleiche Herkunft) – keine zweite Scrollleiste
             const anpassen = () => (iframe.style.height = Math.ceil(doc.body.getBoundingClientRect().height) + "px");
+            // Am PC soll die ganze Übung (Text, Tabelle, Prüfen, Tipps) ohne Scrollen auf den
+            // Bildschirm passen: Arbeitsblatt + Feldliste bekommen die Höhe, die übrig bleibt
+            const einpassen = () => {
+              const karte = iframe.closest(".frei-karte");
+              const blatt = doc.querySelector(".excel-body");
+              if (!karte || !blatt || window.innerWidth < 768 || !window.innerHeight) return;
+              const rest = karte.getBoundingClientRect().height - iframe.getBoundingClientRect().height
+                + doc.body.getBoundingClientRect().height - blatt.getBoundingClientRect().height;
+              const hoehe = Math.max(380, Math.min(560, Math.floor(window.innerHeight - rest - 16)));
+              doc.documentElement.style.setProperty("--blatt-hoehe", hoehe + "px");
+              anpassen();
+            };
             anpassen();
+            einpassen();
+            // Schriften und Feldliste stehen beim load noch nicht endgültig – danach nachmessen
+            setTimeout(einpassen, 400);
+            if (doc.fonts) doc.fonts.ready.then(einpassen);
+            window.addEventListener("resize", einpassen);
             new ResizeObserver(anpassen).observe(doc.body);
             doc.addEventListener("pointerdown", gestartet);
             doc.addEventListener("keydown", gestartet);

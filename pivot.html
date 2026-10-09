@@ -1680,6 +1680,17 @@
   a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, summary:focus-visible, #sheet-canvas:focus-visible { outline: 3px solid var(--excel-green); outline-offset: 2px; }
   #feedback.incorrect { color: #B42318; border-color: #B42318; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Bonus-Übungen (seit 2026-10-09): Übung soll ohne Scrollen auf den Bildschirm passen.
+     Die Höhe von Arbeitsblatt + Feldliste setzt die Übersicht über --blatt-hoehe
+     (assets/seite/aufgabe.js), der Rest ist etwas kompakter. */
+  #exercise-workspace { gap: 0.7rem; }
+  .sheet-wrap,
+  .pivot-fields-panel { max-height: var(--blatt-hoehe, 560px); }
+  .pivot-fields-panel__list { min-height: 0; }
+  .area-box__drop { min-height: 40px; }
+  .pf-search, .pf-subhead { display: none; } /* bei 4 Feldern überflüssig */
+  .card.data-source-card { padding: 0.55rem 1.1rem; }
 </style>
 </head>
 <body>
