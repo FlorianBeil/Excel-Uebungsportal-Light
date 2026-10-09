@@ -34,6 +34,20 @@
   text-decoration: none;
 }
 
+/* Grüner Kopfbalken (engine.css .site-header) wie auf der kostenlosen Seite; Badge darin hell */
+.bonus .site-header {
+  padding: 0.75rem 1.5rem;
+}
+
+.bonus .site-header .brand {
+  text-decoration: none;
+}
+
+.bonus .site-header .bonus-pille {
+  background: #fff;
+  color: var(--excel-green-dark);
+}
+
 .bonus-pille {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -851,6 +865,16 @@ a.bonus-zeile.is-next:focus-visible {
   box-shadow: var(--bonus-schatten);
 }
 
+/* Innere Rundungen passend zum äußeren Radius (14px − 1px Rahmen) – mit den 9px aus engine.css
+   überdeckten Bearbeitungsleiste und Tabelle an den Ecken den Rahmen, er wirkte unterbrochen */
+.bonus-arbeitsbereich .sheet-toolbar {
+  border-radius: calc(var(--bonus-radius) - 1px) calc(var(--bonus-radius) - 1px) 0 0;
+}
+
+.bonus-arbeitsbereich .sheet-scroll {
+  border-radius: 0 0 calc(var(--bonus-radius) - 1px) calc(var(--bonus-radius) - 1px);
+}
+
 .bonus-formelfeld label {
   display: block;
   margin-bottom: 0.4rem;
@@ -1058,5 +1082,249 @@ a.bonus-zeile.is-next:focus-visible {
 
   .bonus-angebot__aktion .bonus-btn {
     width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Übersicht mit aufgeklappter Übung (seit 2026-10-09, wie die kostenlose Übungsseite):
+   Kopfkarte ohne Button, darunter die Übungen als Liste – die aktuelle aufgeklappt
+   (links Text/Buttons/Tipps, rechts die Tabelle), die übrigen der Reihe nach freigeschaltet.
+   Gleiche Klassen und Regeln wie excel-uebungen-kostenlos/assets/seite/seite.css.
+   ========================================================================== */
+
+/* Kein Button rechts – die Karte wird schmaler; im Abschluss steht dort die Zeit */
+.frei-kopf {
+  padding: 1.35rem 1.6rem;
+}
+
+.frei-kopf .bonus-kopfkarte__text {
+  max-width: none;
+}
+
+#kopf-aktion:empty {
+  display: none;
+}
+
+.frei-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.frei-karte {
+  background: var(--surface);
+  border: 1px solid var(--bonus-rand);
+  border-radius: var(--bonus-radius);
+  scroll-margin-top: 1rem;
+}
+
+.frei-karte:focus {
+  outline: none;
+}
+
+/* Die offene Übung: grüner Rahmen um Text, Tabelle und Buttons */
+.frei-karte.is-aktiv {
+  border: 2px solid var(--excel-green);
+  box-shadow: var(--bonus-schatten);
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.frei-karte.is-erledigt:not(.is-offen) {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Noch nicht erreichbar: leicht ausgegraut, nicht klickbar */
+.frei-karte.is-gesperrt {
+  background: rgba(255, 255, 255, 0.5);
+  border-style: dashed;
+}
+
+.frei-zeile {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 1rem;
+  font: inherit;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--bonus-radius);
+  cursor: pointer;
+}
+
+/* display:flex würde sonst das hidden-Attribut überstimmen */
+.frei-zeile[hidden] {
+  display: none;
+}
+
+.frei-zeile:hover:not(:disabled) {
+  background: var(--excel-green-tint);
+}
+
+.frei-zeile:focus-visible {
+  outline: 3px solid rgba(16, 124, 65, 0.4);
+  outline-offset: 2px;
+}
+
+.frei-zeile:disabled {
+  cursor: default;
+  color: var(--text-muted);
+}
+
+.frei-karte.is-erledigt .bonus-nr {
+  background: var(--excel-green);
+  border-color: var(--excel-green);
+  color: #fff;
+}
+
+.frei-karte.is-gesperrt .bonus-nr {
+  border-color: #B9C9BF;
+  color: var(--text-muted);
+}
+
+.frei-zeile__titel {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.frei-zeile__nr {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.frei-zeile__status {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--excel-green-dark);
+}
+
+.frei-zeile__status:empty {
+  display: none;
+}
+
+.frei-karte.is-gesperrt .frei-zeile__status {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.frei-aufgabe__titel {
+  margin: 0.3rem 0 0;
+  font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+}
+
+/* Weiter-Bereich erst mit Inhalt (nach dem Lösen) – sonst bliebe unten ein leerer Abstand */
+.frei-karte .bonus-weiter:empty {
+  display: none;
+}
+
+.frei-karte .bonus-weiter {
+  justify-items: stretch;
+}
+
+/* Zugeklappt bleibt zugeklappt – auch wenn das Zwei-Spalten-Layout display:grid setzt */
+.frei-aufgabe__inhalt[hidden] {
+  display: none !important;
+}
+
+/* Buttons stehen außerhalb des Tabellen-Blocks (für das Zwei-Spalten-Layout) */
+.frei-teil-aktionen {
+  margin-top: 0.9rem;
+}
+
+/* Gelöst: nur noch Erklärung + „Weiter“ – Prüfen, Zurücksetzen, Tipps (und Handy-Formelfeld) weg */
+.frei-aufgabe__inhalt.is-geloest .frei-teil-aktionen,
+.frei-aufgabe__inhalt.is-geloest .bonus-tipps,
+.frei-aufgabe__inhalt.is-geloest .bonus-formelfeld {
+  display: none;
+}
+
+/* Handy/Tablet hochkant: Text → Tabelle → Prüfen/Zurücksetzen → Tipps → Erklärung/Weiter */
+@media (max-width: 767px) {
+  .frei-teil-unten {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .frei-teil-unten > .bonus-tipps { order: 1; }
+  .frei-teil-unten > .bonus-feedback { order: 2; }
+  .frei-teil-unten > .bonus-weiter { order: 3; }
+}
+
+/* Breite Bildschirme: Seite breiter, Übung in zwei Spalten (Pivot bleibt einspaltig) */
+@media (min-width: 900px) {
+  .bonus .bonus-main--liste {
+    max-width: 1120px;
+  }
+
+  /* Kopfkarte als eine Zeile: Überschrift links, Fortschritt rechts */
+  .frei-kopf .bonus-kopfkarte__text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+    column-gap: 2.5rem;
+    align-items: center;
+  }
+
+  .frei-kopf .bonus-kopfkarte__text > h1,
+  .frei-kopf .bonus-kopfkarte__text > p {
+    grid-column: 1;
+  }
+
+  .frei-kopf .frei-kopf__fortschritt {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .frei-kopf .bonus-fortschritt {
+    margin-top: 0;
+  }
+
+  .frei-aufgabe__inhalt.is-formel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-areas:
+      "kopf     tabelle"
+      "aktionen tabelle"
+      "unten    tabelle";
+    grid-template-rows: auto auto 1fr;
+    column-gap: 2rem;
+    align-items: start;
+  }
+
+  .is-formel > .frei-teil-kopf { grid-area: kopf; }
+  .is-formel > .frei-teil-tabelle { grid-area: tabelle; }
+  .is-formel > .frei-teil-aktionen { grid-area: aktionen; margin-top: 0.2rem; }
+  .is-formel > .frei-teil-unten { grid-area: unten; }
+
+  .is-formel .frei-teil-kopf .bonus-aufgabe {
+    margin-bottom: 0.9rem;
+  }
+
+  .is-formel .bonus-weiter .bonus-btn--voll {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .frei-kopf,
+  .frei-karte.is-aktiv {
+    padding: 1.1rem 1rem 1.25rem;
+  }
+
+  .frei-zeile {
+    padding: 0.75rem 0.85rem;
+    gap: 0.7rem;
   }
 }

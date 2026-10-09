@@ -1,14 +1,19 @@
-/* Excel.Flo Bonus-Übungen – Übersichtsseite (index.html)
+/* Excel.Flo Bonus-Übungen – Übersicht (index.html), aufgebaut wie die kostenlose Übungsseite
  *
- * Zwei Zustände:
- *  - unterwegs:   Kopfkarte mit Fortschritt und „Weiter mit Übung N“, die freien Übungen als
- *                 nummerierte Liste (geschafft / als nächstes / offen), darunter die gesperrten
- *                 Kurs-Übungen mit Stufen-Tabs.
- *  - abgeschlossen (alle freien gelöst): „5 von 5 geschafft“ mit Zeit, Mini-Kurs-Angebot
- *                 (nur wenn in daten/konfiguration.json eingetragen), geschaffte Übungen,
- *                 eine Auswahl gesperrter Übungen mit Link zur Vollversion.
+ * Unterwegs: Kopfkarte (Überschrift, Einleitung, „1 von 5 geschafft“ + Balken, kein Button),
+ * darunter die Übungen als Liste – die aktuelle ist sofort aufgeklappt (Inhalt aus aufgabe.js):
+ *  - gelöst:      schmale Zeile „✓ Gelöst“, per Klick aufklappbar (Erklärung „Schon gelöst“)
+ *  - freigeschaltet, noch offen: aufgeklappt (bzw. per Klick aufklappbar)
+ *  - gesperrt:    ausgegraute Zeile mit Schloss – der Reihe nach: Übung 2 erst nach Übung 1 usw.
+ * Es ist immer genau eine Übung offen; die Zeile gibt es nur im zugeklappten Zustand.
+ * Darunter die gesperrten Kurs-Übungen mit Stufen-Tabs.
  *
- * Daten: daten/uebersicht.json (erzeugt), daten/konfiguration.json (von Hand gepflegt)
+ * Abgeschlossen (alle gelöst): „5 von 5 geschafft“ mit Zeit, Mini-Kurs-Angebot (nur wenn in
+ * daten/konfiguration.json eingetragen), die gelösten Übungen als Zeilen zum Nachlesen,
+ * eine Auswahl gesperrter Übungen mit Link zur Vollversion.
+ *
+ * Daten: daten/uebersicht.json (erzeugt), daten/uebungen/<id>.json bzw. daten/pivot-aufgabe.json,
+ *        daten/konfiguration.json (von Hand gepflegt)
  */
 
 (function () {
@@ -17,16 +22,41 @@
   const B = window.ExcelFloBonus;
   const { el } = B;
   const STUFE = "Stufe 2"; // Stufe 1 = die kostenlose Übungsseite
+  const reduzierteBewegung = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const SCHLOSS_SVG = B.LOCK_SVG;
+
+  let daten = null; // { alle, freie, gesperrte, konfig }
+  let aufgaben = []; // volle Übungsdaten der freien Übungen, gleiche Reihenfolge wie daten.freie
+  let fokusIdx = null; // die eine aufgeklappte Übung
+  let karten = [];
+  let balkenEl = null;
+  let root = null;
+
+  const erledigt = (i) => window.ExcelFloProgress.isCompleted(daten.freie[i].id);
+  // Der Reihe nach: Übung 1 immer, jede weitere, sobald die vorherige gelöst ist
+  const freigeschaltet = (i) => i === 0 || erledigt(i - 1) || erledigt(i);
+  const ersteOffene = () => {
+    const i = daten.freie.findIndex((_, j) => !erledigt(j));
+    return i === -1 ? null : i;
+  };
 
   function start() {
-    const root = document.getElementById("bonus-uebersicht");
-    const status = document.getElementById("stufen-status");
-
+    root = document.getElementById("bonus-uebersicht");
     B.ladeUebersicht()
-      .then((daten) => {
-        const render = () => aufbauen(root, status, daten, render);
-        render();
-        B.track("overview_view", null, { abgeschlossen: !B.naechste(daten.freie) });
+      .then((d) => {
+        daten = d;
+        let pivot = null;
+        return Promise.all(daten.freie.map((ex) =>
+          ex.typ === "pivot"
+            ? (pivot || (pivot = B.laden("daten/pivot-aufgabe.json"))).then((p) => p.aufgaben.find((a) => a.id === ex.id))
+            : B.laden("daten/uebungen/" + encodeURIComponent(ex.id) + ".json")
+        ));
+      })
+      .then((liste) => {
+        // Kurzdaten der Übersicht (funktion, kurz, typ …) ergänzen die Übungsdateien
+        aufgaben = liste.map((a, i) => Object.assign({}, daten.freie[i], a));
+        aufbauen();
+        B.track("overview_view", null, { abgeschlossen: ersteOffene() === null });
       })
       .catch((err) => {
         root.innerHTML = "";
@@ -34,81 +64,181 @@
       });
   }
 
-  function aufbauen(root, status, daten, render) {
-    const { freie, konfig } = daten;
-    const naechste = B.naechste(freie);
+  function aufbauen() {
+    const { freie } = daten;
+    const fertig = ersteOffene() === null;
     root.innerHTML = "";
+    karten = [];
+    balkenEl = null;
+    fokusIdx = ersteOffene();
+    document.getElementById("stufen-status").textContent = STUFE + (fertig ? " abgeschlossen" : " freigeschaltet");
 
-    status.textContent = STUFE + (naechste ? " freigeschaltet" : " abgeschlossen");
-
-    if (naechste) {
-      root.appendChild(kopfUnterwegs(freie, naechste));
-      root.appendChild(el("h2", { class: "bonus-abschnitt", html: B.CHECK_SVG + "<span>Für dich freigeschaltet</span>" }));
-      root.appendChild(liste(freie, naechste));
+    const liste = el("ol", { class: "frei-liste" }, aufgaben.map((a, i) => karteBauen(a, i)));
+    if (!fertig) {
+      root.appendChild(kopfUnterwegs());
+      root.appendChild(el("h2", { class: "bonus-abschnitt", text: "Deine Übungen" }));
+      root.appendChild(liste);
       root.appendChild(gesperrtBereich(daten, false));
     } else {
       root.appendChild(kopfFertig(freie));
-      const mini = miniKursBlock(konfig.miniKurs, freie);
+      const mini = miniKursBlock(daten.konfig.miniKurs, freie);
       if (mini) root.appendChild(mini);
-      root.appendChild(el("h2", { class: "bonus-abschnitt", html: B.CHECK_SVG + "<span>Das hast du geschafft</span>" }));
-      root.appendChild(chips(freie));
+      root.appendChild(el("h2", { class: "bonus-abschnitt", text: "Das hast du geschafft" }));
+      root.appendChild(liste);
       root.appendChild(gesperrtBereich(daten, true));
     }
+    root.appendChild(zuruecksetzen());
+    aktualisieren();
 
-    root.appendChild(zuruecksetzen(freie, render));
+    // Wiederkehrer landen direkt bei der offenen Übung
+    if (!fertig && freie.some((_, i) => erledigt(i)) && fokusIdx !== null) {
+      setTimeout(() => karten[fokusIdx].li.scrollIntoView({ block: "start" }), 50);
+    }
   }
 
-  /* ---------------- Kopfkarten ---------------- */
+  /* ---------------- Eine Übung in der Liste ---------------- */
 
-  // Der Balken startet beim zuletzt gezeigten Stand (sessionStorage) und läuft sanft zum neuen –
-  // so sieht man nach dem Zurückkehren von einer gelösten Übung den Fortschritt wachsen.
+  function karteBauen(a, i) {
+    const nr = i + 1;
+    const aufgabe = window.ExcelFloAufgabe.bauen(a, nr, {
+      erledigt: (x) => window.ExcelFloProgress.isCompleted(x.id),
+      geloest: (x, neu) => {
+        if (neu) {
+          zeit.geloest(i); // vor markCompleted – danach nimmt addTime nichts mehr an
+          window.ExcelFloProgress.markCompleted(x.id);
+        }
+        aktualisieren();
+      },
+    });
+
+    const kreis = el("span", { class: "bonus-nr", "aria-hidden": "true" });
+    const status = el("span", { class: "frei-zeile__status" });
+    const zeile = el("button", { type: "button", class: "frei-zeile", "aria-controls": "uebung-" + nr + "-inhalt" }, [
+      kreis,
+      el("span", { class: "frei-zeile__titel" }, [el("span", { class: "frei-zeile__nr", text: "Übung " + nr + " · " }), a.title]),
+      status,
+    ]);
+    aufgabe.node.id = "uebung-" + nr + "-inhalt";
+    const li = el("li", { class: "frei-karte", id: "uebung-" + nr, tabindex: "-1", "aria-labelledby": "uebung-" + nr + "-titel" }, [zeile, aufgabe.node]);
+
+    // Immer genau eine Übung offen: Klick auf eine Zeile öffnet sie, die bisher offene klappt zu
+    zeile.addEventListener("click", () => {
+      if (zeile.disabled) return;
+      fokusIdx = i;
+      aktualisieren();
+    });
+
+    karten[i] = { a, li, zeile, kreis, status, aufgabe };
+    return li;
+  }
+
+  /* ---------------- Anzeige an den Stand anpassen ---------------- */
+
+  function aktualisieren() {
+    karten.forEach((k, i) => {
+      const geloest = erledigt(i);
+      const frei = freigeschaltet(i);
+      const offen = frei && i === fokusIdx;
+
+      k.li.classList.toggle("is-offen", offen);
+      k.li.classList.toggle("is-aktiv", offen);
+      k.li.classList.toggle("is-erledigt", geloest);
+      k.li.classList.toggle("is-gesperrt", !frei);
+      k.aufgabe.node.hidden = !offen;
+      // Die Zeile gibt es nur zugeklappt – aufgeklappt beginnt die Übung direkt mit „ÜBUNG X · THEMA“
+      k.zeile.hidden = offen;
+      k.zeile.disabled = !frei;
+      k.zeile.setAttribute("aria-expanded", offen ? "true" : "false");
+      k.kreis.innerHTML = geloest ? B.CHECK_SVG : String(i + 1);
+
+      k.status.textContent = "";
+      if (geloest) k.status.append("✓ Gelöst");
+      else if (!frei) k.status.insertAdjacentHTML("beforeend", SCHLOSS_SVG);
+
+      if (offen) k.aufgabe.beimOeffnen();
+      weiterBereich(k, i, geloest);
+    });
+    if (balkenEl) kopfFortschritt();
+    zeit.fokus(fokusIdx);
+  }
+
+  // Nach dem Lösen: „Weiter zu Übung X →“ zur ersten noch offenen Übung (beim Nachlesen einer
+  // früheren also zurück dorthin). Ist alles gelöst: „Zum Abschluss →“.
+  function weiterBereich(k, i, geloest) {
+    const w = k.aufgabe.weiter;
+    w.textContent = "";
+    if (!geloest) return;
+    const offen = ersteOffene();
+    if (offen === i) return;
+    if (offen === null) {
+      if (karten.length && root.querySelector(".bonus-kopfkarte--fertig")) return; // Abschluss steht schon
+      const knopf = el("button", { type: "button", class: "bonus-btn bonus-btn--gross bonus-btn--voll", text: "Zum Abschluss →" });
+      knopf.addEventListener("click", () => {
+        aufbauen();
+        window.scrollTo({ top: 0, behavior: reduzierteBewegung ? "auto" : "smooth" });
+      });
+      w.appendChild(knopf);
+      return;
+    }
+    const knopf = el("button", { type: "button", class: "bonus-btn bonus-btn--gross bonus-btn--voll", text: "Weiter zu Übung " + (offen + 1) + " →" });
+    knopf.addEventListener("click", () => {
+      fokusIdx = offen;
+      aktualisieren();
+      springeZu(karten[offen].li);
+    });
+    w.appendChild(knopf);
+  }
+
+  function springeZu(ziel) {
+    ziel.scrollIntoView({ behavior: reduzierteBewegung ? "auto" : "smooth", block: "start" });
+    ziel.focus({ preventScroll: true });
+    // Absicherung: Bricht das sanfte Scrollen ab (Seitenhöhe ändert sich gerade durch das
+    // Zuklappen, oder der Browser kann es nicht), direkt hinspringen
+    setTimeout(() => {
+      if (Math.abs(ziel.getBoundingClientRect().top) > 40) ziel.scrollIntoView({ block: "start" });
+    }, 900);
+  }
+
+  /* ---------------- Kopfkarte ---------------- */
+
+  // Der Balken startet beim zuletzt gezeigten Stand (sessionStorage) und läuft sanft zum neuen
   const BALKEN_KEY = "excelflo_bonus_balken";
 
-  function balken(freie) {
-    const fertig = freie.filter(B.erledigt).length;
-    const ziel = (100 * fertig) / freie.length;
-    let vorher = ziel;
+  function kopfUnterwegs() {
+    let vorher = 0;
     try {
       const gemerkt = parseFloat(sessionStorage.getItem(BALKEN_KEY));
-      vorher = isFinite(gemerkt) ? gemerkt : 0;
-      sessionStorage.setItem(BALKEN_KEY, String(ziel));
-    } catch (e) {
-      // sessionStorage blockiert – Balken steht dann ohne Animation
-    }
-    const fuellung = el("span", { class: "bonus-balken__fuellung", style: "width:" + vorher + "%" });
-    if (vorher !== ziel) setTimeout(() => (fuellung.style.width = ziel + "%"), 60);
-    return el("div", {
-      class: "bonus-balken",
-      role: "progressbar",
-      "aria-valuemin": "0",
-      "aria-valuemax": String(freie.length),
-      "aria-valuenow": String(fertig),
-      "aria-label": fertig + " von " + freie.length + " Übungen geschafft",
-    }, [fuellung]);
-  }
-
-  function kopfUnterwegs(freie, naechste) {
-    const fertig = freie.filter(B.erledigt).length;
-    const nr = freie.indexOf(naechste) + 1;
-    const weiter = el("a", {
-      class: "bonus-btn bonus-btn--gross",
-      href: B.uebungUrl(naechste),
-      text: (fertig ? "Weiter mit Übung " : "Los geht’s mit Übung ") + nr + " →",
-    });
-    return el("section", { class: "bonus-kopfkarte" }, [
+      if (isFinite(gemerkt)) vorher = gemerkt;
+    } catch (e) { /* ohne Animation */ }
+    balkenEl = el("div", { class: "bonus-balken", role: "progressbar", "aria-valuemin": "0" }, [
+      el("span", { class: "bonus-balken__fuellung", style: "width:" + vorher + "%" }),
+    ]);
+    const karte = el("section", { class: "bonus-kopfkarte frei-kopf" }, [
       el("div", { class: "bonus-kopfkarte__text" }, [
-        el("h1", { text: "Deine " + freie.length + " Übungen in " + STUFE }),
+        el("h1", { text: "Deine " + daten.freie.length + " Übungen in " + STUFE }),
         el("p", { text: "Löse sie der Reihe nach – von leicht bis anspruchsvoll. Nach jeder Übung geht es direkt weiter." }),
-        el("div", { class: "bonus-fortschritt" }, [
-          el("div", { class: "bonus-fortschritt__zeile" }, [
-            el("span", { text: fertig + " von " + freie.length + " geschafft" }),
-            el("span", { text: "Noch " + (freie.length - fertig) + (freie.length - fertig === 1 ? " Übung" : " Übungen") }),
-          ]),
-          balken(freie),
+        el("div", { class: "frei-kopf__fortschritt" }, [
+          el("div", { class: "bonus-fortschritt" }, [el("div", { class: "bonus-fortschritt__zeile" }), balkenEl]),
         ]),
       ]),
-      weiter,
     ]);
+    setTimeout(kopfFortschritt, 0);
+    return karte;
+  }
+
+  function kopfFortschritt() {
+    const gesamt = daten.freie.length;
+    const fertig = daten.freie.filter((_, i) => erledigt(i)).length;
+    const ziel = (100 * fertig) / gesamt;
+    const text = fertig + " von " + gesamt + " geschafft";
+    balkenEl.parentNode.querySelector(".bonus-fortschritt__zeile").replaceChildren(el("span", { text }));
+    balkenEl.setAttribute("aria-valuemax", String(gesamt));
+    balkenEl.setAttribute("aria-valuenow", String(fertig));
+    balkenEl.setAttribute("aria-label", text);
+    setTimeout(() => (balkenEl.firstChild.style.width = ziel + "%"), 60);
+    try {
+      sessionStorage.setItem(BALKEN_KEY, String(ziel));
+    } catch (e) { /* egal */ }
   }
 
   function kopfFertig(freie) {
@@ -131,68 +261,40 @@
     ]);
   }
 
-  /* ---------------- Freie Übungen ---------------- */
+  /* ---------------- Zeitmessung („Deine Zeit“ im Abschluss) ---------------- */
 
-  // „Thema:“ statt nur des Funktionsnamens – die Zeile soll das Thema nennen, nicht wie die Lösung wirken.
-  // „Als nächstes ·“ steht in einem eigenen Span, damit es am Handy wegfallen kann (seite.css).
-  function kopfzeile(ex, nr, extra) {
-    return el("p", { class: "bonus-label" }, [
-      extra ? el("span", { class: "bonus-label__extra", text: extra + " · " }) : null,
-      "Übung " + nr + (ex.funktion ? " · Thema: " + ex.funktion : ""),
-    ]);
-  }
-
-  function liste(freie, naechste) {
-    return el("ol", { class: "bonus-liste" }, freie.map((ex, i) => {
-      const nr = i + 1;
-      const fertig = B.erledigt(ex);
-      const istNaechste = ex === naechste;
-      const kreis = el("span", { class: "bonus-nr", "aria-hidden": "true", html: fertig ? B.CHECK_SVG : String(nr) });
-
-      const inhalt = [
-        kreis,
-        el("div", { class: "bonus-zeile__text" }, [
-          kopfzeile(ex, nr, istNaechste ? "Als nächstes" : null),
-          el("h3", { text: ex.title }),
-          istNaechste && ex.kurz ? el("p", { class: "bonus-zeile__kurz", text: ex.kurz }) : null,
-        ]),
-      ];
-
-      // Aktive Übung: die ganze Karte ist der Link (kein zweiter Button neben „Los geht’s“ oben)
-      if (istNaechste) {
-        return el("li", {}, [
-          el("a", { class: "bonus-zeile is-next", href: B.uebungUrl(ex), "aria-label": "Als nächstes, Übung " + nr + " starten: " + ex.title }, inhalt),
-        ]);
-      }
-
-      let aktion;
-      if (fertig) {
-        aktion = el("div", { class: "bonus-zeile__aktion" }, [
-          el("span", { class: "bonus-geschafft", text: "Geschafft" }),
-          el("a", { class: "bonus-link", href: B.uebungUrl(ex), text: "Wiederholen", "aria-label": "Übung " + nr + " wiederholen" }),
-        ]);
-      } else {
-        aktion = el("a", {
-          class: "bonus-btn bonus-btn--rand",
-          href: B.uebungUrl(ex),
-          text: "Übung starten",
-          "aria-label": "Übung " + nr + " starten: " + ex.title,
-        });
-      }
-
-      return el("li", { class: "bonus-zeile" + (fertig ? " is-done" : "") }, [...inhalt, aktion]);
-    }));
-  }
-
-  function chips(freie) {
-    return el("ul", { class: "bonus-chips" }, freie.map((ex, i) =>
-      el("li", {}, [
-        el("a", { href: B.uebungUrl(ex), title: "Wiederholen: " + ex.title, html: B.CHECK_SVG }, [
-          el("span", { text: i + 1 + " · " + (ex.funktion || ex.title) }),
-        ]),
-      ])
-    ));
-  }
+  // Gezählt wird die sichtbare Zeit, in der eine noch nicht gelöste Übung die offene ist
+  const zeit = (function () {
+    let idx = null;
+    let seit = null;
+    const laeuft = () => idx !== null && !erledigt(idx);
+    const sichern = () => {
+      if (idx !== null && seit !== null) window.ExcelFloProgress.addTime(daten.freie[idx].id, Date.now() - seit);
+      seit = null;
+    };
+    const starten = () => {
+      seit = laeuft() && document.visibilityState === "visible" ? Date.now() : null;
+    };
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") starten();
+      else sichern();
+    });
+    window.addEventListener("pagehide", sichern);
+    return {
+      fokus(neu) {
+        if (neu === idx) {
+          if (seit === null) starten();
+          return;
+        }
+        sichern();
+        idx = neu;
+        starten();
+      },
+      geloest(i) {
+        if (i === idx) sichern();
+      },
+    };
+  })();
 
   /* ---------------- Mini-Kurs (nur Abschluss, nur wenn eingetragen) ---------------- */
 
@@ -348,14 +450,14 @@
 
   /* ---------------- Fortschritt zurücksetzen ---------------- */
 
-  function zuruecksetzen(freie, render) {
+  function zuruecksetzen() {
+    const freie = daten.freie;
     if (!freie.some(B.erledigt)) return el("span");
     const btn = el("button", { type: "button", class: "bonus-zuruecksetzen", text: "↺ Fortschritt zurücksetzen" });
     btn.addEventListener("click", () => {
       if (!window.confirm("Fortschritt aller " + freie.length + " Übungen wirklich zurücksetzen? Das kann nicht rückgängig gemacht werden.")) return;
       window.ExcelFloProgress.resetIds(freie.map((ex) => ex.id));
-      render();
-      window.scrollTo(0, 0);
+      location.reload();
     });
     return el("p", { class: "bonus-zuruecksetzen__zeile" }, [btn]);
   }

@@ -12,16 +12,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/geteilt/engine.css?v=2">
-<link rel="stylesheet" href="assets/seite/seite.css?v=15">
+<link rel="stylesheet" href="assets/seite/seite.css?v=18">
 </head>
 <body class="bonus">
 
-<header class="bonus-kopf">
-  <a class="bonus-kopf__marke" href="index.html">Excel.Flo · Übungsportal</a>
-  <span class="bonus-pille" id="stufen-status">Stufe 2</span>
+<!-- Dunkelgrüner Balken mit Logo – wie auf der kostenlosen Übungsseite -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__icon"><img src="assets/geteilt/img/logo-white.webp" alt="" width="36" height="36"></span>
+      <span class="brand__wordmark">Excel<span class="dot">.</span>Flo</span>
+    </a>
+    <span class="bonus-pille" id="stufen-status">Stufe 2</span>
+  </div>
 </header>
 
-<main class="bonus-main" id="bonus-uebersicht">
+<main class="bonus-main bonus-main--liste" id="bonus-uebersicht">
   <p class="bonus-laden">Übungen werden geladen …</p>
 </main>
 
@@ -34,6 +40,11 @@
 <script src="assets/geteilt/tracking.js?v=1"></script>
 <script src="assets/seite/fortschritt.js?v=2"></script>
 <script src="assets/seite/bonus.js?v=1"></script>
-<script src="assets/seite/uebersicht.js?v=11"></script>
+<!-- Portal-Engine nur für die Tabellen (createSheet); sie baut hier selbst nichts auf,
+     weil es kein #exercise-root / #exercise-list gibt -->
+<script src="assets/geteilt/formula-engine.js?v=1"></script>
+<script src="assets/geteilt/engine.js?v=2"></script>
+<script src="assets/seite/aufgabe.js?v=1"></script>
+<script src="assets/seite/uebersicht.js?v=12"></script>
 </body>
 </html>

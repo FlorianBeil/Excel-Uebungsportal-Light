@@ -16,16 +16,15 @@ hier gar nicht als Datei vor – nur Titel und Beschreibung für die Übersicht.
 
 | Pfad | Inhalt |
 |---|---|
-| `index.html` | Übersicht: Weg durch die 5 Bonus-Übungen, darunter gesperrte Kurs-Übungen mit Stufen-Tabs; sind alle gelöst, Abschluss mit Zeit und Angebot |
-| `uebung.html` | Übungsseite für Formel- und Pivot-Übungen („Übung 3 von 5“, Weiter-Knopf; Tabelle aus der Portal-Engine, am Handy mit eigenem Formelfeld) |
-| `pivot-uebung.html` | Nur noch Weiterleitung auf `uebung.html` (alte Adresse) |
+| `index.html` | Übersicht mit direktem Einstieg: die 5 Bonus-Übungen als Liste, die aktuelle aufgeklappt (am PC links Text/Buttons, rechts Tabelle), der Reihe nach freigeschaltet; darunter gesperrte Kurs-Übungen mit Stufen-Tabs. Sind alle gelöst: Abschluss mit Zeit und Angebot |
+| `uebung.html`, `pivot-uebung.html` | Nur noch Weiterleitung auf `index.html` (alte Adressen, z. B. aus E-Mails) |
 | `pivot.html`, `assets/pivot/datensatz.js` | Pivot-Nachbau – **erzeugt** aus der kostenlosen Seite, nicht von Hand ändern |
 | `daten/pivot-aufgabe.json` | Die Pivot-Aufgabe (Text, Tipps, Lösung, Prüfregel, Bauplan der Beispieldaten) |
 | `daten/konfiguration.json` | **Von Hand pflegen:** Link und Texte zur Vollversion, Auswahl gesperrter Karten auf der Abschlussseite, Mini-Kurs-Angebot (erscheint erst, wenn `miniKurs.url` ausgefüllt ist) |
 | `daten/uebersicht.json` | Alle Übungen mit `frei: true/false` – **erzeugt** |
 | `daten/uebungen/` | Die freien Übungen + `manifest.json` (nur freie) – **erzeugt** |
 | `assets/geteilt/` | **Kopie** der geteilten Logik aus dem Portal – nicht von Hand ändern |
-| `assets/seite/` | `bonus.js` (gemeinsame Helfer), `uebersicht.js`, `uebung.js`, `fortschritt.js` (Fortschritt + Zeit im Browser, Tracking als `light`), `seite.css` |
+| `assets/seite/` | `bonus.js` (gemeinsame Helfer), `uebersicht.js` (Übersicht), `aufgabe.js` (Inhalt einer Übung – Tabellen-/Pivot-Teil identisch mit der kostenlosen Seite), `fortschritt.js` (Fortschritt + Zeit im Browser, Tracking als `light`), `seite.css` |
 | `supabase/light.sql` | Tracking-Bereich `light` in Supabase freischalten |
 
 ## Wartung
