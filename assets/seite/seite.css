@@ -602,6 +602,33 @@ a.bonus-zeile.is-next:focus-visible {
   opacity: 0.55;
 }
 
+/* Freigestelltes Foto (transparenter Hintergrund) statt Standbild: voll sichtbar, oben
+   ausgerichtet, gespiegelt – zeigt so nach rechts auf den Text. Verlauf unten hält
+   Label und Titel lesbar. */
+.bonus-video__bild--person {
+  opacity: 1;
+  object-position: 50% 0;
+  transform: scaleX(-1);
+}
+
+.bonus-video:has(.bonus-video__bild--person)::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(to bottom, rgba(8, 39, 23, 0) 0%, rgba(8, 39, 23, 0.92) 75%);
+  pointer-events: none;
+}
+
+.bonus-video__play,
+.bonus-video__text {
+  z-index: 1;
+}
+
+/* Play-Knopf aufs Shirt statt ins Gesicht */
+.bonus-video:has(.bonus-video__bild--person) .bonus-video__play {
+  margin-top: 12%;
+}
+
 .bonus-video__play {
   position: relative;
   width: 62px;
@@ -1057,6 +1084,26 @@ a.bonus-zeile.is-next:focus-visible {
 
   .bonus-video {
     min-height: 210px;
+  }
+
+  /* Breite Kachel: ganzes Foto rechts (gespiegelt → object-position links), Play-Knopf links daneben */
+  .bonus-video__bild--person {
+    object-fit: contain;
+    object-position: 8% 0;
+  }
+
+  .bonus-video:has(.bonus-video__bild--person) {
+    justify-content: flex-start;
+    min-height: 260px;
+    padding-left: 1.6rem;
+  }
+
+  .bonus-video:has(.bonus-video__bild--person) .bonus-video__play {
+    margin: 0 0 4.6rem;
+  }
+
+  .bonus-video:has(.bonus-video__bild--person) .bonus-video__text {
+    right: 45%;
   }
 
   .bonus-kopfkarte .bonus-btn--gross {

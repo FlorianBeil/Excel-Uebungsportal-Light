@@ -14,7 +14,7 @@
     "sortieren-eindeutig-filter-kunden"
   ],
 
-  "_miniKurs": "Dunkelgrüner Block auf der Abschlussseite. Erscheint erst, wenn url ausgefüllt ist. zeitText: {zeit} wird durch die gemessene Zeit ersetzt (fett); fehlt die Zeit, steht zeitTextOhneZeit da. merkmale.icon: play | lupe | haken. video.url: eigene Videodatei im Repo (z. B. assets/video/fall.mp4), MP4-Link (https://…) oder YouTube-/Vimeo-Link; leer = keine Videokachel. video.poster: Vorschaubild (optional).",
+  "_miniKurs": "Dunkelgrüner Block auf der Abschlussseite. Erscheint erst, wenn url ausgefüllt ist. zeitText: {zeit} wird durch die gemessene Zeit ersetzt (fett); fehlt die Zeit, steht zeitTextOhneZeit da. merkmale.icon: play | lupe | haken. video.url: eigene Videodatei im Repo (z. B. assets/video/fall.mp4), MP4-Link (https://…) oder YouTube-/Vimeo-Link; leer = keine Videokachel. video.poster: Vorschaubild (optional); posterFreigestellt: true = Foto mit transparentem Hintergrund (voll sichtbar, gespiegelt).",
   "miniKurs": {
     "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo",
     "preis": "49 €",
@@ -34,7 +34,8 @@
     "hinweis": "",
     "video": {
       "url": "https://youtube.com/shorts/BEkUVt_daq4",
-      "poster": "",
+      "poster": "assets/bilder/florian.webp",
+      "posterFreigestellt": true,
       "label": "Der Fall · 0:30",
       "titel": "Die Smaragd-Orchidee ist verschwunden"
     }

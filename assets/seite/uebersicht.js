@@ -367,7 +367,7 @@
     const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     const knopf = el("button", { type: "button", class: "bonus-video__play", "aria-label": "Video abspielen: " + (v.titel || "Trailer"), html: PLAY_GROSS });
     const kachel = el("div", { class: "bonus-video" }, [
-      v.poster ? el("img", { class: "bonus-video__bild", src: v.poster, alt: "" }) : null,
+      v.poster ? el("img", { class: "bonus-video__bild" + (v.posterFreigestellt ? " bonus-video__bild--person" : ""), src: v.poster, alt: "" }) : null,
       knopf,
       el("div", { class: "bonus-video__text" }, [
         v.label ? el("p", { class: "bonus-video__label", text: v.label }) : null,
