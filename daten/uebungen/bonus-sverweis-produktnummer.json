@@ -10,7 +10,7 @@
   "task": {
     "intro": "Hol den Preis zur gesuchten Produktnummer aus der Preisliste.",
     "steps": [
-      "Trage in Zelle B10 eine SVERWEIS-Formel ein, die den Preis zur Produktnummer in B9 ermittelt."
+      "Trage in Zelle B8 eine SVERWEIS-Formel ein, die den Preis zur Produktnummer in B7 ermittelt."
     ]
   },
   "grid": {
@@ -19,7 +19,7 @@
       "B",
       "C"
     ],
-    "rowCount": 10,
+    "rowCount": 8,
     "cells": {
       "A1": {
         "value": "Produktnr.",
@@ -54,61 +54,41 @@
         "format": "currency"
       },
       "A4": {
-        "value": 4710
-      },
-      "B4": {
-        "value": "Aktenordner"
-      },
-      "C4": {
-        "value": 3.99,
-        "format": "currency"
-      },
-      "A5": {
         "value": 2080
       },
-      "B5": {
+      "B4": {
         "value": "Tacker"
       },
-      "C5": {
+      "C4": {
         "value": 14.9,
         "format": "currency"
       },
-      "A6": {
-        "value": 5030
-      },
-      "B6": {
-        "value": "Haftnotizen"
-      },
-      "C6": {
-        "value": 4.79,
-        "format": "currency"
-      },
-      "A7": {
+      "A5": {
         "value": 1540
       },
-      "B7": {
+      "B5": {
         "value": "Locher"
       },
-      "C7": {
+      "C5": {
         "value": 12.5,
         "format": "currency"
       },
-      "A9": {
+      "A7": {
         "value": "Produktnr.:"
       },
-      "B9": {
+      "B7": {
         "value": 2080
       },
-      "A10": {
+      "A8": {
         "value": "Preis:"
       },
-      "B10": {
+      "B8": {
         "type": "input",
         "answer": {
           "value": 14.9,
           "tolerance": 0.005,
           "acceptedFormulas": [
-            "=SVERWEIS(B9;A2:C7;3;FALSCH)"
+            "=SVERWEIS(B7;A2:C5;3;FALSCH)"
           ]
         }
       }
@@ -120,6 +100,6 @@
     "Der Spaltenindex zählt ab der ersten Spalte der Matrix: Produktnr. = 1, Produkt = 2, Preis = 3.",
     "Du bekommst #NV, obwohl die Nummer in der Liste steht? Dann fehlt das letzte Argument. Ohne FALSCH sucht SVERWEIS nur ungefähr und erwartet eine aufsteigend sortierte Liste – diese hier ist aber nicht sortiert. FALSCH (oder 0) erzwingt die exakte Suche."
   ],
-  "explanation": "SVERWEIS(B9;A2:C7;3;FALSCH) sucht die Produktnummer aus B9 in der ersten Spalte von A2:C7 und gibt den Wert aus der 3. Spalte derselben Zeile zurück – den Preis des Tackers, 14,90 €. Das vierte Argument wird oft vergessen: Ohne FALSCH sucht SVERWEIS ungefähr und liefert bei einer unsortierten Liste #NV oder sogar einen falschen Preis, ohne dass es auffällt. Für Nummern, Namen und Codes deshalb immer FALSCH angeben.",
-  "solution": "=SVERWEIS(B9;A2:C7;3;FALSCH)"
+  "explanation": "SVERWEIS(B7;A2:C5;3;FALSCH) sucht die Produktnummer aus B7 in der ersten Spalte von A2:C5 und gibt den Wert aus der 3. Spalte derselben Zeile zurück – den Preis des Tackers, 14,90 €. Das vierte Argument wird oft vergessen: Ohne FALSCH sucht SVERWEIS ungefähr und liefert bei einer unsortierten Liste #NV oder sogar einen falschen Preis, ohne dass es auffällt. Für Nummern, Namen und Codes deshalb immer FALSCH angeben.",
+  "solution": "=SVERWEIS(B7;A2:C5;3;FALSCH)"
 }

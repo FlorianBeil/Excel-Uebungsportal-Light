@@ -1,0 +1,473 @@
+/* Shortcut-Turbo – Verkaufsseite (shortcut-turbo/index.html)
+ *
+ * Baut auf engine.css (Farben, Schriften, Hintergrund) und seite.css der Bonus-Übungen auf
+ * (Knöpfe .bonus-btn, Nummernkreise .bonus-nr, Tasten .bonus-angebot__tasten, Aufklapp-Boxen
+ * .bonus-tipps). Eine Spalte, mobil zuerst: Grundregeln für schmale Bildschirme, ab 720 px
+ * etwas mehr Luft und größere Schrift.
+ */
+
+.turbo-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  display: grid;
+  /* minmax(0, …): Spalte nie breiter als der Bildschirm, auch bei langen Wörtern/Knöpfen */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+/* Knöpfe dürfen auf schmalen Handys umbrechen (seite.css setzt nowrap) */
+.turbo .bonus-btn {
+  white-space: normal;
+  text-align: center;
+}
+
+/* ---------- Gemeinsame Abschnitte ---------- */
+
+.turbo-abschnitt,
+.turbo-hero,
+.turbo-preis {
+  background: #fff;
+  border: 1px solid var(--bonus-rand);
+  border-radius: 18px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: var(--bonus-schatten);
+}
+
+.turbo h2 {
+  font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--bonus-dunkel);
+  margin: 0 0 0.9rem;
+}
+
+.turbo-abschnitt p {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.turbo-abschnitt p:last-child {
+  margin-bottom: 0;
+}
+
+.turbo-betont {
+  font-weight: 600;
+  color: var(--bonus-dunkel);
+}
+
+/* ---------- 1. Hero ---------- */
+
+.turbo-hero {
+  border: 1.5px solid var(--excel-green);
+  padding-top: 1.75rem;
+}
+
+.turbo-dachzeile {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--excel-green-dark);
+}
+
+.turbo-hero h1 {
+  font-size: clamp(1.8rem, 8vw, 2.6rem);
+  line-height: 1.12;
+  color: var(--bonus-dunkel);
+}
+
+.turbo-unterzeile {
+  margin: 0.9rem 0 1.4rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.turbo-cta {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.turbo-cta .bonus-btn {
+  width: 100%;
+}
+
+.turbo-cta__hinweis {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Platzhalter für Bilder und Videos ---------- */
+
+.turbo-platzhalter {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: 1.25rem;
+  border: 2px dashed #9CC9AD;
+  border-radius: 14px;
+  background: repeating-linear-gradient(135deg, #F2F8F4 0 12px, #EAF4ED 12px 24px);
+  color: var(--excel-green-dark);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.turbo-platzhalter__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(11, 61, 34, 0.12);
+}
+
+.turbo-platzhalter--video,
+.turbo-platzhalter--bild {
+  aspect-ratio: 16 / 9;
+}
+
+.turbo-platzhalter--karte {
+  aspect-ratio: 3 / 4;
+  padding: 0.75rem;
+  font-size: 0.78rem;
+}
+
+.turbo-platzhalter--foto {
+  aspect-ratio: 1;
+  max-width: 220px;
+  width: 100%;
+  border-radius: 50%;
+  margin: 0 auto 1.25rem;
+  padding: 2rem;
+}
+
+/* ---------- Hero-Video (YouTube, erst nach Klick geladen) ---------- */
+
+.turbo-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: radial-gradient(120% 100% at 50% 40%, #12442A 0%, #082717 75%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.turbo-video__play {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 0;
+  padding-left: 4px;
+  background: #fff;
+  color: var(--bonus-dunkel);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s;
+}
+
+.turbo-video__play:hover {
+  transform: scale(1.07);
+}
+
+.turbo-video__play:focus-visible {
+  outline: 3px solid #A8E0BC;
+  outline-offset: 3px;
+}
+
+.turbo-video.is-playing iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- 3. Der Fall ---------- */
+
+.turbo-verdaechtige {
+  list-style: none;
+  margin: 1.25rem 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+/* ---------- 4. So funktioniert's ---------- */
+
+.turbo-schritte {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.turbo-schritte li {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+
+.turbo-schritte .bonus-nr {
+  background: var(--excel-green);
+  border-color: var(--excel-green);
+  color: #fff;
+}
+
+.turbo-schritte p {
+  margin: 0.2rem 0 0;
+}
+
+.turbo-schritte strong {
+  color: var(--bonus-dunkel);
+}
+
+.turbo-gif {
+  display: grid;
+  gap: 0.9rem;
+  justify-items: center;
+}
+
+.turbo-gif .turbo-platzhalter {
+  width: 100%;
+}
+
+.turbo-tasten {
+  margin: 0;
+}
+
+.turbo-tasten kbd {
+  font-size: 1.05rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--bonus-rand);
+  box-shadow: 0 3px 0 #BFDDC9;
+}
+
+.turbo-tasten .bonus-angebot__plus {
+  color: var(--excel-green);
+  font-weight: 600;
+}
+
+/* ---------- 5. Was du lernst ---------- */
+
+.turbo-kapitel {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.turbo-kapitel thead th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 0 0.75rem 0.5rem 0;
+}
+
+.turbo-kapitel tbody tr {
+  border-top: 1px solid var(--bonus-rand);
+}
+
+.turbo-kapitel tbody th,
+.turbo-kapitel td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.8rem 0.75rem 0.8rem 0;
+  line-height: 1.5;
+}
+
+.turbo-kapitel tbody th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--bonus-dunkel);
+  white-space: nowrap;
+}
+
+/* Schmal: Kapitel und Beschreibung untereinander statt nebeneinander */
+@media (max-width: 559px) {
+  .turbo-kapitel thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .turbo-kapitel tbody tr,
+  .turbo-kapitel tbody th,
+  .turbo-kapitel td {
+    display: block;
+  }
+
+  .turbo-kapitel tbody th {
+    padding-bottom: 0.15rem;
+    white-space: normal;
+  }
+
+  .turbo-kapitel td {
+    padding-top: 0;
+  }
+}
+
+/* ---------- 6. Über Flo ---------- */
+
+.turbo-flo h2 {
+  text-align: left;
+}
+
+/* ---------- 7. Preis-Box ---------- */
+
+.turbo-preis {
+  border: 2px solid var(--excel-green);
+  padding: 1.6rem 1.25rem;
+}
+
+.turbo-preis h2 {
+  margin-bottom: 1rem;
+}
+
+.turbo-preis__liste {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.turbo-preis__liste li {
+  position: relative;
+  padding-left: 1.75rem;
+  line-height: 1.45;
+}
+
+.turbo-preis__liste li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background: var(--excel-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 70% no-repeat;
+}
+
+.turbo-preis__betrag {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.turbo-preis__betrag strong {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--bonus-dunkel);
+  margin-right: 0.15rem;
+}
+
+
+/* ---------- 8. Häufige Fragen ---------- */
+
+.turbo-faq {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.turbo-faq .bonus-tipps {
+  margin: 0;
+  background: #fff;
+}
+
+.turbo-faq .bonus-tipps p {
+  margin: 0.6rem 0 0.2rem;
+  font-size: 0.95rem;
+}
+
+/* ---------- 9. Schluss-CTA ---------- */
+
+.turbo-schluss {
+  background: var(--bonus-dunkel);
+  color: #fff;
+  border-radius: 18px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+}
+
+.turbo-schluss h2 {
+  color: #fff;
+}
+
+.turbo-schluss p {
+  margin: 0 auto 1.4rem;
+  max-width: 34rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.turbo-schluss .bonus-btn {
+  width: 100%;
+}
+
+/* ---------- Breiter (Tablet, Desktop) ---------- */
+
+@media (min-width: 720px) {
+  .turbo-main {
+    padding-top: 1.75rem;
+    gap: 1.5rem;
+  }
+
+  .turbo-abschnitt,
+  .turbo-hero,
+  .turbo-preis {
+    padding: 2.25rem 2.5rem;
+  }
+
+  .turbo-cta .bonus-btn,
+  .turbo-schluss .bonus-btn {
+    width: auto;
+  }
+
+  .turbo-verdaechtige {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .turbo-flo {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .turbo-platzhalter--foto {
+    margin: 0;
+  }
+
+  .turbo-preis .bonus-btn--voll {
+    max-width: none;
+  }
+
+  .turbo-schluss {
+    padding: 2.5rem;
+  }
+}

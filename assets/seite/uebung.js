@@ -108,6 +108,7 @@ const istMobil = () => window.matchMedia("(pointer: coarse)").matches || window.
 
     const refs = Object.keys(sheet.inputEntries);
     const feld = istMobil() && refs.length === 1 ? formelFeld(bereich, a, sheet, refs[0]) : null;
+    if (istMobil()) handySpalten(sheet, a.grid.cols.length);
     zielzelleZeigen(sheet.inputEntries[refs[0]].td);
 
     const pruefen = el("button", { type: "button", class: "bonus-btn", text: "Prüfen" });
@@ -151,6 +152,34 @@ const istMobil = () => window.matchMedia("(pointer: coarse)").matches || window.
     });
   }
 
+  // Handy: Die Engine hängt rechts leere Spalten an (Excel-Optik) und gibt den Datenspalten ihre
+  // Desktop-Breite – zusammen breiter als der Bildschirm, dann ist Spalte A angeschnitten.
+  // Hier: leere Spalten ausblenden und die Datenspalten anteilig auf die verfügbare Breite bringen.
+  const ZEILENKOPF_HANDY = 34;
+  const SPALTE_MIN_HANDY = 64;
+
+  function handySpalten(sheet, anzahlDaten) {
+    setTimeout(() => {
+      const table = sheet.node.querySelector("table.sheet");
+      const scroller = sheet.node.querySelector(".sheet-scroll");
+      if (!table || !scroller || table.offsetWidth <= scroller.clientWidth) return;
+      const cols = [...table.querySelectorAll("colgroup col")];
+      const daten = cols.slice(1, 1 + anzahlDaten);
+      cols.slice(1 + anzahlDaten).forEach((c) => (c.style.visibility = "collapse"));
+      cols[0].style.width = ZEILENKOPF_HANDY + "px";
+      const breiten = daten.map((c) => parseFloat(c.style.width) || 110);
+      const faktor = Math.min(1, (scroller.clientWidth - ZEILENKOPF_HANDY) / breiten.reduce((x, y) => x + y, 0));
+      let gesamt = ZEILENKOPF_HANDY;
+      daten.forEach((c, i) => {
+        const w = Math.max(SPALTE_MIN_HANDY, Math.floor(breiten[i] * faktor));
+        c.style.width = w + "px";
+        gesamt += w;
+      });
+      table.style.minWidth = "0";
+      table.style.width = gesamt + "px";
+    }, 0);
+  }
+
   // Schmale Bildschirme: Tabelle seitlich so weit scrollen, dass die gelbe Zielzelle sichtbar ist
   // (nur innerhalb der Tabelle – die Seite selbst bewegt sich nicht)
   function zielzelleZeigen(td) {
@@ -158,8 +187,9 @@ const istMobil = () => window.matchMedia("(pointer: coarse)").matches || window.
     setTimeout(() => {
       const scroller = td.closest(".sheet-scroll");
       if (!scroller || scroller.scrollWidth <= scroller.clientWidth) return;
-      const ueberstand = td.getBoundingClientRect().right - scroller.getBoundingClientRect().right + 16;
-      if (ueberstand > 0) scroller.scrollLeft += ueberstand;
+      // Nur scrollen, wenn die Zielzelle wirklich (teilweise) verdeckt ist – dann mit etwas Luft
+      const verdeckt = td.getBoundingClientRect().right - scroller.getBoundingClientRect().right;
+      if (verdeckt > 1) scroller.scrollLeft += verdeckt + 16;
     }, 0);
   }
 

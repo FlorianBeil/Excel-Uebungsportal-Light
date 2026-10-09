@@ -60,8 +60,23 @@
 
   /* ---------------- Kopfkarten ---------------- */
 
+  // Der Balken startet beim zuletzt gezeigten Stand (sessionStorage) und läuft sanft zum neuen –
+  // so sieht man nach dem Zurückkehren von einer gelösten Übung den Fortschritt wachsen.
+  const BALKEN_KEY = "excelflo_bonus_balken";
+
   function balken(freie) {
     const fertig = freie.filter(B.erledigt).length;
+    const ziel = (100 * fertig) / freie.length;
+    let vorher = ziel;
+    try {
+      const gemerkt = parseFloat(sessionStorage.getItem(BALKEN_KEY));
+      vorher = isFinite(gemerkt) ? gemerkt : 0;
+      sessionStorage.setItem(BALKEN_KEY, String(ziel));
+    } catch (e) {
+      // sessionStorage blockiert – Balken steht dann ohne Animation
+    }
+    const fuellung = el("span", { class: "bonus-balken__fuellung", style: "width:" + vorher + "%" });
+    if (vorher !== ziel) setTimeout(() => (fuellung.style.width = ziel + "%"), 60);
     return el("div", {
       class: "bonus-balken",
       role: "progressbar",
@@ -69,7 +84,7 @@
       "aria-valuemax": String(freie.length),
       "aria-valuenow": String(fertig),
       "aria-label": fertig + " von " + freie.length + " Übungen geschafft",
-    }, [el("span", { class: "bonus-balken__fuellung", style: "width:" + (100 * fertig) / freie.length + "%" })]);
+    }, [fuellung]);
   }
 
   function kopfUnterwegs(freie, naechste) {
@@ -83,7 +98,7 @@
     return el("section", { class: "bonus-kopfkarte" }, [
       el("div", { class: "bonus-kopfkarte__text" }, [
         el("h1", { text: "Deine " + freie.length + " Übungen in " + STUFE }),
-        el("p", { text: "Löse sie der Reihe nach. Jede Übung baut auf der vorherigen auf, und nach jeder geht es direkt weiter." }),
+        el("p", { text: "Löse sie der Reihe nach – von leicht bis anspruchsvoll. Nach jeder Übung geht es direkt weiter." }),
         el("div", { class: "bonus-fortschritt" }, [
           el("div", { class: "bonus-fortschritt__zeile" }, [
             el("span", { text: fertig + " von " + freie.length + " geschafft" }),
@@ -118,8 +133,13 @@
 
   /* ---------------- Freie Übungen ---------------- */
 
+  // „Thema:“ statt nur des Funktionsnamens – die Zeile soll das Thema nennen, nicht wie die Lösung wirken.
+  // „Als nächstes ·“ steht in einem eigenen Span, damit es am Handy wegfallen kann (seite.css).
   function kopfzeile(ex, nr, extra) {
-    return el("p", { class: "bonus-label" }, [(extra ? extra + " · " : "") + "Übung " + nr + (ex.funktion ? " · " + ex.funktion : "")]);
+    return el("p", { class: "bonus-label" }, [
+      extra ? el("span", { class: "bonus-label__extra", text: extra + " · " }) : null,
+      "Übung " + nr + (ex.funktion ? " · Thema: " + ex.funktion : ""),
+    ]);
   }
 
   function liste(freie, naechste) {
@@ -129,6 +149,22 @@
       const istNaechste = ex === naechste;
       const kreis = el("span", { class: "bonus-nr", "aria-hidden": "true", html: fertig ? B.CHECK_SVG : String(nr) });
 
+      const inhalt = [
+        kreis,
+        el("div", { class: "bonus-zeile__text" }, [
+          kopfzeile(ex, nr, istNaechste ? "Als nächstes" : null),
+          el("h3", { text: ex.title }),
+          istNaechste && ex.kurz ? el("p", { class: "bonus-zeile__kurz", text: ex.kurz }) : null,
+        ]),
+      ];
+
+      // Aktive Übung: die ganze Karte ist der Link (kein zweiter Button neben „Los geht’s“ oben)
+      if (istNaechste) {
+        return el("li", {}, [
+          el("a", { class: "bonus-zeile is-next", href: B.uebungUrl(ex), "aria-label": "Als nächstes, Übung " + nr + " starten: " + ex.title }, inhalt),
+        ]);
+      }
+
       let aktion;
       if (fertig) {
         aktion = el("div", { class: "bonus-zeile__aktion" }, [
@@ -137,22 +173,14 @@
         ]);
       } else {
         aktion = el("a", {
-          class: "bonus-btn" + (istNaechste ? "" : " bonus-btn--rand"),
+          class: "bonus-btn bonus-btn--rand",
           href: B.uebungUrl(ex),
-          text: istNaechste ? "Übung starten →" : "Übung starten",
+          text: "Übung starten",
           "aria-label": "Übung " + nr + " starten: " + ex.title,
         });
       }
 
-      return el("li", { class: "bonus-zeile" + (fertig ? " is-done" : "") + (istNaechste ? " is-next" : "") }, [
-        kreis,
-        el("div", { class: "bonus-zeile__text" }, [
-          kopfzeile(ex, nr, istNaechste ? "Als nächstes" : null),
-          el("h3", { text: ex.title }),
-          istNaechste && ex.kurz ? el("p", { class: "bonus-zeile__kurz", text: ex.kurz }) : null,
-        ]),
-        aktion,
-      ]);
+      return el("li", { class: "bonus-zeile" + (fertig ? " is-done" : "") }, [...inhalt, aktion]);
     }));
   }
 

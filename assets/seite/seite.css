@@ -217,16 +217,25 @@
 
 .bonus-balken {
   height: 8px;
-  background: var(--bonus-hell);
+  background: #D3E6DA; /* auf Weiß gut sichtbar, aber deutlich heller als die Füllung */
   border-radius: 999px;
   overflow: hidden;
 }
 
+/* min-width: bei 0 % bleibt ein kleiner grüner Startpunkt sichtbar */
 .bonus-balken__fuellung {
   display: block;
   height: 100%;
+  min-width: 8px;
   background: var(--excel-green);
   border-radius: inherit;
+  transition: width 0.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bonus-balken__fuellung {
+    transition: none;
+  }
 }
 
 .bonus-segmente {
@@ -307,6 +316,24 @@
   border: 2px solid var(--excel-green);
   padding: 1rem;
   box-shadow: var(--bonus-schatten);
+}
+
+/* Aktive Übung: die ganze Karte ist ein Link */
+a.bonus-zeile.is-next {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+a.bonus-zeile.is-next:hover {
+  border-color: var(--excel-green-dark);
+  box-shadow: 0 2px 4px rgba(11, 61, 34, 0.08), 0 10px 28px rgba(11, 61, 34, 0.14);
+}
+
+a.bonus-zeile.is-next:focus-visible {
+  outline: 3px solid rgba(16, 124, 65, 0.4);
+  outline-offset: 3px;
 }
 
 .bonus-nr {
@@ -980,6 +1007,17 @@
 /* ---------- Schmal (Handy) ---------- */
 
 @media (max-width: 640px) {
+  /* Spaltenüberschriften dürfen umbrechen, seit die Tabelle auf Bildschirmbreite schrumpft (uebung.js) */
+  .bonus-arbeitsbereich table.sheet td.cell--header {
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  /* Zeile über dem Titel bliebe sonst zweizeilig: „Als nächstes ·“ entfällt am Handy */
+  .bonus-label__extra {
+    display: none;
+  }
+
   .bonus-kopfkarte {
     flex-direction: column;
     align-items: stretch;

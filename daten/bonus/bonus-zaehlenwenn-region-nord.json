@@ -10,7 +10,7 @@
   "task": {
     "intro": "Wie viele Aufträge kamen aus der Region Nord? Zähle sie mit der ZÄHLENWENN-Funktion.",
     "steps": [
-      "Trage in Zelle B12 eine ZÄHLENWENN-Formel ein, die die Aufträge aus der Region Nord zählt."
+      "Trage in Zelle B8 eine ZÄHLENWENN-Formel ein, die die Aufträge aus der Region Nord zählt."
     ]
   },
   "grid": {
@@ -19,7 +19,7 @@
       "B",
       "C"
     ],
-    "rowCount": 12,
+    "rowCount": 8,
     "cells": {
       "A1": {
         "value": "Auftrag",
@@ -57,92 +57,52 @@
         "value": "A-1003"
       },
       "B4": {
-        "value": "West"
+        "value": "Nord"
       },
       "C4": {
-        "value": 2150,
+        "value": 3480,
         "format": "currency0"
       },
       "A5": {
         "value": "A-1004"
       },
       "B5": {
-        "value": "Nord"
+        "value": "West"
       },
       "C5": {
-        "value": 3480,
+        "value": 2150,
         "format": "currency0"
       },
       "A6": {
         "value": "A-1005"
       },
       "B6": {
-        "value": "Ost"
+        "value": "Nord"
       },
       "C6": {
-        "value": 970,
+        "value": 1615,
         "format": "currency0"
       },
       "A7": {
         "value": "A-1006"
       },
       "B7": {
-        "value": "Süd"
+        "value": "Ost"
       },
       "C7": {
-        "value": 2890,
+        "value": 970,
         "format": "currency0"
       },
       "A8": {
-        "value": "A-1007"
-      },
-      "B8": {
-        "value": "Nord"
-      },
-      "C8": {
-        "value": 1615,
-        "format": "currency0"
-      },
-      "A9": {
-        "value": "A-1008"
-      },
-      "B9": {
-        "value": "West"
-      },
-      "C9": {
-        "value": 3120,
-        "format": "currency0"
-      },
-      "A10": {
-        "value": "A-1009"
-      },
-      "B10": {
-        "value": "Ost"
-      },
-      "C10": {
-        "value": 1480,
-        "format": "currency0"
-      },
-      "A11": {
-        "value": "A-1010"
-      },
-      "B11": {
-        "value": "Nord"
-      },
-      "C11": {
-        "value": 2260,
-        "format": "currency0"
-      },
-      "A12": {
         "value": "Aufträge aus Nord"
       },
-      "B12": {
+      "B8": {
         "type": "input",
         "answer": {
-          "value": 4,
+          "value": 3,
           "tolerance": 0.005,
           "acceptedFormulas": [
-            "=ZÄHLENWENN(B2:B11;\"Nord\")"
+            "=ZÄHLENWENN(B2:B7;\"Nord\")"
           ]
         }
       }
@@ -154,6 +114,6 @@
     "Text als Suchkriterium steht in Anführungszeichen, z. B. \"Nord\".",
     "Im Unterschied zu ANZAHL zählt ZÄHLENWENN nicht alle gefüllten Zellen, sondern nur die, die zur Bedingung passen."
   ],
-  "explanation": "ZÄHLENWENN(B2:B11;\"Nord\") geht die Regionen in B2:B11 durch und zählt nur die Zellen, in denen „Nord“ steht – hier 4 Aufträge (A-1001, A-1004, A-1007, A-1010). Statt \"Nord\" kannst du auch auf eine Zelle verweisen, in der die Region steht. Dann reicht es, diese Zelle zu ändern, um eine andere Region zu zählen.",
-  "solution": "=ZÄHLENWENN(B2:B11;\"Nord\")"
+  "explanation": "ZÄHLENWENN(B2:B7;\"Nord\") geht die Regionen in B2:B7 durch und zählt nur die Zellen, in denen „Nord“ steht – hier 3 Aufträge (A-1001, A-1003, A-1005). Statt \"Nord\" kannst du auch auf eine Zelle verweisen, in der die Region steht. Dann reicht es, diese Zelle zu ändern, um eine andere Region zu zählen.",
+  "solution": "=ZÄHLENWENN(B2:B7;\"Nord\")"
 }
