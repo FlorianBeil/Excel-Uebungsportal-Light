@@ -366,7 +366,8 @@
     const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
     const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     const knopf = el("button", { type: "button", class: "bonus-video__play", "aria-label": "Video abspielen: " + (v.titel || "Trailer"), html: PLAY_GROSS });
-    const kachel = el("div", { class: "bonus-video" }, [
+    // YouTube-Shorts sind Hochformat → Kachel beim Abspielen 9:16 statt schwarzer Balken
+    const kachel = el("div", { class: "bonus-video" + (/\/shorts\//.test(url) ? " bonus-video--hochkant" : "") }, [
       v.poster ? el("img", { class: "bonus-video__bild" + (v.posterFreigestellt ? " bonus-video__bild--person" : ""), src: v.poster, alt: "" }) : null,
       knopf,
       el("div", { class: "bonus-video__text" }, [

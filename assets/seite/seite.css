@@ -680,6 +680,19 @@ a.bonus-zeile.is-next:focus-visible {
   color: #fff;
 }
 
+/* Hochformat-Video (YouTube-Shorts): beim Abspielen volle 9:16-Fläche, Spalte etwas breiter */
+@media (min-width: 641px) {
+  .bonus-angebot--video:has(.bonus-video--hochkant.is-playing) {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+}
+
+.bonus-video--hochkant.is-playing {
+  aspect-ratio: 9 / 16;
+  min-height: 0;
+  align-self: start;
+}
+
 .bonus-video.is-playing iframe,
 .bonus-video.is-playing video {
   position: absolute;
@@ -1084,6 +1097,11 @@ a.bonus-zeile.is-next:focus-visible {
 
   .bonus-video {
     min-height: 210px;
+  }
+
+  .bonus-video--hochkant.is-playing {
+    width: min(100%, 320px);
+    justify-self: center;
   }
 
   /* Breite Kachel: ganzes Foto rechts (gespiegelt → object-position links), Play-Knopf links daneben */
