@@ -46,7 +46,7 @@
         "format": "currency0"
       },
       "C2": {
-        "value": 2450,
+        "value": 2000,
         "format": "currency0"
       },
       "D2": {
@@ -96,9 +96,9 @@
   "hints": [
     "WENN-Aufbau: =WENN(Prüfung; [Dann_Wert]; [Sonst_Wert]) – prüft eine Bedingung und gibt je nach Ergebnis einen von zwei Werten zurück.",
     "Vergleiche in der Prüfung den Umsatz mit dem Ziel derselben Zeile.",
-    "Schau dir die Zahlen in Zeile 2 genau an: Umsatz und Ziel sind gleich hoch. „Mindestens so hoch“ heißt größer oder gleich, also >=. Mit > allein stünde dort fälschlich „Nein“.",
+    "„Mindestens so hoch“ heißt größer oder gleich, also >=.",
     "Text in einer Formel muss in Anführungszeichen stehen, z. B. \"Ja\"."
   ],
-  "explanation": "WENN(B2>=C2;\"Ja\";\"Nein\") prüft, ob der Umsatz in B2 größer oder gleich dem Ziel in C2 ist. Trifft das zu, erscheint „Ja“, sonst „Nein“. Die Region Ost zeigt, warum >= statt > wichtig ist: Wer das Ziel genau trifft, hat es erreicht. Weil die Formel relative Bezüge nutzt, passt sie sich beim Kopieren nach unten automatisch an jede Zeile an.",
+  "explanation": "WENN(B2>=C2;\"Ja\";\"Nein\") prüft, ob der Umsatz in B2 größer oder gleich dem Ziel in C2 ist. Trifft das zu, erscheint „Ja“, sonst „Nein“. Mit >= statt > zählt auch ein Umsatz, der das Ziel genau trifft, als erreicht. Weil die Formel relative Bezüge nutzt, passt sie sich beim Kopieren nach unten automatisch an jede Zeile an.",
   "solution": "=WENN(B2>=C2;\"Ja\";\"Nein\")"
 }
