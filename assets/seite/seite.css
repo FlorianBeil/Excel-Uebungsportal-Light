@@ -1573,3 +1573,74 @@ a.bonus-zeile.is-next:focus-visible {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   „Wie geht es nach Stufe 2 weiter?“ (seit 2026-10-14) – ersetzt den Kopf
+   „In der Vollversion · 40 weitere Übungen“; die Karten stehen aufklappbar darunter
+   ========================================================================== */
+
+.bonus-weiterkurs__titel {
+  margin: 1.4rem 0 0.35rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bonus-weiterkurs__text {
+  margin: 0;
+  max-width: 720px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.bonus-weiterkurs__link {
+  margin: 0.7rem 0 0;
+}
+
+.bonus-weiterkurs__link a {
+  color: var(--excel-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bonus-weiterkurs__link a:hover {
+  color: var(--excel-green-dark);
+}
+
+.bonus-weiterkurs__liste {
+  margin-top: 0.9rem;
+}
+
+.bonus-weiterkurs__liste > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.bonus-weiterkurs__liste > summary::-webkit-details-marker {
+  display: none;
+}
+
+.bonus-weiterkurs__liste > summary::before {
+  content: "";
+  border: 5px solid transparent;
+  border-left: 7px solid currentColor;
+  border-right: 0;
+  transition: transform 0.15s;
+}
+
+.bonus-weiterkurs__liste[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.bonus-weiterkurs__liste > .bonus-tabs {
+  margin: 1rem 0;
+}

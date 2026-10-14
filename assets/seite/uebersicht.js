@@ -78,14 +78,14 @@
       root.appendChild(kopfUnterwegs());
       root.appendChild(el("h2", { class: "bonus-abschnitt", text: "Deine Übungen" }));
       root.appendChild(liste);
-      root.appendChild(gesperrtBereich(daten, false));
+      root.appendChild(gesperrtBereich(daten));
     } else {
       root.appendChild(kopfFertig(freie));
       const mini = miniKursBlock(daten.konfig.miniKurs, freie);
       if (mini) root.appendChild(mini);
       root.appendChild(el("h2", { class: "bonus-abschnitt", text: "Das hast du geschafft" }));
       root.appendChild(liste);
-      root.appendChild(gesperrtBereich(daten, true));
+      root.appendChild(gesperrtBereich(daten));
     }
     root.appendChild(zuruecksetzen());
     aktualisieren();
@@ -442,51 +442,51 @@
 
   /* ---------------- Gesperrte Kurs-Übungen ---------------- */
 
-  function gesperrtBereich(daten, fertig) {
+  // „Wie geht es nach Stufe 2 weiter?“ – kurzer Text mit Link, die gesperrten Kurs-Übungen
+  // (nach Stufen) erst nach einem Klick auf „Welche Übungen noch im Portal sind“
+  function gesperrtBereich(daten) {
     const { gesperrte, konfig } = daten;
     const url = konfig.vollversionUrl;
     const stufen = B.STUFEN.filter((s) => gesperrte.some((ex) => ex.level === s.id));
     const grid = el("div", { class: "bonus-gesperrt__grid" });
-    const kopf = el("div", { class: "bonus-gesperrt__kopf" }, [
-      el("div", {}, [
-        el("h2", { class: "bonus-abschnitt bonus-abschnitt--grau", html: B.LOCK_SVG + "<span>In der Vollversion · " + gesperrte.length + " weitere Übungen</span>" }),
-        el("p", { text: fertig ? [konfig.vollversionText, konfig.webinarHinweis].filter(Boolean).join(" ") : konfig.vollversionText }),
-      ]),
-    ]);
 
-    if (fertig) {
-      // Kleine Auswahl statt aller Karten (konfiguration.json → abschlussKarten);
-      // ohne Liste je Stufe die ersten zwei
-      kopf.appendChild(B.upgradeLink(url, konfig.vollversionButton, "abschluss", "bonus-btn bonus-btn--rand"));
-      const auswahl = (konfig.abschlussKarten || []).map((id) => gesperrte.find((ex) => ex.id === id)).filter(Boolean);
-      (auswahl.length ? auswahl : [].concat(...stufen.map((s) => gesperrte.filter((ex) => ex.level === s.id).slice(0, 2))))
-        .forEach((ex) => grid.appendChild(karte(ex, url)));
-    } else {
-      let aktiv = stufen.some((s) => s.id === location.hash.slice(1)) ? location.hash.slice(1) : stufen[0].id;
-      const tabs = el("div", { class: "bonus-tabs", role: "tablist", "aria-label": "Stufe der Vollversion" });
-      const zeigen = () => {
-        tabs.querySelectorAll("button").forEach((b) => {
-          const an = b.dataset.stufe === aktiv;
-          b.classList.toggle("is-active", an);
-          b.setAttribute("aria-selected", an ? "true" : "false");
-        });
-        grid.innerHTML = "";
-        gesperrte.filter((ex) => ex.level === aktiv).forEach((ex) => grid.appendChild(karte(ex, url)));
-      };
-      stufen.forEach((s) => {
-        const b = el("button", { type: "button", role: "tab", class: "bonus-tab", "data-stufe": s.id, text: s.label });
-        b.addEventListener("click", () => {
-          aktiv = s.id;
-          history.replaceState(null, "", "#" + s.id);
-          zeigen();
-        });
-        tabs.appendChild(b);
+    let aktiv = stufen.some((s) => s.id === location.hash.slice(1)) ? location.hash.slice(1) : stufen[0].id;
+    const tabs = el("div", { class: "bonus-tabs", role: "tablist", "aria-label": "Stufe im Übungsportal" });
+    const zeigen = () => {
+      tabs.querySelectorAll("button").forEach((b) => {
+        const an = b.dataset.stufe === aktiv;
+        b.classList.toggle("is-active", an);
+        b.setAttribute("aria-selected", an ? "true" : "false");
       });
-      kopf.appendChild(tabs);
-      zeigen();
-    }
+      grid.innerHTML = "";
+      gesperrte.filter((ex) => ex.level === aktiv).forEach((ex) => grid.appendChild(karte(ex, url)));
+    };
+    stufen.forEach((s) => {
+      const b = el("button", { type: "button", role: "tab", class: "bonus-tab", "data-stufe": s.id, text: s.label });
+      b.addEventListener("click", () => {
+        aktiv = s.id;
+        history.replaceState(null, "", "#" + s.id);
+        zeigen();
+      });
+      tabs.appendChild(b);
+    });
+    zeigen();
 
-    return el("section", { class: "bonus-gesperrt" }, [kopf, grid]);
+    const aufklappen = el("details", { class: "bonus-weiterkurs__liste" }, [
+      el("summary", { text: konfig.weiterAufklappen || "Welche Übungen noch im Portal sind" }),
+      tabs,
+      grid,
+    ]);
+    aufklappen.addEventListener("toggle", () => {
+      if (aufklappen.open) B.track("gesperrt_aufklappen", null, {});
+    });
+
+    return el("section", { class: "bonus-gesperrt bonus-weiterkurs" }, [
+      el("h2", { class: "bonus-weiterkurs__titel", text: konfig.weiterTitel }),
+      el("p", { class: "bonus-weiterkurs__text", text: (konfig.weiterText || "").replace("{anzahl}", String(gesperrte.length)) }),
+      el("p", { class: "bonus-weiterkurs__link" }, [B.upgradeLink(konfig.weiterUrl || url, konfig.weiterLink, "weiter", "")]),
+      aufklappen,
+    ]);
   }
 
   function karte(ex, url) {

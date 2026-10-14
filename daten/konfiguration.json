@@ -1,17 +1,11 @@
 {
   "vollversionUrl": "https://myablefy.com/s/excel.flo/Excel-Master-Kurs/payment?coupon=MASTER150&utm_source=dankeseite&utm_medium=referral&utm_campaign=freebie-uebungsportal-202610&utm_content=upsell",
-  "vollversionText": "Das komplette Portal ist Teil des Excel Master Kurses.",
-  "vollversionButton": "Excel Master Kurs ansehen",
-  "webinarHinweis": "",
-  "_abschlussKarten": "Gesperrte Kurs-Übungen, die auf der Abschlussseite als Ausblick erscheinen (IDs aus daten/uebersicht.json). Unbekannte IDs werden übersprungen.",
-  "abschlussKarten": [
-    "xverweis-mitarbeiterdaten",
-    "sverweis-preisliste",
-    "pivot-kurs-umsatz-je-quartal",
-    "wenn-verschachtelt-bonusstufe",
-    "pivot-kurs-top5-umsatzstaerkste-kunden",
-    "sortieren-eindeutig-filter-kunden"
-  ],
+  "_weiter": "Bereich unter den Übungen. {anzahl} = Zahl der gesperrten Kurs-Übungen (aus daten/uebersicht.json). Der Link „weiterLink“ führt zu weiterUrl (Infoseite), die Buttons auf den Karten zu vollversionUrl.",
+  "weiterTitel": "Wie geht es nach Stufe 2 weiter?",
+  "weiterText": "Diese Übungen stammen aus dem Übungsportal. Das komplette Portal mit {anzahl} Übungen in drei Stufen ist Teil des Excel Master Kurses.",
+  "weiterLink": "Mehr zum Excel Master Kurs",
+  "weiterUrl": "https://excel-flo.de/master-kurs/?utm_source=dankeseite&utm_medium=referral&utm_campaign=freebie-uebungsportal-202610&utm_content=upsell",
+  "weiterAufklappen": "Welche Übungen noch im Portal sind",
   "_miniKurs": "Dunkelgrüner Block auf der Abschlussseite. Erscheint erst, wenn url ausgefüllt ist. zeitText: {zeit} wird durch die gemessene Zeit ersetzt (fett); fehlt die Zeit, steht zeitTextOhneZeit da. merkmale.icon: play | lupe | haken. video.url: eigene Videodatei im Repo (z. B. assets/video/fall.mp4), MP4-Link (https://…) oder YouTube-/Vimeo-Link; leer = keine Videokachel. video.poster: Vorschaubild (optional); posterFreigestellt: true = Foto mit transparentem Hintergrund (voll sichtbar, gespiegelt).",
   "miniKurs": {
     "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo",
@@ -54,7 +48,6 @@
       "titel": "{zeit} Minuten. Mit Shortcuts geht das schneller.",
       "titelOhneZeit": "Geschafft! Mit Shortcuts geht das noch schneller.",
       "text": "Die Formeln sitzen. Zeit kostet jetzt vor allem der Weg dorthin: markieren, scrollen, Menüs suchen.",
-      "macHinweis": "Am Mac: ⌘ statt Strg",
       "punkte": [
         "17 Aufgaben und 49 Missionen",
         "Ein Excel-Krimi, den du nur mit Tastenkombinationen löst"
