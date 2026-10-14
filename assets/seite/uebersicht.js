@@ -369,8 +369,11 @@
       el("h2", { id: "turbo-popup-titel", text: titel }),
       p.text ? el("p", { class: "turbo-popup__text", text: p.text }) : null,
       m.tasten && m.tasten.length
-        ? el("p", { class: "turbo-popup__tasten", "aria-label": m.tasten.join(" + ") },
-            m.tasten.flatMap((t, i) => [i ? el("span", { text: "+", "aria-hidden": "true" }) : null, el("kbd", { text: t })]))
+        ? el("p", { class: "turbo-popup__tasten" },
+            [
+              ...m.tasten.flatMap((t, i) => [i ? el("span", { text: "+", "aria-hidden": "true" }) : null, el("kbd", { text: t })]),
+              p.macHinweis ? el("span", { class: "turbo-popup__mac", text: p.macHinweis }) : null,
+            ])
         : null,
       p.punkte && p.punkte.length ? el("ul", { class: "turbo-popup__punkte" }, p.punkte.map((t) => el("li", { text: t }))) : null,
       link,

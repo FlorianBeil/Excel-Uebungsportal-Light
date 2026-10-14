@@ -1506,6 +1506,12 @@ a.bonus-zeile.is-next:focus-visible {
   color: var(--text-primary);
 }
 
+.turbo-popup__mac {
+  margin-left: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
 .turbo-popup__punkte {
   list-style: none;
   margin: 0 0 1.5rem;
