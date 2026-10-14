@@ -108,6 +108,8 @@
           window.ExcelFloProgress.markCompleted(x.id);
         }
         aktualisieren();
+        // Gerade die letzte offene Übung gelöst → Shortcut-Turbo-Popup (kurz „Richtig!“ wirken lassen)
+        if (neu && ersteOffene() === null) setTimeout(turboPopup, 900);
       },
     });
 
@@ -345,6 +347,53 @@
         el("div", { class: "bonus-angebot__aktion" }, [link, m.hinweis ? el("p", { text: m.hinweis }) : null]),
       ]),
     ]);
+  }
+
+  /* ---------------- Shortcut-Turbo-Popup (einmal, direkt nach der letzten Übung) ---------------- */
+
+  function turboPopup() {
+    const m = daten.konfig.miniKurs;
+    const p = m && m.popup;
+    if (!p || !/^https:\/\//.test(m.url || "") || typeof HTMLDialogElement === "undefined") return;
+    const ms = B.gesamtZeit(daten.freie);
+    const titel = ms ? p.titel.replace("{zeit}", B.formatZeit(ms)) : p.titelOhneZeit || p.titel;
+
+    const zu = el("button", { type: "button", class: "turbo-popup__zu", "aria-label": "Schließen", text: "×" });
+    const link = el("a", { class: "bonus-btn turbo-popup__btn", href: m.url, target: "_blank", rel: "noopener", text: p.button });
+    const spaeter = el("button", { type: "button", class: "turbo-popup__spaeter", text: p.spaeter || "Später" });
+    const dialog = el("dialog", { class: "turbo-popup", "aria-labelledby": "turbo-popup-titel" }, [
+      zu,
+      el("p", { class: "turbo-popup__etikett", html: B.CHECK_SVG }, [
+        el("span", { text: (p.etikett || "").replace("{anzahl}", String(daten.freie.length)) }),
+      ]),
+      el("h2", { id: "turbo-popup-titel", text: titel }),
+      p.text ? el("p", { class: "turbo-popup__text", text: p.text }) : null,
+      m.tasten && m.tasten.length
+        ? el("p", { class: "turbo-popup__tasten", "aria-label": m.tasten.join(" + ") },
+            m.tasten.flatMap((t, i) => [i ? el("span", { text: "+", "aria-hidden": "true" }) : null, el("kbd", { text: t })]))
+        : null,
+      p.punkte && p.punkte.length ? el("ul", { class: "turbo-popup__punkte" }, p.punkte.map((t) => el("li", { text: t }))) : null,
+      link,
+      spaeter,
+    ]);
+
+    const schliessen = () => dialog.close();
+    zu.addEventListener("click", schliessen);
+    spaeter.addEventListener("click", schliessen);
+    // Klick auf den abgedunkelten Hintergrund schließt ebenfalls
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) schliessen();
+    });
+    dialog.addEventListener("close", () => {
+      B.track("mini_kurs_popup_close", null, {});
+      dialog.remove();
+    });
+    link.addEventListener("click", () => B.track("mini_kurs_click", null, { ort: "popup" }));
+
+    document.body.appendChild(dialog);
+    dialog.showModal();
+    link.focus();
+    B.track("mini_kurs_popup", null, {});
   }
 
   // {zeit} im Text fett einsetzen

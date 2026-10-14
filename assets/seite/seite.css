@@ -1395,3 +1395,175 @@ a.bonus-zeile.is-next:focus-visible {
     gap: 0.7rem;
   }
 }
+
+/* ==========================================================================
+   Shortcut-Turbo-Popup – erscheint einmal direkt nach dem Lösen der letzten Übung
+   ========================================================================== */
+
+.turbo-popup {
+  width: min(560px, calc(100% - 2rem));
+  max-height: calc(100% - 2rem);
+  overflow: auto;
+  padding: 2rem 2.2rem 1.6rem;
+  border: 0;
+  border-top: 8px solid var(--excel-green);
+  border-radius: 22px;
+  background: #fff;
+  color: var(--text-primary);
+  box-shadow: 0 24px 60px rgba(11, 61, 34, 0.28);
+}
+
+.turbo-popup::backdrop {
+  background: rgba(20, 40, 28, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.turbo-popup[open] {
+  animation: turbo-popup-rein 0.25s ease-out;
+}
+
+@keyframes turbo-popup-rein {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turbo-popup[open] { animation: none; }
+}
+
+.turbo-popup__zu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--bonus-rand);
+  background: #fff;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.turbo-popup__zu:hover {
+  background: var(--bonus-hell);
+  color: var(--text-primary);
+}
+
+.turbo-popup__etikett {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 3rem 0.9rem 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--excel-green);
+}
+
+.turbo-popup__etikett svg {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--excel-green);
+  color: #fff;
+}
+
+.turbo-popup h2 {
+  margin: 0 0 0.8rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 4.5vw, 1.85rem);
+  line-height: 1.25;
+  color: var(--bonus-dunkel);
+}
+
+.turbo-popup__text {
+  margin: 0 0 1.2rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.turbo-popup__tasten {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.2rem;
+  color: var(--text-muted);
+}
+
+.turbo-popup__tasten kbd {
+  min-width: 3.2rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #D5DED8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 0 #D5DED8;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.turbo-popup__punkte {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.turbo-popup__punkte li {
+  position: relative;
+  padding-left: 1.8rem;
+  font-size: 1.02rem;
+}
+
+.turbo-popup__punkte li::before {
+  content: "✓";
+  position: absolute;
+  left: 0.15rem;
+  font-weight: 700;
+  color: var(--excel-green);
+}
+
+.turbo-popup__btn {
+  background: var(--excel-green);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.95rem 1.6rem;
+  font-size: 1.05rem;
+}
+
+.turbo-popup__btn:hover {
+  background: var(--excel-green-dark);
+}
+
+.turbo-popup__spaeter {
+  display: block;
+  margin-top: 1.2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.turbo-popup__spaeter:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 480px) {
+  .turbo-popup {
+    padding: 1.6rem 1.3rem 1.3rem;
+  }
+
+  .turbo-popup__btn {
+    display: flex;
+    width: 100%;
+  }
+}
