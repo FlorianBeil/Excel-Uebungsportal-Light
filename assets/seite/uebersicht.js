@@ -31,6 +31,8 @@
   let karten = [];
   let balkenEl = null;
   let root = null;
+  let tippEl = null; // Shortcut-Tipp unter einer Übung (konfiguration.json → miniKurs.tipp)
+  let tippGemeldet = false;
 
   const erledigt = (i) => window.ExcelFloProgress.isCompleted(daten.freie[i].id);
   // Der Reihe nach: Übung 1 immer, jede weitere, sobald die vorherige gelöst ist
@@ -74,7 +76,10 @@
     document.getElementById("stufen-status").textContent = STUFE + (fertig ? " abgeschlossen" : " freigeschaltet");
 
     const liste = el("ol", { class: "frei-liste" }, aufgaben.map((a, i) => karteBauen(a, i)));
+    tippEl = null;
     if (!fertig) {
+      tippEl = tippBauen(daten.konfig.miniKurs);
+      if (tippEl) karten[tippEl.nachIdx].li.after(tippEl.li);
       root.appendChild(kopfUnterwegs());
       root.appendChild(el("h2", { class: "bonus-abschnitt", text: "Deine Übungen" }));
       root.appendChild(liste);
@@ -161,6 +166,13 @@
       weiterBereich(k, i, geloest);
     });
     if (balkenEl) kopfFortschritt();
+    if (tippEl) {
+      tippEl.li.hidden = !erledigt(tippEl.nachIdx);
+      if (!tippEl.li.hidden && !tippGemeldet) {
+        tippGemeldet = true;
+        B.track("mini_kurs_tipp", null, {});
+      }
+    }
     zeit.fokus(fokusIdx);
   }
 
@@ -347,6 +359,29 @@
         el("div", { class: "bonus-angebot__aktion" }, [link, m.hinweis ? el("p", { text: m.hinweis }) : null]),
       ]),
     ]);
+  }
+
+  /* ---------------- Shortcut-Tipp in der Liste (nach Übung 2) ---------------- */
+
+  function tippBauen(m) {
+    const t = m && m.tipp;
+    const nachIdx = t ? (t.nachUebung || 0) - 1 : -1;
+    if (!t || !karten[nachIdx] || nachIdx >= karten.length - 1 || !/^https:\/\//.test(m.url || "")) return null;
+    const link = el("a", { href: m.url, target: "_blank", rel: "noopener", text: t.link || "Shortcut-Turbo" });
+    link.addEventListener("click", () => B.track("mini_kurs_click", null, { ort: "tipp" }));
+    const [vor, nach] = (t.linkText || "{link}").split("{link}");
+    const li = el("li", { class: "bonus-tipp", hidden: true }, [
+      m.tasten && m.tasten.length
+        ? el("p", { class: "bonus-tipp__tasten", "aria-hidden": "true" },
+            m.tasten.flatMap((x, i) => [i ? el("span", { text: "+" }) : null, el("kbd", { text: x })]))
+        : null,
+      el("div", { class: "bonus-tipp__text" }, [
+        el("p", { class: "bonus-tipp__titel", text: t.titel }),
+        t.text ? el("p", { text: t.text }) : null,
+        el("p", {}, [vor, link, nach || ""]),
+      ]),
+    ]);
+    return { li, nachIdx };
   }
 
   /* ---------------- Shortcut-Turbo-Popup (einmal, direkt nach der letzten Übung) ---------------- */

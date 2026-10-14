@@ -54,7 +54,15 @@
       ],
       "button": "Zum Shortcut-Turbo für 49 €",
       "spaeter": "Erst mal meine Übungen ansehen"
+    },
+    "tipp": {
+      "nachUebung": 2,
+      "titel": "Kleiner Tipp für lange Tabellen",
+      "text": "Mit Strg und Pfeil nach unten springst du ans Ende der Spalte, egal wie viele Zeilen sie hat.",
+      "linkText": "Solche Abkürzungen übe ich im {link} mit dir, für 49 €.",
+      "link": "Shortcut-Turbo"
     }
   },
-  "_miniKursPopup": "miniKurs.popup: erscheint einmal direkt nach dem Lösen der letzten Übung. {anzahl} = Zahl der Übungen, {zeit} = gemessene Zeit (ohne Zeit gilt titelOhneZeit). Tasten kommen aus miniKurs.tasten, Link aus miniKurs.url. Ohne popup kein Popup."
+  "_miniKursPopup": "miniKurs.popup: erscheint einmal direkt nach dem Lösen der letzten Übung. {anzahl} = Zahl der Übungen, {zeit} = gemessene Zeit (ohne Zeit gilt titelOhneZeit). Tasten kommen aus miniKurs.tasten, Link aus miniKurs.url. Ohne popup kein Popup.",
+  "_miniKursTipp": "miniKurs.tipp: Hinweiskarte in der Liste direkt unter Übung „nachUebung“, sichtbar sobald diese gelöst ist (nicht auf der Abschlussseite). Tasten aus miniKurs.tasten, Link zu miniKurs.url; {link} im linkText wird zum Link."
 }

@@ -1644,3 +1644,77 @@ a.bonus-zeile.is-next:focus-visible {
 .bonus-weiterkurs__liste > .bonus-tabs {
   margin: 1rem 0;
 }
+
+/* ==========================================================================
+   Shortcut-Tipp in der Übungsliste (nach Übung 2, sobald sie gelöst ist)
+   ========================================================================== */
+
+.bonus-tipp {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.15rem 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--bonus-rand);
+  border-left: 5px solid var(--excel-green);
+  border-radius: var(--bonus-radius);
+}
+
+.bonus-tipp[hidden] {
+  display: none;
+}
+
+.bonus-tipp__tasten {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.bonus-tipp__tasten kbd {
+  min-width: 3.2rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #D5DED8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 0 #D5DED8;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.bonus-tipp__text p {
+  margin: 0.35rem 0 0;
+  line-height: 1.55;
+}
+
+.bonus-tipp__text .bonus-tipp__titel {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bonus-tipp__text a {
+  font-weight: 700;
+  color: var(--excel-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bonus-tipp__text a:hover {
+  color: var(--excel-green-dark);
+}
+
+@media (max-width: 640px) {
+  .bonus-tipp {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1rem 1.1rem;
+  }
+}
