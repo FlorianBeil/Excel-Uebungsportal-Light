@@ -324,7 +324,9 @@
   function miniKursBlock(m, freie) {
     if (!m || !/^https:\/\//.test(m.url || "")) return null;
     const link = el("a", { class: "bonus-btn bonus-btn--hell bonus-angebot__btn", href: m.url, target: "_blank", rel: "noopener" }, [
-      m.button + (m.preis ? " · " + m.preis : "") + " →",
+      m.button + (m.preis ? " · " : ""),
+      ...preisTeile(m),
+      " →",
     ]);
     link.addEventListener("click", () => B.track("mini_kurs_click", null, { ort: "abschluss" }));
 
@@ -378,7 +380,7 @@
       el("div", { class: "bonus-tipp__text" }, [
         el("p", { class: "bonus-tipp__titel", text: t.titel }),
         t.text ? el("p", { text: t.text }) : null,
-        el("p", {}, [vor, link, nach || ""]),
+        el("p", {}, [vor, link, ...mitPreis(nach || "", m)]),
       ]),
     ]);
     return { li, nachIdx };
@@ -394,7 +396,7 @@
     const titel = ms ? p.titel.replace("{zeit}", B.formatZeit(ms)) : p.titelOhneZeit || p.titel;
 
     const zu = el("button", { type: "button", class: "turbo-popup__zu", "aria-label": "Schließen", text: "×" });
-    const link = el("a", { class: "bonus-btn turbo-popup__btn", href: m.url, target: "_blank", rel: "noopener", text: p.button });
+    const link = el("a", { class: "bonus-btn turbo-popup__btn", href: m.url, target: "_blank", rel: "noopener" }, mitPreis(p.button, m));
     const spaeter = el("button", { type: "button", class: "turbo-popup__spaeter", text: p.spaeter || "Später" });
     const dialog = el("dialog", { class: "turbo-popup", "aria-labelledby": "turbo-popup-titel" }, [
       zu,
@@ -432,6 +434,19 @@
     dialog.showModal();
     link.focus();
     B.track("mini_kurs_popup", null, {});
+  }
+
+  // Preis mit Streichpreis davor: „69 € 49 €“ (69 € durchgestrichen)
+  function preisTeile(m) {
+    if (!m.preis) return [];
+    return m.streichpreis
+      ? [el("s", { class: "bonus-streichpreis", text: m.streichpreis }), " ", m.preis]
+      : [m.preis];
+  }
+
+  // {preis} im Text durch Streich- und Preis ersetzen
+  function mitPreis(text, m) {
+    return text.split("{preis}").flatMap((t, i) => (i ? [...preisTeile(m), t] : [t]));
   }
 
   // {zeit} im Text fett einsetzen

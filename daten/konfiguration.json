@@ -8,8 +8,9 @@
   "weiterAufklappen": "Welche Übungen noch im Portal sind",
   "_miniKurs": "Dunkelgrüner Block auf der Abschlussseite. Erscheint erst, wenn url ausgefüllt ist. zeitText: {zeit} wird durch die gemessene Zeit ersetzt (fett); fehlt die Zeit, steht zeitTextOhneZeit da. merkmale.icon: play | lupe | haken. video.url: eigene Videodatei im Repo (z. B. assets/video/fall.mp4), MP4-Link (https://…) oder YouTube-/Vimeo-Link; leer = keine Videokachel. video.poster: Vorschaubild (optional); posterFreigestellt: true = Foto mit transparentem Hintergrund (voll sichtbar, gespiegelt).",
   "miniKurs": {
-    "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo",
+    "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo/payment?coupon=Turbo&utm_source=uebungsportal&utm_medium=funnel&utm_campaign=launch-shortcut-turbo-202610&utm_content=upsell",
     "preis": "49 €",
+    "streichpreis": "69 €",
     "etikett": "Dein nächster Schritt",
     "titel": "Arbeite deutlich schneller – mit meinem Shortcut-Turbo",
     "zeitText": "Du hast {zeit} gebraucht. Mit Shortcuts geht das schneller.",
@@ -52,17 +53,18 @@
         "17 Aufgaben und 49 Missionen",
         "Ein Excel-Krimi, den du nur mit Tastenkombinationen löst"
       ],
-      "button": "Zum Shortcut-Turbo für 49 €",
+      "button": "Zum Shortcut-Turbo für {preis}",
       "spaeter": "Erst mal meine Übungen ansehen"
     },
     "tipp": {
       "nachUebung": 2,
       "titel": "Kleiner Tipp für lange Tabellen",
       "text": "Mit Strg und Pfeil nach unten springst du ans Ende der Spalte, egal wie viele Zeilen sie hat.",
-      "linkText": "Solche Abkürzungen übe ich im {link} mit dir, für 49 €.",
+      "linkText": "Solche Abkürzungen übe ich im {link} mit dir, für {preis}.",
       "link": "Shortcut-Turbo"
     }
   },
   "_miniKursPopup": "miniKurs.popup: erscheint einmal direkt nach dem Lösen der letzten Übung. {anzahl} = Zahl der Übungen, {zeit} = gemessene Zeit (ohne Zeit gilt titelOhneZeit). Tasten kommen aus miniKurs.tasten, Link aus miniKurs.url. Ohne popup kein Popup.",
-  "_miniKursTipp": "miniKurs.tipp: Hinweiskarte in der Liste direkt unter Übung „nachUebung“, sichtbar sobald diese gelöst ist (nicht auf der Abschlussseite). Tasten aus miniKurs.tasten, Link zu miniKurs.url; {link} im linkText wird zum Link."
+  "_miniKursTipp": "miniKurs.tipp: Hinweiskarte in der Liste direkt unter Übung „nachUebung“, sichtbar sobald diese gelöst ist (nicht auf der Abschlussseite). Tasten aus miniKurs.tasten, Link zu miniKurs.url; {link} im linkText wird zum Link.",
+  "_miniKursPreis": "miniKurs.preis / streichpreis: {preis} in Texten wird zu „69 € (durchgestrichen) 49 €“. Ohne streichpreis nur der Preis."
 }

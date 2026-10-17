@@ -1718,3 +1718,10 @@ a.bonus-zeile.is-next:focus-visible {
     padding: 1rem 1.1rem;
   }
 }
+
+/* Streichpreis vor dem Preis (Shortcut-Turbo: 69 € → 49 €) */
+.bonus-streichpreis {
+  font-weight: 400;
+  opacity: 0.6;
+  text-decoration-thickness: 2px;
+}
