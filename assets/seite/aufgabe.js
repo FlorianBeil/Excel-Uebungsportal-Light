@@ -324,21 +324,15 @@
 
   function tipps(eintrag) {
     const a = eintrag.a;
-    const loesung = el("div", { class: "bonus-loesung", hidden: true }, [
+    // Die Lösung steht direkt unter den Tipps (ohne Extra-Klick) – damit wirklich jeder weiterkommt
+    const loesung = el("div", { class: "bonus-loesung" }, [
       el("p", { class: "bonus-label", text: "Lösung" }),
       el("p", { class: a.typ === "pivot" ? "bonus-loesung__text" : "bonus-loesung__formel", text: a.solution }),
       el("p", { text: a.explanation }),
     ]);
-    const knopf = el("button", { type: "button", class: "bonus-btn bonus-btn--rand bonus-btn--klein", text: "Lösung anzeigen" });
-    knopf.addEventListener("click", () => {
-      loesung.hidden = !loesung.hidden;
-      knopf.textContent = loesung.hidden ? "Lösung anzeigen" : "Lösung ausblenden";
-      if (!loesung.hidden) F.track("solution_show", null, eintrag);
-    });
     const details = el("details", { class: "bonus-tipps" }, [
       el("summary", { text: "Tipps anzeigen" }),
       el("ol", {}, (a.hints || []).map((h) => el("li", { text: h }))),
-      knopf,
       loesung,
     ]);
     details.addEventListener("toggle", () => {
