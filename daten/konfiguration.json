@@ -36,6 +36,12 @@
     ],
     "tastenText": "10.000 Zeilen in einer Sekunde",
     "button": "Zum Shortcut-Turbo",
+    "preisBox": {
+      "etikett": "Portal-Preis · 20 € günstiger",
+      "statt": "statt regulär {streichpreis}",
+      "hinweis": "Nur für Teilnehmer des Übungsportals",
+      "button": "Jetzt für {preis} starten"
+    },
     "hinweis": "",
     "video": {
       "url": "https://youtube.com/shorts/KvTYQMoijV4",
@@ -66,5 +72,6 @@
   },
   "_miniKursPopup": "miniKurs.popup: erscheint einmal direkt nach dem Lösen der letzten Übung. {anzahl} = Zahl der Übungen, {zeit} = gemessene Zeit (ohne Zeit gilt titelOhneZeit). Tasten kommen aus miniKurs.tasten, Link aus miniKurs.url. Ohne popup kein Popup.",
   "_miniKursTipp": "miniKurs.tipp: Hinweiskarte in der Liste direkt unter Übung „nachUebung“, sichtbar sobald diese gelöst ist (nicht auf der Abschlussseite). Tasten aus miniKurs.tasten, Link zu miniKurs.url; {link} im linkText wird zum Link.",
-  "_miniKursPreis": "miniKurs.preis / streichpreis: {preis} in Texten wird zu „69 € (durchgestrichen) 49 €“. Ohne streichpreis nur der Preis."
+  "_miniKursPreis": "miniKurs.preis / streichpreis: {preis} in Texten wird zu „69 € (durchgestrichen) 49 €“. Ohne streichpreis nur der Preis.",
+  "_miniKursPreisBox": "miniKurs.preisBox: Preis-Kasten unten in der grünen Box (statt Tasten-Zeile und Button). {preis}/{streichpreis} werden eingesetzt. Ohne preisBox: alte Darstellung mit Tasten und Button."
 }

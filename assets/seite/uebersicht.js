@@ -357,9 +357,28 @@
         m.merkmale && m.merkmale.length
           ? el("ul", { class: "bonus-angebot__merkmale" }, m.merkmale.map((x) => el("li", { html: ICONS[x.icon] || "" }, [el("span", { text: x.text })])))
           : null,
-        tasten,
-        el("div", { class: "bonus-angebot__aktion" }, [link, m.hinweis ? el("p", { text: m.hinweis }) : null]),
+        m.preisBox ? preisBox(m) : tasten,
+        m.preisBox ? null : el("div", { class: "bonus-angebot__aktion" }, [link, m.hinweis ? el("p", { text: m.hinweis }) : null]),
       ]),
+    ]);
+  }
+
+  // Preis-Kasten: „PORTAL-PREIS · 20 € GÜNSTIGER“, groß 49 €, „statt regulär 69 €“, Button rechts
+  function preisBox(m) {
+    const b = m.preisBox;
+    const ersetzen = (t) => (t || "").replace("{preis}", m.preis || "").replace("{streichpreis}", m.streichpreis || "");
+    const link = el("a", { class: "bonus-btn bonus-btn--hell bonus-angebot__btn", href: m.url, target: "_blank", rel: "noopener", text: ersetzen(b.button) + " →" });
+    link.addEventListener("click", () => B.track("mini_kurs_click", null, { ort: "abschluss" }));
+    return el("div", { class: "bonus-preisbox" }, [
+      el("div", { class: "bonus-preisbox__preis" }, [
+        b.etikett ? el("p", { class: "bonus-preisbox__etikett", text: ersetzen(b.etikett) }) : null,
+        el("p", { class: "bonus-preisbox__zeile" }, [
+          el("strong", { text: m.preis }),
+          m.streichpreis && b.statt ? el("span", { text: ersetzen(b.statt) }) : null,
+        ]),
+        b.hinweis ? el("p", { class: "bonus-preisbox__hinweis", text: ersetzen(b.hinweis) }) : null,
+      ]),
+      link,
     ]);
   }
 
