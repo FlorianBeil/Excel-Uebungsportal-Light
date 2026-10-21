@@ -2,7 +2,7 @@
 --
 -- Einmalig im Supabase-Dashboard ausführen:
 --   SQL Editor → New query → dieses Skript einfügen → Run
--- Danach im Table Editor unter „Auswertung Stufen“ ansehen (oder: select * from "Auswertung Stufen";).
+-- Danach im Table Editor unter „Auswertung Stufen Praxistest“ ansehen (oder: select * from "Auswertung Stufen Praxistest";).
 -- Das Skript kann gefahrlos mehrfach ausgeführt werden; es legt nur eine Ansicht an, Daten bleiben unverändert.
 --
 -- Gezählt werden Sitzungen (ein Browser-Tab, solange er offen ist), keine Personen – die Seiten
@@ -17,7 +17,7 @@
 --   Stufe 2 gestartet   erste Bonus-Übung (bonus-max-einzelumsatz) angefangen         portal light
 --   Stufe 2 beendet     letzte Bonus-Übung (Pivot) zum ersten Mal richtig gelöst      portal light
 
-create or replace view public."Auswertung Stufen"
+create or replace view public."Auswertung Stufen Praxistest"
 with (security_invoker = true) as
 with schritte as (
   select
@@ -60,4 +60,4 @@ select
 from zahlen
 order by woche is not null, woche desc;
 
-revoke all on public."Auswertung Stufen" from anon, authenticated;
+revoke all on public."Auswertung Stufen Praxistest" from anon, authenticated;
