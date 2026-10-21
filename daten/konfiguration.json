@@ -8,7 +8,7 @@
   "weiterAufklappen": "Welche Übungen noch im Portal sind",
   "_miniKurs": "Dunkelgrüner Block auf der Abschlussseite. Erscheint erst, wenn url ausgefüllt ist. zeitText: {zeit} wird durch die gemessene Zeit ersetzt (fett); fehlt die Zeit, steht zeitTextOhneZeit da. merkmale.icon: play | lupe | haken. video.url: eigene Videodatei im Repo (z. B. assets/video/fall.mp4), MP4-Link (https://…) oder YouTube-/Vimeo-Link; leer = keine Videokachel. video.poster: Vorschaubild (optional); posterFreigestellt: true = Foto mit transparentem Hintergrund (voll sichtbar, gespiegelt).",
   "miniKurs": {
-    "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo/payment?coupon=Turbo&utm_source=uebungsportal&utm_medium=funnel&utm_campaign=launch-shortcut-turbo-202610&utm_content=upsell",
+    "url": "https://myablefy.com/s/excel.flo/excel-shortcut-turbo/payment?coupon=Turbo-Praxistest&utm_source=uebungsportal&utm_medium=funnel&utm_campaign=launch-shortcut-turbo-202610&utm_content=upsell",
     "preis": "49 €",
     "streichpreis": "69 €",
     "etikett": "Dein nächster Schritt",
